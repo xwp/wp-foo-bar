@@ -106,6 +106,9 @@ class Plugin {
 	public function locate_plugin() {
 		$reflection = new \ReflectionObject( $this );
 		$file_name = $reflection->getFileName();
+		if ( '/' !== \DIRECTORY_SEPARATOR ) {
+			$file_name = str_replace( \DIRECTORY_SEPARATOR, '/', $file_name ); // Windows compat
+		}
 		$plugin_dir = preg_replace( '#(.*plugins[^/]*/[^/]+)(/.*)?#', '$1', $file_name, 1, $count );
 		if ( 0 === $count ) {
 			throw new \Exception( "Class not located within a directory tree containing 'plugins': $file_name" );
@@ -113,6 +116,9 @@ class Plugin {
 
 		// Make sure that we can reliably get the relative path inside of the content directory
 		$content_dir = trailingslashit( WP_CONTENT_DIR );
+		if ( '/' !== \DIRECTORY_SEPARATOR ) {
+			$content_dir = str_replace( \DIRECTORY_SEPARATOR, '/', $content_dir ); // Windows compat
+		}
 		if ( 0 !== strpos( $plugin_dir, $content_dir ) ) {
 			throw new \Exception( 'Plugin dir is not inside of WP_CONTENT_DIR' );
 		}
