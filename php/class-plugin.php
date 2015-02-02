@@ -48,7 +48,7 @@ class Plugin {
 
 		$this->config = array_merge( $default_config, $config );
 
-		add_action( 'after_setup_theme', array( $this, 'init' ), 9 );
+		add_action( 'after_setup_theme', array( $this, 'init' ) );
 	}
 
 	/**
