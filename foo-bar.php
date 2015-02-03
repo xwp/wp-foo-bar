@@ -29,7 +29,7 @@
  */
 
 if ( version_compare( phpversion(), '5.3', '>=' ) ) {
-	require __DIR__ . '/php/class-plugin.php';
+	require_once __DIR__ . '/php/class-plugin.php';
 	$class_name = '\FooBar\Plugin';
 	$GLOBALS['foo_bar_plugin'] = new $class_name();
 } else {
