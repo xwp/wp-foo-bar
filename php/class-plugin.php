@@ -27,7 +27,6 @@ class Plugin extends Plugin_Base {
 	 * @action after_setup_theme
 	 */
 	function init() {
-		spl_autoload_register( array( $this, 'autoload' ) );
 		$this->config = \apply_filters( 'foo_bar_plugin_config', $this->config, $this );
 	}
 }
