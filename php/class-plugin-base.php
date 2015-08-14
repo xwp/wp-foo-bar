@@ -116,4 +116,24 @@ abstract class Plugin_Base {
 		return compact( 'dir_url', 'dir_path', 'dir_basename' );
 	}
 
+	/**
+	 * Return whether we're on WordPress.com VIP production.
+	 *
+	 * @return bool
+	 */
+	public function is_wpcom_vip_prod() {
+		return ( defined( '\WPCOM_IS_VIP_ENV' ) && \WPCOM_IS_VIP_ENV );
+	}
+
+	/**
+	 * Call trigger_error() if not on VIP production.
+	 *
+	 * @param string $message
+	 * @param int $code
+	 */
+	public function trigger_warning( $message, $code = \E_USER_WARNING ) {
+		if ( ! $this->is_wpcom_vip_prod() ) {
+			trigger_error( esc_html( get_class( $this ) . ': ' . $message ), $code );
+		}
+	}
 }
