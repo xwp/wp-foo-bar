@@ -48,15 +48,24 @@ abstract class Plugin_Base {
 		return $reflection;
 	}
 
+	protected $autoload_matches_cache = array();
+
 	/**
-	 * Autoload for classes that are in the same namespace as $this, and also for
-	 * classes in the Twig library.
+	 * Autoload for classes that are in the same namespace as $this.
 	 *
 	 * @param  string $class
 	 * @return void
 	 */
 	function autoload( $class ) {
-		if ( ! preg_match( '/^(?P<namespace>.+)\\\\(?P<class>[^\\\\]+)$/', $class, $matches ) ) {
+		if ( ! isset( $this->autoload_matches_cache[ $class ] ) ) {
+			if ( ! preg_match( '/^(?P<namespace>.+)\\\\(?P<class>[^\\\\]+)$/', $class, $matches ) ) {
+				$matches = false;
+			}
+			$this->autoload_matches_cache[ $class ] = $matches;
+		} else {
+			$matches = $this->autoload_matches_cache[ $class ];
+		}
+		if ( empty( $matches ) ) {
 			return;
 		}
 		if ( $this->get_object_reflection()->getNamespaceName() !== $matches['namespace'] ) {
