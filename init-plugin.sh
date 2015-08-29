@@ -57,7 +57,7 @@ fi
 
 git remote set-url origin "https://github.com/xwp/wp-$slug.git"
 if [ -e init-plugin.sh ]; then
-	git rm init-plugin.sh
+	git rm -f init-plugin.sh
 fi
 git add -A .
 git reset --soft $( git rev-list HEAD | tail -n 1 )
