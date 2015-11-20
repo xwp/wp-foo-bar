@@ -24,11 +24,13 @@ fi
 slug=$( perl -pe '$_ = lc; s/ /-/g' <<< "$name" )
 prefix=$( perl -pe '$_ = lc; s/ /_/g' <<< "$name" )
 namespace=$( perl -pe 's/ //g' <<< "$name" )
+class=$( perl -pe 's/ /_/g' <<< "$name" )
 
 echo "Name: $name"
 echo "Slug: $slug"
 echo "Prefix: $prefix"
 echo "NS: $namespace"
+echo "Class: $class"
 
 if [ -e "$slug" ]; then
 	echo "Directory already exists"
@@ -51,8 +53,9 @@ cd ..
 
 perl -p -i'' -e "s/Foo Bar/$name/g" $( find */ -type f ) *.*
 perl -p -i'' -e "s/foo-bar/$slug/g" $( find */ -type f  ) *.*
-perl -p -i'' -e "s/FooBar/$namespace/g" $( find */ -type f ) *.*
 perl -p -i'' -e "s/foo_bar/$prefix/g" $( find */ -type f ) *.*
+perl -p -i'' -e "s/FooBar/$namespace/g" $( find */ -type f ) *.*
+perl -p -i'' -e "s/Foo_Bar/$class/g" $( find */ -type f ) *.*
 if [ -e phpunit.xml.dist ]; then
     # sed destroys the symlink
     git checkout phpunit.xml.dist
