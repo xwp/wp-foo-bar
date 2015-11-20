@@ -26,20 +26,32 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
+ *
+ * @package FooBar
  */
 
 if ( version_compare( phpversion(), '5.3', '>=' ) ) {
-	require_once __DIR__ . '/php/class-plugin-base.php';
-	require_once __DIR__ . '/php/class-plugin.php';
-	$class_name = '\FooBar\Plugin';
-	$GLOBALS['foo_bar_plugin'] = new $class_name();
+	require_once __DIR__ . '/instance.php';
 } else {
-	function foo_bar_php_version_error() {
-		printf( '<div class="error"><p>%s</p></div>', esc_html__( 'Foo Bar plugin error: Your version of PHP is too old to run this plugin. You must be running PHP 5.3 or higher.', 'foo-bar' ) );
-	}
 	if ( defined( 'WP_CLI' ) ) {
-		WP_CLI::warning( __( 'Foo Bar plugin error: Your PHP version is too old. You must have 5.3 or higher.', 'foo-bar' ) );
+		WP_CLI::warning( foo_bar_php_version_text() );
 	} else {
 		add_action( 'admin_notices', 'foo_bar_php_version_error' );
 	}
+}
+
+/**
+ * Admin notice for incompatible versions of PHP.
+ */
+function foo_bar_php_version_error() {
+	printf( '<div class="error"><p>%s</p></div>', foo_bar_php_version_text() );
+}
+
+/**
+ * String describing the minimum PHP version.
+ *
+ * @return string
+ */
+function foo_bar_php_version_text() {
+	return esc_html__( 'Foo Bar plugin error: Your version of PHP is too old to run this plugin. You must be running PHP 5.3 or higher.', 'foo-bar' );
 }

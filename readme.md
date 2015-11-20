@@ -9,6 +9,8 @@ Template plugin for scaffolding WordPress plugins at XWP.
 **Stable tag:** trunk (master)  
 **License:** [GPLv2 or later](http://www.gnu.org/licenses/gpl-2.0.html)  
 
+[![Build Status](https://travis-ci.org/xwp/wp-foo-bar.svg?branch=master)](https://travis-ci.org/xwp/wp-foo-bar) [![Coverage Status](https://coveralls.io/repos/xwp/wp-foo-bar/badge.svg?branch=master)](https://coveralls.io/github/xwp/wp-foo-bar) [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com) [![devDependency Status](https://david-dm.org/xwp/wp-foo-bar/dev-status.svg)](https://david-dm.org/xwp/wp-foo-bar#info=devDependencies) 
+
 ## Description ##
 
 Template plugin for scaffolding WordPress plugins at XWP.

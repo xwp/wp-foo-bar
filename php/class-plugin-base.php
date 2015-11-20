@@ -91,8 +91,7 @@ abstract class Plugin_Base {
 	 * @return array
 	 */
 	public function locate_plugin() {
-		$reflection = new \ReflectionObject( $this );
-		$file_name = $reflection->getFileName();
+		$file_name = $this->get_object_reflection()->getFileName();
 		if ( '/' !== \DIRECTORY_SEPARATOR ) {
 			$file_name = str_replace( \DIRECTORY_SEPARATOR, '/', $file_name ); // Windows compat
 		}
