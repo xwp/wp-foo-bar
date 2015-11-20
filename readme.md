@@ -21,5 +21,5 @@ Use the [`init-plugin.sh`](init-plugin.sh) script on your system to pull down th
 ./init-plugin.sh "Hello World"
 ```
 
-This will create a plugin `hello-world` in the current directory. The `init-plugin.sh` script will be removed from the scaffolded plugin.
+This will create a plugin `hello-world` one level up from the current directory. The `init-plugin.sh` script will be removed from the scaffolded plugin.
 

@@ -1,6 +1,6 @@
 #!/bin/bash
 # Usage: ./init-plugin.sh "Hello World"
-# Creates a subdirectory "hello-world" in the current working directory, 
+# Creates a directory "hello-world" one level up from the current working directory, 
 # performing substitutions on the scaffold "foo-bar" plugin at https://github.com/xwp/wp-foo-bar
 
 set -e
@@ -26,16 +26,18 @@ prefix=$( perl -pe '$_ = lc; s/ /_/g' <<< "$name" )
 namespace=$( perl -pe 's/ //g' <<< "$name" )
 class=$( perl -pe 's/ /_/g' <<< "$name" )
 
+cd ..
+
+if [ -e "$slug" ]; then
+	echo "The $slug directory already exists"
+	exit
+fi
+
 echo "Name: $name"
 echo "Slug: $slug"
 echo "Prefix: $prefix"
 echo "NS: $namespace"
 echo "Class: $class"
-
-if [ -e "$slug" ]; then
-	echo "Directory already exists"
-	exit
-fi
 
 git clone --recursive https://github.com/xwp/wp-foo-bar.git "$slug"
 
