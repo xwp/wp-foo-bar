@@ -45,7 +45,9 @@ git pull origin master
 cd ..
 
 git mv foo-bar.php "$slug.php"
-git mv tests/test-foo-bar.php "tests/test-$slug.php"
+cd tests
+git mv test-foo-bar.php "test-$slug.php"
+cd ..
 
 perl -p -i'' -e "s/Foo Bar/$name/g" $( find */ -type f ) *.*
 perl -p -i'' -e "s/foo-bar/$slug/g" $( find */ -type f  ) *.*
