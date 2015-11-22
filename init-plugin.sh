@@ -1,6 +1,6 @@
 #!/bin/bash
 # Usage: ./init-plugin.sh "Hello World"
-# Creates a subdirectory "hello-world" in the current working directory, 
+# Creates a directory "hello-world" one level up from the current working directory, 
 # performing substitutions on the scaffold "foo-bar" plugin at https://github.com/xwp/wp-foo-bar
 
 set -e
@@ -24,16 +24,20 @@ fi
 slug=$( perl -pe '$_ = lc; s/ /-/g' <<< "$name" )
 prefix=$( perl -pe '$_ = lc; s/ /_/g' <<< "$name" )
 namespace=$( perl -pe 's/ //g' <<< "$name" )
+class=$( perl -pe 's/ /_/g' <<< "$name" )
+
+cd ..
+
+if [ -e "$slug" ]; then
+	echo "The $slug directory already exists"
+	exit
+fi
 
 echo "Name: $name"
 echo "Slug: $slug"
 echo "Prefix: $prefix"
 echo "NS: $namespace"
-
-if [ -e "$slug" ]; then
-	echo "Directory already exists"
-	exit
-fi
+echo "Class: $class"
 
 git clone --recursive https://github.com/xwp/wp-foo-bar.git "$slug"
 
@@ -45,11 +49,15 @@ git pull origin master
 cd ..
 
 git mv foo-bar.php "$slug.php"
+cd tests
+git mv test-foo-bar.php "test-$slug.php"
+cd ..
 
 perl -p -i'' -e "s/Foo Bar/$name/g" $( find */ -type f ) *.*
 perl -p -i'' -e "s/foo-bar/$slug/g" $( find */ -type f  ) *.*
-perl -p -i'' -e "s/FooBar/$namespace/g" $( find */ -type f ) *.*
 perl -p -i'' -e "s/foo_bar/$prefix/g" $( find */ -type f ) *.*
+perl -p -i'' -e "s/FooBar/$namespace/g" $( find */ -type f ) *.*
+perl -p -i'' -e "s/Foo_Bar/$class/g" $( find */ -type f ) *.*
 if [ -e phpunit.xml.dist ]; then
     # sed destroys the symlink
     git checkout phpunit.xml.dist

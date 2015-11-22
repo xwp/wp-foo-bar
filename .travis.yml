@@ -5,28 +5,22 @@ language:
     - node_js
 
 php:
-    - 5.3
+    - 5.4
     - 5.5
-    - 5.6
 
 node_js:
-    - stable
+    - 0.10
 
 env:
-    - WP_VERSION=trunk WP_MULTISITE=1
-    - WP_VERSION=trunk WP_MULTISITE=0
-    - WP_VERSION=latest WP_MULTISITE=1
     - WP_VERSION=latest WP_MULTISITE=0
-
-branches:
-    only:
-        - master
+    - WP_VERSION=latest WP_MULTISITE=1
+    - WP_VERSION=trunk WP_MULTISITE=0
+    - WP_VERSION=trunk WP_MULTISITE=1
 
 before_script:
     - export DEV_LIB_PATH=dev-lib
     - if [ ! -e "$DEV_LIB_PATH" ] && [ -L .travis.yml ]; then export DEV_LIB_PATH=$( dirname $( readlink .travis.yml ) ); fi
     - source $DEV_LIB_PATH/travis.before_script.sh
-    - export LIMIT_TRAVIS_PR_CHECK_SCOPE=patches
 
 script:
     - $DEV_LIB_PATH/travis.script.sh

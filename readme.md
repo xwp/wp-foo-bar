@@ -9,6 +9,8 @@ Template plugin for scaffolding WordPress plugins at XWP.
 **Stable tag:** trunk (master)  
 **License:** [GPLv2 or later](http://www.gnu.org/licenses/gpl-2.0.html)  
 
+[![Build Status](https://travis-ci.org/xwp/wp-foo-bar.svg?branch=master)](https://travis-ci.org/xwp/wp-foo-bar) [![Coverage Status](https://coveralls.io/repos/xwp/wp-foo-bar/badge.svg?branch=master)](https://coveralls.io/github/xwp/wp-foo-bar) [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com) [![devDependency Status](https://david-dm.org/xwp/wp-foo-bar/dev-status.svg)](https://david-dm.org/xwp/wp-foo-bar#info=devDependencies) 
+
 ## Description ##
 
 Template plugin for scaffolding WordPress plugins at XWP.
@@ -19,5 +21,5 @@ Use the [`init-plugin.sh`](init-plugin.sh) script on your system to pull down th
 ./init-plugin.sh "Hello World"
 ```
 
-This will create a plugin `hello-world` in the current directory. The `init-plugin.sh` script will be removed from the scaffolded plugin.
+This will create a plugin `hello-world` one level up from the current directory. The `init-plugin.sh` script will be removed from the scaffolded plugin.
 
