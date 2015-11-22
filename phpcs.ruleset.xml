@@ -4,6 +4,7 @@
 
 	<rule ref="WordPress-Core" />
 	<rule ref="WordPress-Docs" />
+	<rule ref="WordPress-Extra" />
 
 	<exclude-pattern>*/dev-lib/*</exclude-pattern>
 	<exclude-pattern>*/node_modules/*</exclude-pattern>
