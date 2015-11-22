@@ -19,7 +19,7 @@ class Test_Foo_Bar extends \WP_UnitTestCase {
 	 *
 	 * @see _foo_bar_php_version_error()
 	 */
-	function test_foo_bar_php_version_error() {
+	public function test_foo_bar_php_version_error() {
 		ob_start();
 		_foo_bar_php_version_error();
 		$buffer = ob_get_clean();
@@ -31,7 +31,7 @@ class Test_Foo_Bar extends \WP_UnitTestCase {
 	 *
 	 * @see _foo_bar_php_version_text()
 	 */
-	function test_foo_bar_php_version_text() {
+	public function test_foo_bar_php_version_text() {
 		$this->assertContains( 'Foo Bar plugin error:', _foo_bar_php_version_text() );
 	}
 }

@@ -19,7 +19,7 @@ class Test_Plugin extends \WP_UnitTestCase {
 	 *
 	 * @see Plugin::__construct()
 	 */
-	function test_construct() {
+	public function test_construct() {
 		$plugin = get_plugin_instance();
 		$this->assertEquals( 9, has_action( 'after_setup_theme', array( $plugin, 'init' ) ) );
 	}
@@ -29,7 +29,7 @@ class Test_Plugin extends \WP_UnitTestCase {
 	 *
 	 * @see Plugin::init()
 	 */
-	function test_init() {
+	public function test_init() {
 		$plugin = get_plugin_instance();
 
 		add_filter( 'foo_bar_plugin_config', array( $this, 'filter_config' ), 10, 2 );
@@ -49,8 +49,8 @@ class Test_Plugin extends \WP_UnitTestCase {
 	 * @param Plugin_Base $plugin Plugin instance.
 	 * @return array
 	 */
-	function filter_config( $config, $plugin ) {
-		unset( $config, $plugin ); // Test should actuall use these.
+	public function filter_config( $config, $plugin ) {
+		unset( $config, $plugin ); // Test should actually use these.
 		return array( 'foo' => 'bar' );
 	}
 

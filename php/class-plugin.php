@@ -27,7 +27,7 @@ class Plugin extends Plugin_Base {
 	 *
 	 * @action after_setup_theme
 	 */
-	function init() {
+	public function init() {
 		$this->config = apply_filters( 'foo_bar_plugin_config', $this->config, $this );
 
 		add_action( 'wp_default_scripts', array( $this, 'register_scripts' ), 11 );
@@ -40,7 +40,7 @@ class Plugin extends Plugin_Base {
 	 * @param \WP_Scripts $wp_scripts Instance of \WP_Scripts.
 	 * @action wp_default_scripts
 	 */
-	function register_scripts( \WP_Scripts $wp_scripts ) {}
+	public function register_scripts( \WP_Scripts $wp_scripts ) {}
 
 	/**
 	 * Register styles.
@@ -48,5 +48,5 @@ class Plugin extends Plugin_Base {
 	 * @param \WP_Styles $wp_styles Instance of \WP_Styles.
 	 * @action wp_default_styles
 	 */
-	function register_styles( \WP_Styles $wp_styles ) {}
+	public function register_styles( \WP_Styles $wp_styles ) {}
 }

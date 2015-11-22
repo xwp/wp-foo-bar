@@ -50,7 +50,7 @@ abstract class Plugin_Base {
 	/**
 	 * Plugin_Base constructor.
 	 */
-	function __construct() {
+	public function __construct() {
 		$location = $this->locate_plugin();
 		$this->slug = $location['dir_basename'];
 		$this->dir_path = $location['dir_path'];
@@ -63,7 +63,7 @@ abstract class Plugin_Base {
 	 *
 	 * @return \ReflectionObject
 	 */
-	function get_object_reflection() {
+	public function get_object_reflection() {
 		static $reflection;
 		if ( empty( $reflection ) ) {
 			$reflection = new \ReflectionObject( $this );
@@ -84,7 +84,7 @@ abstract class Plugin_Base {
 	 * @param string $class Class name.
 	 * @return void
 	 */
-	function autoload( $class ) {
+	public function autoload( $class ) {
 		if ( ! isset( $this->autoload_matches_cache[ $class ] ) ) {
 			if ( ! preg_match( '/^(?P<namespace>.+)\\\\(?P<class>[^\\\\]+)$/', $class, $matches ) ) {
 				$matches = false;
