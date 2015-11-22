@@ -1,6 +1,6 @@
 #!/bin/bash
-# Usage: ./init-plugin.sh "Hello World"
-# Creates a directory "hello-world" one level up from the current working directory, 
+# Usage: ./foo-bar/init-plugin.sh "Hello World"
+# Creates a directory "hello-world" in the current working directory,
 # performing substitutions on the scaffold "foo-bar" plugin at https://github.com/xwp/wp-foo-bar
 
 set -e
@@ -26,8 +26,6 @@ prefix=$( perl -pe '$_ = lc; s/ /_/g' <<< "$name" )
 namespace=$( perl -pe 's/ //g' <<< "$name" )
 class=$( perl -pe 's/ /_/g' <<< "$name" )
 
-cd ..
-
 if [ -e "$slug" ]; then
 	echo "The $slug directory already exists"
 	exit
@@ -39,14 +37,18 @@ echo "Prefix: $prefix"
 echo "NS: $namespace"
 echo "Class: $class"
 
-git clone --recursive https://github.com/xwp/wp-foo-bar.git "$slug"
+git clone "$(dirname "$0")" "$slug"
 
 cd "$slug"
 
-# Update dev-lib to latest
-cd dev-lib
-git pull origin master
-cd ..
+if git submodule update --init; then
+	# Update dev-lib to latest
+	cd dev-lib
+	git pull origin master
+	cd ..
+else
+	echo 'Failed to int submodules'
+fi
 
 git mv foo-bar.php "$slug.php"
 cd tests
