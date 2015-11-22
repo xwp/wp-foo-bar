@@ -34,17 +34,17 @@ if ( version_compare( phpversion(), '5.3', '>=' ) ) {
 	require_once __DIR__ . '/instance.php';
 } else {
 	if ( defined( 'WP_CLI' ) ) {
-		WP_CLI::warning( foo_bar_php_version_text() );
+		WP_CLI::warning( _foo_bar_php_version_text() );
 	} else {
-		add_action( 'admin_notices', 'foo_bar_php_version_error' );
+		add_action( 'admin_notices', '_foo_bar_php_version_error' );
 	}
 }
 
 /**
  * Admin notice for incompatible versions of PHP.
  */
-function foo_bar_php_version_error() {
-	printf( '<div class="error"><p>%s</p></div>', foo_bar_php_version_text() );
+function _foo_bar_php_version_error() {
+	printf( '<div class="error"><p>%s</p></div>', _foo_bar_php_version_text() );
 }
 
 /**
@@ -52,6 +52,6 @@ function foo_bar_php_version_error() {
  *
  * @return string
  */
-function foo_bar_php_version_text() {
+function _foo_bar_php_version_text() {
 	return esc_html__( 'Foo Bar plugin error: Your version of PHP is too old to run this plugin. You must be running PHP 5.3 or higher.', 'foo-bar' );
 }
