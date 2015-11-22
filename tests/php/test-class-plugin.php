@@ -1,10 +1,22 @@
 <?php
+/**
+ * Tests for Plugin class.
+ *
+ * @package FooBar
+ */
 
 namespace FooBar;
 
+/**
+ * Tests for Plugin class.
+ *
+ * @package FooBar
+ */
 class Test_Plugin extends \WP_UnitTestCase {
 
 	/**
+	 * Test constructor.
+	 *
 	 * @see Plugin::__construct()
 	 */
 	function test_construct() {
@@ -13,6 +25,8 @@ class Test_Plugin extends \WP_UnitTestCase {
 	}
 
 	/**
+	 * Test for init() method.
+	 *
 	 * @see Plugin::init()
 	 */
 	function test_init() {
@@ -28,9 +42,12 @@ class Test_Plugin extends \WP_UnitTestCase {
 	}
 
 	/**
-	 * Filter to test 'foo_bar_plugin_config'
+	 * Filter to test 'foo_bar_plugin_config'.
 	 *
 	 * @see Plugin::init()
+	 * @param array       $config Plugin config.
+	 * @param Plugin_Base $plugin Plugin instance.
+	 * @return array
 	 */
 	function filter_config( $config, $plugin ) {
 		return array( 'foo' => 'bar' );
