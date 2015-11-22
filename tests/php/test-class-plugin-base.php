@@ -32,7 +32,7 @@ class Test_Plugin_Base extends \WP_UnitTestCase {
 		set_error_handler( function ( $errno, $errstr ) use( $obj ) {
 			$obj->assertEquals( 'FooBar\Plugin: Param is 0!', $errstr );
 			$obj->assertEquals( \E_USER_WARNING, $errno );
-    } );
+		} );
 		$this->plugin->trigger_warning( 'Param is 0!', \E_USER_WARNING );
 		restore_error_handler();
 	}
