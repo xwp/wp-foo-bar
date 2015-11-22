@@ -47,7 +47,7 @@ if git submodule update --init; then
 	git pull origin master
 	cd ..
 else
-	echo 'Failed to int submodules'
+	echo 'Failed to init submodules'
 fi
 
 git mv foo-bar.php "$slug.php"
