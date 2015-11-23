@@ -26,6 +26,16 @@ prefix=$( perl -pe '$_ = lc; s/ /_/g' <<< "$name" )
 namespace=$( perl -pe 's/ //g' <<< "$name" )
 class=$( perl -pe 's/ /_/g' <<< "$name" )
 
+cwd="$(pwd)"
+cd "$(dirname "$0")"
+src_repo_path="$(pwd)"
+cd "$cwd"
+
+if [[ -e $( basename "$0" ) ]]; then
+	echo "Moving up one directory outside of foo-bar"
+	cd ..
+fi
+
 if [ -e "$slug" ]; then
 	echo "The $slug directory already exists"
 	exit
@@ -37,7 +47,7 @@ echo "Prefix: $prefix"
 echo "NS: $namespace"
 echo "Class: $class"
 
-git clone "$(dirname "$0")" "$slug"
+git clone "$src_repo_path" "$slug"
 
 cd "$slug"
 
@@ -72,3 +82,6 @@ fi
 git add -A .
 git reset --soft $( git rev-list HEAD | tail -n 1 )
 git commit --amend -m "Initial commit"
+
+echo "Plugin is located at:"
+pwd
