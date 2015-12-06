@@ -64,16 +64,10 @@ class Test_Plugin_Base extends \WP_UnitTestCase {
 	 * @see Plugin_Base::is_wpcom_vip_prod()
 	 */
 	public function test_is_wpcom_vip_prod() {
-		$this->assertFalse( $this->plugin->is_wpcom_vip_prod() );
-	}
-
-	/**
-	 * Test is_wpcom_vip_prod_true().
-	 *
-	 * @see Plugin_Base::is_wpcom_vip_prod()
-	 */
-	public function test_is_wpcom_vip_prod_true() {
-		define( 'WPCOM_IS_VIP_ENV', true );
-		$this->assertTrue( $this->plugin->is_wpcom_vip_prod() );
+		if ( ! defined( 'WPCOM_IS_VIP_ENV' ) ) {
+			$this->assertFalse( $this->plugin->is_wpcom_vip_prod() );
+			define( 'WPCOM_IS_VIP_ENV', true );
+		}
+		$this->assertEquals( WPCOM_IS_VIP_ENV, $this->plugin->is_wpcom_vip_prod() );
 	}
 }
