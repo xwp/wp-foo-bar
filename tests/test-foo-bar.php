@@ -1,21 +1,37 @@
 <?php
+/**
+ * Test_Foo_Bar
+ *
+ * @package FooBar
+ */
 
-class Test_Foo_Bar extends WP_UnitTestCase {
+namespace FooBar;
+
+/**
+ * Class Test_Foo_Bar
+ *
+ * @package FooBar
+ */
+class Test_Foo_Bar extends \WP_UnitTestCase {
 
 	/**
-	 * @see foo_bar_php_version_error()
+	 * Test _foo_bar_php_version_error().
+	 *
+	 * @see _foo_bar_php_version_error()
 	 */
-	function test_foo_bar_php_version_error() {
+	public function test_foo_bar_php_version_error() {
 		ob_start();
-		foo_bar_php_version_error();
+		_foo_bar_php_version_error();
 		$buffer = ob_get_clean();
 		$this->assertContains( '<div class="error">', $buffer );
 	}
 
 	/**
-	 * @see foo_bar_php_version_text()
+	 * Test _foo_bar_php_version_text().
+	 *
+	 * @see _foo_bar_php_version_text()
 	 */
-	function test_foo_bar_php_version_text() {
-		$this->assertContains( 'Foo Bar plugin error:', foo_bar_php_version_text() );
+	public function test_foo_bar_php_version_text() {
+		$this->assertContains( 'Foo Bar plugin error:', _foo_bar_php_version_text() );
 	}
 }

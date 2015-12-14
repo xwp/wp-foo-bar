@@ -1,6 +1,6 @@
 === Foo Bar ===
 Contributors: xwp
-Requires at least: 4.1
+Requires at least: 4.4
 Tested up to: 4.4
 Stable tag: trunk
 License: GPLv2 or later
