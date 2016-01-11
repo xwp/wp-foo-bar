@@ -1,6 +1,7 @@
 <?php
 /**
  * Class Plugin_Base
+ *
  * @package FooBar
  */
 
@@ -8,6 +9,7 @@ namespace FooBar;
 
 /**
  * Class Plugin_Base
+ *
  * @package FooBar
  */
 abstract class Plugin_Base {
