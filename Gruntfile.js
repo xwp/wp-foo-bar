@@ -150,6 +150,33 @@ module.exports = function( grunt ) {
 					build_dir: 'build'
 				}
 			}
+		},
+
+		// Generate POT files.
+		makepot: {
+			target: {
+				options: {
+					potFilename: '<%= pkg.name %>.pot',
+					exclude: [
+						'dev-lib/.*',
+						'node_modules/.*',
+						'tests/.*',
+						'vendor/.*'
+					],
+					processPot: function( pot ) {
+						pot.headers['project-id-version'];
+						return pot;
+					},
+					type: 'wp-plugin',
+					domainPath: 'languages',
+					potHeaders: {
+						poedit: true,
+						'x-poedit-keywordslist': true,
+						'last-translator': '<%= pkg.author %>',
+						'language-team': '<%= pkg.author %>'
+					}
+				}
+			}
 		}
 
 	} );
@@ -163,6 +190,7 @@ module.exports = function( grunt ) {
 	grunt.loadNpmTasks( 'grunt-contrib-uglify' );
 	grunt.loadNpmTasks( 'grunt-shell' );
 	grunt.loadNpmTasks( 'grunt-wp-deploy' );
+	grunt.loadNpmTasks( 'grunt-wp-i18n' );
 
 	// Register tasks
 	grunt.registerTask( 'default', [
