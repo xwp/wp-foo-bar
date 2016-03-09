@@ -132,7 +132,7 @@ module.exports = function( grunt ) {
 				stderr: true
 			},
 			readme: {
-				command: 'cd ./dev-lib && ./generate-markdown-readme' // Genrate the readme.md
+				command: 'cd ./dev-lib && ./generate-markdown-readme' // Generate the readme.md
 			},
 			phpunit: {
 				command: 'vagrant ssh -c "cd <%= vvv.plugin %> && phpunit"'
