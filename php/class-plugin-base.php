@@ -154,7 +154,7 @@ abstract class Plugin_Base {
 		}
 
 		// Make sure that we can reliably get the relative path inside of the content directory.
-		$content_dir = trailingslashit( WP_CONTENT_DIR );
+		$content_dir = realpath( trailingslashit( WP_CONTENT_DIR ) );
 		if ( '/' !== \DIRECTORY_SEPARATOR ) {
 			$content_dir = str_replace( \DIRECTORY_SEPARATOR, '/', $content_dir ); // Windows compat.
 		}
