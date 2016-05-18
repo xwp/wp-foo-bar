@@ -152,10 +152,41 @@ abstract class Plugin_Base {
 		if ( 0 === $count ) {
 			throw new \Exception( "Class not located within a directory tree containing 'plugins': $file_name" );
 		}
-		$dir_url = content_url( trailingslashit( 'plugins/' . basename( $plugin_dir ) ) );
+
+		// Make sure that we can reliably get the relative path inside of the content directory.
+		$plugin_path = $this->relative_path( $plugin_dir, 'wp-content', \DIRECTORY_SEPARATOR );
+		if ( '' === $plugin_path ) {
+			throw new \Exception( 'Plugin dir is not inside of the `wp-content` directory' );
+		}
+
+		$dir_url = content_url( trailingslashit( $plugin_path ) );
 		$dir_path = $plugin_dir;
 		$dir_basename = basename( $plugin_dir );
 		return compact( 'dir_url', 'dir_path', 'dir_basename' );
+	}
+
+	/**
+	 * Relative Path
+	 *
+	 * Returns a relative path from a specified starting position of a full path
+	 *
+	 * @param string $path The full path to start with.
+	 * @param string $start The directory after which to start creating the relative path.
+	 * @param string $sep The directory seperator.
+	 *
+	 * @return string
+	 */
+	public function relative_path( $path, $start, $sep ) {
+		$path = explode( $sep, untrailingslashit( $path ) );
+		if ( count( $path ) > 0 ) {
+			foreach ( $path as $p ) {
+				array_shift( $path );
+				if ( $p === $start ) {
+					break;
+				}
+			}
+		}
+		return implode( $sep , $path );
 	}
 
 	/**

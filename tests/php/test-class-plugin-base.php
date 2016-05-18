@@ -44,6 +44,16 @@ class Test_Plugin_Base extends \WP_UnitTestCase {
 	}
 
 	/**
+	 * Test relative_path.
+	 *
+	 * @see Plugin_Base::relative_path()
+	 */
+	public function test_relative_path() {
+		$this->assertEquals( 'plugins/foo-bar', $this->plugin->relative_path( '/srv/www/wordpress-develop/src/wp-content/plugins/foo-bar', 'wp-content', '/' ) );
+		$this->assertEquals( 'themes/twentysixteen/plugins/foo-bar', $this->plugin->relative_path( '/srv/www/wordpress-develop/src/wp-content/themes/twentysixteen/plugins/foo-bar', 'wp-content', '/' ) );
+	}
+
+	/**
 	 * Tests for trigger_warning().
 	 *
 	 * @see Plugin_Base::trigger_warning()
