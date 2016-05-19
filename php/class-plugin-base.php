@@ -186,7 +186,7 @@ abstract class Plugin_Base {
 				}
 			}
 		}
-		return implode( $sep , $path );
+		return implode( $sep, $path );
 	}
 
 	/**
