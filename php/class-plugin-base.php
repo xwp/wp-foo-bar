@@ -154,18 +154,39 @@ abstract class Plugin_Base {
 		}
 
 		// Make sure that we can reliably get the relative path inside of the content directory.
-		$content_dir = realpath( trailingslashit( WP_CONTENT_DIR ) );
-		if ( '/' !== \DIRECTORY_SEPARATOR ) {
-			$content_dir = str_replace( \DIRECTORY_SEPARATOR, '/', $content_dir ); // Windows compat.
+		$plugin_path = $this->relative_path( $plugin_dir, 'wp-content', \DIRECTORY_SEPARATOR );
+		if ( '' === $plugin_path ) {
+			throw new \Exception( 'Plugin dir is not inside of the `wp-content` directory' );
 		}
-		if ( 0 !== strpos( $plugin_dir, $content_dir ) ) {
-			throw new \Exception( 'Plugin dir is not inside of WP_CONTENT_DIR' );
-		}
-		$content_sub_path = substr( $plugin_dir, strlen( $content_dir ) );
-		$dir_url = content_url( trailingslashit( $content_sub_path ) );
+
+		$dir_url = content_url( trailingslashit( $plugin_path ) );
 		$dir_path = $plugin_dir;
 		$dir_basename = basename( $plugin_dir );
 		return compact( 'dir_url', 'dir_path', 'dir_basename' );
+	}
+
+	/**
+	 * Relative Path
+	 *
+	 * Returns a relative path from a specified starting position of a full path
+	 *
+	 * @param string $path The full path to start with.
+	 * @param string $start The directory after which to start creating the relative path.
+	 * @param string $sep The directory seperator.
+	 *
+	 * @return string
+	 */
+	public function relative_path( $path, $start, $sep ) {
+		$path = explode( $sep, untrailingslashit( $path ) );
+		if ( count( $path ) > 0 ) {
+			foreach ( $path as $p ) {
+				array_shift( $path );
+				if ( $p === $start ) {
+					break;
+				}
+			}
+		}
+		return implode( $sep, $path );
 	}
 
 	/**
