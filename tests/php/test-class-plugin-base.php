@@ -148,9 +148,7 @@ class Test_Doc_hooks {
 	 *
 	 * @action init
 	 */
-	public function init_action() {
-		// Do something.
-	}
+	public function init_action() {}
 
 	/**
 	 * Load this on the the_content filter hook.
@@ -161,7 +159,7 @@ class Test_Doc_hooks {
 	 * @return string
 	 */
 	public function the_content_filter( $content ) {
-		// Do something.
+		return $content;
 	}
 }
 
