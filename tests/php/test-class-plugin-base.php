@@ -138,6 +138,9 @@ class Test_Plugin_Base extends \WP_UnitTestCase {
 	}
 }
 
+/**
+ * Test_Doc_hooks class.
+ */
 class Test_Doc_hooks {
 
 	/**
@@ -153,6 +156,9 @@ class Test_Doc_hooks {
 	 * Load this on the the_content filter hook.
 	 *
 	 * @filter the_content
+	 *
+	 * @param string $content The content.
+	 * @return string
 	 */
 	public function the_content_filter( $content ) {
 		// Do something.
