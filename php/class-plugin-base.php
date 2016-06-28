@@ -57,13 +57,6 @@ abstract class Plugin_Base {
 	protected $autoload_matches_cache = array();
 
 	/**
-	 * All DocBlock added hooks.
-	 *
-	 * @var array
-	 */
-	protected $added_doc_hooks = array();
-
-	/**
 	 * Required instead of a static variable inside the add_doc_hooks method
 	 * for the sake of unit testing.
 	 *
@@ -140,7 +133,7 @@ abstract class Plugin_Base {
 	 * Version of plugin_dir_url() which works for plugins installed in the plugins directory,
 	 * and for plugins bundled with themes.
 	 *
-	 * @throws \Exception If the plugin is not located in the expected location.
+	 * @throws Exception If the plugin is not located in the expected location.
 	 * @return array
 	 */
 	public function locate_plugin() {
@@ -150,13 +143,13 @@ abstract class Plugin_Base {
 		}
 		$plugin_dir = preg_replace( '#(.*plugins[^/]*/[^/]+)(/.*)?#', '$1', $file_name, 1, $count );
 		if ( 0 === $count ) {
-			throw new \Exception( "Class not located within a directory tree containing 'plugins': $file_name" );
+			throw new Exception( "Class not located within a directory tree containing 'plugins': $file_name" );
 		}
 
 		// Make sure that we can reliably get the relative path inside of the content directory.
 		$plugin_path = $this->relative_path( $plugin_dir, 'wp-content', \DIRECTORY_SEPARATOR );
 		if ( '' === $plugin_path ) {
-			throw new \Exception( 'Plugin dir is not inside of the `wp-content` directory' );
+			throw new Exception( 'Plugin dir is not inside of the `wp-content` directory' );
 		}
 
 		$dir_url = content_url( trailingslashit( $plugin_path ) );
@@ -251,7 +244,6 @@ abstract class Plugin_Base {
 		$arg_count = isset( $args['arg_count'] ) ? $args['arg_count'] : PHP_INT_MAX;
 		$fn = sprintf( '\add_%s', $type );
 		$retval = \call_user_func( $fn, $name, $callback, $priority, $arg_count );
-		$this->added_doc_hooks[] = compact( 'type', 'name', 'callback', 'priority' );
 		return $retval;
 	}
 
@@ -268,7 +260,7 @@ abstract class Plugin_Base {
 		if ( isset( $this->_called_doc_hooks[ $class_name ] ) ) {
 			$notice = sprintf( 'The add_doc_hooks method was already called on %s. Note that the Plugin_Base constructor automatically calls this method.', $class_name );
 			if ( ! $this->is_wpcom_vip_prod() ) {
-				trigger_error( esc_html( $notice ), E_USER_NOTICE );
+				trigger_error( esc_html( $notice ), \E_USER_NOTICE );
 			}
 			return;
 		}
@@ -292,12 +284,28 @@ abstract class Plugin_Base {
 
 	/**
 	 * Removes the added DocBlock hooks.
+	 *
+	 * @param object $object The class object.
 	 */
-	public function remove_doc_hooks() {
-		foreach ( $this->added_doc_hooks as $added_hook ) {
-			$fn = sprintf( 'remove_%s', $added_hook['type'] );
-			call_user_func( $fn, $added_hook['name'], $added_hook['callback'], $added_hook['priority'] );
+	public function remove_doc_hooks( $object = null ) {
+		if ( is_null( $object ) ) {
+			$object = $this;
 		}
-		$this->_called_doc_hooks = array();
+		$class_name = get_class( $object );
+
+		$reflector = new \ReflectionObject( $object );
+		foreach ( $reflector->getMethods() as $method ) {
+			$doc = $method->getDocComment();
+			if ( preg_match_all( '#\* @(?P<type>filter|action)\s+(?P<name>[a-z0-9\-\._]+)(?:,\s+(?P<priority>\d+))?#', $doc, $matches, PREG_SET_ORDER ) ) {
+				foreach ( $matches as $match ) {
+					$type = $match['type'];
+					$name = $match['name'];
+					$priority = empty( $match['priority'] ) ? 10 : intval( $match['priority'] );
+					$callback = array( $object, $method->getName() );
+					call_user_func( "remove_{$type}", $name, $callback, $priority );
+				}
+			}
+		}
+		unset( $this->_called_doc_hooks[ $class_name ] );
 	}
 }
