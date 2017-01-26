@@ -1,4 +1,6 @@
 {
+	"name": "xwp/wp-foo-bar",
+	"license": "GPLv2",
 	"require-dev": {
 		"satooshi/php-coveralls": "dev-master"
 	}
