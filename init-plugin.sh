@@ -16,15 +16,16 @@ if [ -z "$name" ]; then
 	exit 1
 fi
 
-if ! perl -pe '/^[A-Z][a-z0-9]*( [A-Z][a-z0-9]*)*$/ || exit 1;' > /dev/null <<< "$name"; then
-	echo "Malformed name argument '$name'. Please use title case words separated by spaces. No hypens."
+valid="^[A-Z][a-z0-9]*( [A-Z][a-z0-9]*)*$"
+if [[ ! "$name" =~ $valid ]]; then
+	echo "Malformed name argument '$name'. Please use title case words separated by spaces. No hyphens."
 	exit 1
 fi
 
-slug=$( perl -pe '$_ = lc; s/ /-/g' <<< "$name" )
-prefix=$( perl -pe '$_ = lc; s/ /_/g' <<< "$name" )
-namespace=$( perl -pe 's/ //g' <<< "$name" )
-class=$( perl -pe 's/ /_/g' <<< "$name" )
+slug="$( echo "$name" | tr '[:upper:]' '[:lower:]' | sed 's/ /-/' )"
+prefix="$( echo "$name" | tr '[:upper:]' '[:lower:]' | sed 's/ /_/' )"
+namespace="$( echo "$name" | sed 's/ //' )"
+class="$( echo "$name" | sed 's/ /_/' )"
 
 cwd="$(pwd)"
 cd "$(dirname "$0")"
@@ -65,11 +66,12 @@ cd tests
 git mv test-foo-bar.php "test-$slug.php"
 cd ..
 
-perl -p -i'' -e "s/Foo Bar/$name/g" $( find */ -type f ) *.*
-perl -p -i'' -e "s/foo-bar/$slug/g" $( find */ -type f  ) *.*
-perl -p -i'' -e "s/foo_bar/$prefix/g" $( find */ -type f ) *.*
-perl -p -i'' -e "s/FooBar/$namespace/g" $( find */ -type f ) *.*
-perl -p -i'' -e "s/Foo_Bar/$class/g" $( find */ -type f ) *.*
+git grep -lz "Foo Bar" | xargs -0 sed -i '' -e "s/Foo Bar/$name/g"
+git grep -lz "foo-bar" | xargs -0 sed -i '' -e "s/foo-bar/$slug/g"
+git grep -lz "foo_bar" | xargs -0 sed -i '' -e "s/foo_bar/$prefix/g"
+git grep -lz "FooBar" | xargs -0 sed -i '' -e "s/FooBar/$namespace/g"
+git grep -lz "Foo_Bar" | xargs -0 sed -i '' -e "s/Foo_Bar/$class/g"
+
 if [ -e phpunit.xml.dist ]; then
     # sed destroys the symlink
     git checkout phpunit.xml.dist
