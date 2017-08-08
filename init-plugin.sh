@@ -22,10 +22,10 @@ if [[ ! "$name" =~ $valid ]]; then
 	exit 1
 fi
 
-slug="$( echo "$name" | tr '[:upper:]' '[:lower:]' | sed 's/ /-/' )"
-prefix="$( echo "$name" | tr '[:upper:]' '[:lower:]' | sed 's/ /_/' )"
-namespace="$( echo "$name" | sed 's/ //' )"
-class="$( echo "$name" | sed 's/ /_/' )"
+slug="$( echo "$name" | tr '[:upper:]' '[:lower:]' | sed 's/ /-/g' )"
+prefix="$( echo "$name" | tr '[:upper:]' '[:lower:]' | sed 's/ /_/g' )"
+namespace="$( echo "$name" | sed 's/ //g' )"
+class="$( echo "$name" | sed 's/ /_/g' )"
 
 cwd="$(pwd)"
 cd "$(dirname "$0")"
