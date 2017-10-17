@@ -159,7 +159,7 @@ abstract class Plugin_Base {
 	 *
 	 * @param string $path The full path to start with.
 	 * @param string $start The directory after which to start creating the relative path.
-	 * @param string $sep The directory seperator.
+	 * @param string $sep The directory separator.
 	 *
 	 * @return string
 	 */
