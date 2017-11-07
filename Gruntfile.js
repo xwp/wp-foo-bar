@@ -1,4 +1,5 @@
 /* jshint node:true */
+
 module.exports = function( grunt ) {
 	'use strict';
 
@@ -85,7 +86,7 @@ module.exports = function( grunt ) {
 			}
 		},
 
-		// Build a deploy-able plugin
+		// Build a deploy-able plugin.
 		copy: {
 			build: {
 				src: [
@@ -112,20 +113,20 @@ module.exports = function( grunt ) {
 			}
 		},
 
-		// Clean up the build
+		// Clean up the build.
 		clean: {
 			build: {
 				src: [ 'build' ]
 			}
 		},
 
-		// VVV (Varying Vagrant Vagrants) Paths
+		// VVV (Varying Vagrant Vagrants) Paths.
 		vvv: {
 			'plugin': '/srv/www/wordpress-develop/src/wp-content/plugins/<%= pkg.name %>',
 			'coverage': '/srv/www/default/coverage/<%= pkg.name %>'
 		},
 
-		// Shell actions
+		// Shell actions.
 		shell: {
 			options: {
 				stdout: true,
@@ -142,7 +143,7 @@ module.exports = function( grunt ) {
 			}
 		},
 
-		// Deploys a git Repo to the WordPress SVN repo
+		// Deploys a git Repo to the WordPress SVN repo.
 		wp_deploy: {
 			deploy: {
 				options: {
@@ -181,7 +182,7 @@ module.exports = function( grunt ) {
 
 	} );
 
-	// Load tasks
+	// Load tasks.
 	grunt.loadNpmTasks( 'grunt-checktextdomain' );
 	grunt.loadNpmTasks( 'grunt-contrib-clean' );
 	grunt.loadNpmTasks( 'grunt-contrib-copy' );
