@@ -264,7 +264,7 @@ abstract class Plugin_Base {
 		foreach ( $reflector->getMethods() as $method ) {
 			$doc = $method->getDocComment();
 			$arg_count = $method->getNumberOfParameters();
-			if ( preg_match_all( '#\* @(?P<type>filter|action)\s+(?P<name>[a-z0-9\-\._/]+)(?:,\s+(?P<priority>\d+))?#', $doc, $matches, PREG_SET_ORDER ) ) {
+			if ( preg_match_all( '#\* @(?P<type>filter|action)\s+(?P<name>[a-z0-9\-\._/=]+)(?:,\s+(?P<priority>\d+))?#', $doc, $matches, PREG_SET_ORDER ) ) {
 				foreach ( $matches as $match ) {
 					$type = $match['type'];
 					$name = $match['name'];
@@ -290,7 +290,7 @@ abstract class Plugin_Base {
 		$reflector = new \ReflectionObject( $object );
 		foreach ( $reflector->getMethods() as $method ) {
 			$doc = $method->getDocComment();
-			if ( preg_match_all( '#\* @(?P<type>filter|action)\s+(?P<name>[a-z0-9\-\._/]+)(?:,\s+(?P<priority>\d+))?#', $doc, $matches, PREG_SET_ORDER ) ) {
+			if ( preg_match_all( '#\* @(?P<type>filter|action)\s+(?P<name>[a-z0-9\-\._/=]+)(?:,\s+(?P<priority>\d+))?#', $doc, $matches, PREG_SET_ORDER ) ) {
 				foreach ( $matches as $match ) {
 					$type = $match['type'];
 					$name = $match['name'];
