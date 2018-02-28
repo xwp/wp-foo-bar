@@ -68,10 +68,10 @@ abstract class Plugin_Base {
 	 * Plugin_Base constructor.
 	 */
 	public function __construct() {
-		$location = $this->locate_plugin();
-		$this->slug = $location['dir_basename'];
+		$location       = $this->locate_plugin();
+		$this->slug     = $location['dir_basename'];
 		$this->dir_path = $location['dir_path'];
-		$this->dir_url = $location['dir_url'];
+		$this->dir_url  = $location['dir_url'];
 		spl_autoload_register( array( $this, 'autoload' ) );
 		$this->add_doc_hooks();
 	}
@@ -79,7 +79,7 @@ abstract class Plugin_Base {
 	/**
 	 * Plugin_Base destructor.
 	 */
-	function __destruct() {
+	public function __destruct() {
 		$this->remove_doc_hooks();
 	}
 
@@ -193,7 +193,7 @@ abstract class Plugin_Base {
 	 */
 	public function trigger_warning( $message, $code = \E_USER_WARNING ) {
 		if ( ! $this->is_wpcom_vip_prod() ) {
-			trigger_error( esc_html( get_class( $this ) . ': ' . $message ), $code );
+			trigger_error( esc_html( get_class( $this ) . ': ' . $message ), $code ); // @codingStandardsIgnoreLine
 		}
 	}
 
@@ -206,7 +206,10 @@ abstract class Plugin_Base {
 	 *
 	 * @return mixed
 	 */
-	public function add_filter( $name, $callback, $args = array( 'priority' => 10, 'arg_count' => PHP_INT_MAX ) ) {
+	public function add_filter( $name, $callback, $args = array(
+		'priority'  => 10,
+		'arg_count' => PHP_INT_MAX,
+	) ) {
 		return $this->_add_hook( 'filter', $name, $callback, $args );
 	}
 
@@ -219,7 +222,10 @@ abstract class Plugin_Base {
 	 *
 	 * @return mixed
 	 */
-	public function add_action( $name, $callback, $args = array( 'priority' => 10, 'arg_count' => PHP_INT_MAX ) ) {
+	public function add_action( $name, $callback, $args = array(
+		'priority'  => 10,
+		'arg_count' => PHP_INT_MAX,
+	) ) {
 		return $this->_add_hook( 'action', $name, $callback, $args );
 	}
 
@@ -233,11 +239,11 @@ abstract class Plugin_Base {
 	 *
 	 * @return mixed
 	 */
-	protected function _add_hook( $type, $name, $callback, $args = array() ) {
-		$priority = isset( $args['priority'] ) ? $args['priority'] : 10;
+	protected function _add_hook( $type, $name, $callback, $args = array() ) { // @codingStandardsIgnoreLine
+		$priority  = isset( $args['priority'] ) ? $args['priority'] : 10;
 		$arg_count = isset( $args['arg_count'] ) ? $args['arg_count'] : PHP_INT_MAX;
-		$fn = sprintf( '\add_%s', $type );
-		$retval = \call_user_func( $fn, $name, $callback, $priority, $arg_count );
+		$fn        = sprintf( '\add_%s', $type );
+		$retval    = \call_user_func( $fn, $name, $callback, $priority, $arg_count );
 		return $retval;
 	}
 
@@ -254,7 +260,7 @@ abstract class Plugin_Base {
 		if ( isset( $this->_called_doc_hooks[ $class_name ] ) ) {
 			$notice = sprintf( 'The add_doc_hooks method was already called on %s. Note that the Plugin_Base constructor automatically calls this method.', $class_name );
 			if ( ! $this->is_wpcom_vip_prod() ) {
-				trigger_error( esc_html( $notice ), \E_USER_NOTICE );
+				trigger_error( esc_html( $notice ), \E_USER_NOTICE ); // @codingStandardsIgnoreLine
 			}
 			return;
 		}
@@ -262,12 +268,12 @@ abstract class Plugin_Base {
 
 		$reflector = new \ReflectionObject( $object );
 		foreach ( $reflector->getMethods() as $method ) {
-			$doc = $method->getDocComment();
+			$doc       = $method->getDocComment();
 			$arg_count = $method->getNumberOfParameters();
 			if ( preg_match_all( '#\* @(?P<type>filter|action)\s+(?P<name>[a-z0-9\-\._/=]+)(?:,\s+(?P<priority>\-?[0-9]+))?#', $doc, $matches, PREG_SET_ORDER ) ) {
 				foreach ( $matches as $match ) {
-					$type = $match['type'];
-					$name = $match['name'];
+					$type     = $match['type'];
+					$name     = $match['name'];
 					$priority = empty( $match['priority'] ) ? 10 : intval( $match['priority'] );
 					$callback = array( $object, $method->getName() );
 					call_user_func( array( $this, "add_{$type}" ), $name, $callback, compact( 'priority', 'arg_count' ) );
@@ -292,8 +298,8 @@ abstract class Plugin_Base {
 			$doc = $method->getDocComment();
 			if ( preg_match_all( '#\* @(?P<type>filter|action)\s+(?P<name>[a-z0-9\-\._/=]+)(?:,\s+(?P<priority>\-?[0-9]+))?#', $doc, $matches, PREG_SET_ORDER ) ) {
 				foreach ( $matches as $match ) {
-					$type = $match['type'];
-					$name = $match['name'];
+					$type     = $match['type'];
+					$name     = $match['name'];
 					$priority = empty( $match['priority'] ) ? 10 : intval( $match['priority'] );
 					$callback = array( $object, $method->getName() );
 					call_user_func( "remove_{$type}", $name, $callback, $priority );
