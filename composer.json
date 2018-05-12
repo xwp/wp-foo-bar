@@ -5,7 +5,7 @@
 	"homepage": "https://github.com/xwp/wp-foo-bar",
 	"license": "GPLv2",
 	"require-dev": {
-		"satooshi/php-coveralls": "dev-master"
+		"satooshi/php-coveralls": "^2.0"
 	},
 	"extra": {
 		"installer-name": "foo-bar"
