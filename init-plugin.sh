@@ -67,6 +67,7 @@ git grep -lz "xwp/wp-foo-bar" | xargs -0 sed -i '' -e "s/xwp\/wp-foo-bar/$user\/
 git grep -lz "xwp" | xargs -0 sed -i '' -e "s/xwp/$user/g"
 git grep -lz "$user/wp-dev-lib" | xargs -0 sed -i '' -e "s/$user\/wp-dev-lib/xwp\/wp-dev-lib/g"
 git grep -lz "vendor/$user" | xargs -0 sed -i '' -e "s/vendor\/$user/vendor\/xwp/g"
+git grep -lz "$user/wordpress-tests-installer" | xargs -0 sed -i '' -e "s/$user\/wordpress-tests-installer/xwp\/wordpress-tests-installer/g"
 git grep -lz "$user.co" | xargs -0 sed -i '' -e "s/$user.co/xwp.co/g"
 git grep -lz "Foo Bar" | xargs -0 sed -i '' -e "s/Foo Bar/$name/g"
 git grep -lz "foo-bar" | xargs -0 sed -i '' -e "s/foo-bar/$slug/g"
