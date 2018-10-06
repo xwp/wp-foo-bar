@@ -16,7 +16,7 @@ if ( file_exists( $config ) ) {
 }
 
 // VVV Paths.
-$autoload_path  = dirname( __FILE__ );
+$autoload_path   = dirname( __FILE__ );
 $wp_tests_config = substr( $autoload_path, 0, strpos( $autoload_path, 'public_html' ) + 11 ) . '/wp-tests-config.php';
 
 /**
