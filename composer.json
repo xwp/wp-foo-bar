@@ -1,13 +1,35 @@
 {
-	"name": "xwp/wp-foo-bar",
-	"type": "wordpress-plugin",
-	"description": "WordPress plugin scaffold/template",
-	"homepage": "https://github.com/xwp/wp-foo-bar",
-	"license": "GPLv2",
-	"require-dev": {
-		"satooshi/php-coveralls": "dev-master"
-	},
-	"extra": {
-		"installer-name": "foo-bar"
-	}
+  "name": "xwp/wp-foo-bar",
+  "type": "wordpress-plugin",
+  "description": "WordPress plugin scaffold/template",
+  "homepage": "https://github.com/xwp/wp-foo-bar",
+  "license": "GPLv2",
+  "require-dev": {
+    "dealerdirect/phpcodesniffer-composer-installer": "^0.4.4",
+    "php-coveralls/php-coveralls": "2.1",
+    "phpcompatibility/php-compatibility": "*",
+    "phpcompatibility/phpcompatibility-wp": "*",
+    "wp-coding-standards/wpcs": "*",
+    "xwp/wp-dev-lib": "dev-feature/composer-first"
+  },
+  "prefer-stable" : true,
+  "require": {
+    "php": ">=5.3"
+  },
+  "scripts": {
+    "post-install-cmd": "vendor/xwp/wp-dev-lib/scripts/install-pre-commit-hook.sh",
+    "phpunit": "vagrant ssh -c 'xdebug_off && cd /srv/www/wordpress-develop/public_html/src/wp-content/plugins/foo-bar && phpunit'",
+    "phpunit-coverage": "vagrant ssh -c 'xdebug_on && cd /srv/www/wordpress-develop/public_html/src/wp-content/plugins/foo-bar && phpunit --coverage-html /srv/www/default/coverage/foo-bar'",
+    "phpcs": [
+      "@composer install",
+      "./vendor/bin/phpcs . --standard=phpcs.ruleset.xml"
+    ],
+    "readme": [
+      "@composer install",
+      "./vendor/xwp/wp-dev-lib/scripts/generate-markdown-readme"
+    ]
+  },
+  "extra": {
+    "installer-name": "foo-bar"
+  }
 }

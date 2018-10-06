@@ -9,8 +9,6 @@ namespace FooBar;
 
 /**
  * Tests for Plugin class.
- *
- * @package FooBar
  */
 class Test_Plugin extends \WP_UnitTestCase {
 

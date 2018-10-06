@@ -1,22 +1,28 @@
 #!/bin/bash
-# Usage: ./foo-bar/init-plugin.sh "Hello World"
+# Usage: ./foo-bar/init-plugin.sh xwp "Hello World"
 # Creates a directory "hello-world" in the current working directory,
 # performing substitutions on the scaffold "foo-bar" plugin at https://github.com/xwp/wp-foo-bar
 
 set -e
 
-if [ $# != 1 ]; then
-	echo "You must only supply one argument, the plugin name."
+if [ $# != 2 ]; then
+	echo "You must supply two arguments, the github username or organization and plugin name."
 	exit 1
 fi
 
-name="$1"
+user="$1"
+if [ -z "$user" ]; then
+	echo "Provide github username or organization argument"
+	exit 1
+fi
+
+name="$2"
 if [ -z "$name" ]; then
 	echo "Provide name argument"
 	exit 1
 fi
 
-valid="^[A-Z][a-z0-9]*( [A-Z][a-z0-9]*)*$"
+valid="^[A-Z]*[a-z0-9]*( [A-Z]*[a-z0-9]*)*$"
 if [[ ! "$name" =~ $valid ]]; then
 	echo "Malformed name argument '$name'. Please use title case words separated by spaces. No hyphens."
 	exit 1
@@ -66,24 +72,29 @@ cd tests
 git mv test-foo-bar.php "test-$slug.php"
 cd ..
 
+if [ -e phpunit.xml.dist ]; then
+    # sed destroys the symlink
+    git checkout phpunit.xml.dist
+fi
+
+if [ -e init-plugin.sh ]; then
+	git rm -f init-plugin.sh
+fi
+
+git grep -lz "xwp/wp-foo-bar" | xargs -0 sed -i '' -e "s/xwp\/wp-foo-bar/$user\/$slug/g"
+git grep -lz "xwp" | xargs -0 sed -i '' -e "s/xwp/$user/g"
 git grep -lz "Foo Bar" | xargs -0 sed -i '' -e "s/Foo Bar/$name/g"
 git grep -lz "foo-bar" | xargs -0 sed -i '' -e "s/foo-bar/$slug/g"
 git grep -lz "foo_bar" | xargs -0 sed -i '' -e "s/foo_bar/$prefix/g"
 git grep -lz "FooBar" | xargs -0 sed -i '' -e "s/FooBar/$namespace/g"
 git grep -lz "Foo_Bar" | xargs -0 sed -i '' -e "s/Foo_Bar/$class/g"
 
-if [ -e phpunit.xml.dist ]; then
-    # sed destroys the symlink
-    git checkout phpunit.xml.dist
-fi
-
-git remote set-url origin "https://github.com/xwp/wp-$slug.git"
-if [ -e init-plugin.sh ]; then
-	git rm -f init-plugin.sh
-fi
+rm -rf .git
+git init
 git add -A .
-git reset --soft $( git rev-list HEAD | tail -n 1 )
-git commit --amend -m "Initial commit"
+git commit -m "Initial commit"
+git remote add origin "git@github.com:$user/$slug.git"
+#git push -u origin master
 
 echo "Plugin is located at:"
 pwd
