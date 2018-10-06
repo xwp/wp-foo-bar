@@ -4,8 +4,11 @@
 
 	<rule ref="WordPress-Extra"/>
 	<rule ref="WordPress-Docs" />
-
+	<rule ref="WordPress-VIP-Go"/>
+	<rule ref="WordPress.WP.I18n"/>
 	<rule ref="PHPCompatibilityWP"/>
+
+	<config name="text_domain" value="foo-bar"/>
 	<config name="testVersion" value="5.3-"/>
 
 	<arg name="extensions" value="php"/>

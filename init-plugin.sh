@@ -58,18 +58,9 @@ git clone "$src_repo_path" "$slug"
 
 cd "$slug"
 
-if git submodule update --init; then
-	# Update dev-lib to latest
-	cd dev-lib
-	git pull origin master
-	cd ..
-else
-	echo 'Failed to init submodules'
-fi
-
 git mv foo-bar.php "$slug.php"
 cd tests
-git mv test-foo-bar.php "test-$slug.php"
+git mv class-test-foo-bar.php "class-test-$slug.php"
 cd ..
 
 git grep -lz "xwp/wp-foo-bar" | xargs -0 sed -i '' -e "s/xwp\/wp-foo-bar/$user\/$slug/g"
