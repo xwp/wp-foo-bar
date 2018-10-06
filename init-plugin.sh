@@ -84,7 +84,7 @@ git init
 git add -A .
 git commit -m "Initial commit"
 git remote add origin "git@github.com:$user/$slug.git"
-#git push -u origin master
+git push -u origin master
 
 composer install
 
