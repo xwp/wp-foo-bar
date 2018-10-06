@@ -72,15 +72,6 @@ cd tests
 git mv test-foo-bar.php "test-$slug.php"
 cd ..
 
-if [ -e phpunit.xml.dist ]; then
-    # sed destroys the symlink
-    git checkout phpunit.xml.dist
-fi
-
-if [ -e init-plugin.sh ]; then
-	git rm -f init-plugin.sh
-fi
-
 git grep -lz "xwp/wp-foo-bar" | xargs -0 sed -i '' -e "s/xwp\/wp-foo-bar/$user\/$slug/g"
 git grep -lz "xwp" | xargs -0 sed -i '' -e "s/xwp/$user/g"
 git grep -lz "Foo Bar" | xargs -0 sed -i '' -e "s/Foo Bar/$name/g"
@@ -90,6 +81,9 @@ git grep -lz "FooBar" | xargs -0 sed -i '' -e "s/FooBar/$namespace/g"
 git grep -lz "Foo_Bar" | xargs -0 sed -i '' -e "s/Foo_Bar/$class/g"
 
 rm -rf .git
+rm -rf vendor
+rm -f init-plugin.sh
+
 git init
 git add -A .
 git commit -m "Initial commit"
