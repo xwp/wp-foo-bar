@@ -84,9 +84,13 @@ git init
 git add -A .
 git commit -m "Initial commit"
 git remote add origin "git@github.com:$user/$slug.git"
-git push -u origin master
+#git push -u origin master
 
 composer install
+
+if [ ! -f .git/hooks/pre-commit ]; then
+    vendor/xwp/wp-dev-lib/scripts/install-pre-commit-hook.sh;
+fi
 
 echo "Plugin is located at:"
 pwd
