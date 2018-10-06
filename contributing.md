@@ -26,58 +26,34 @@ Before submitting your contribution, please make sure to take a moment and read 
 
 ## Development Setup
 
-You will need [Node.js](http://nodejs.org), [Grunt](http://gruntjs.com), & [PHPUnit](https://phpunit.de/getting-started.html) installed on your system. To run the unit tests you must be developing within the WordPress Core. The simplest method to get a testing environment up is by using [Varying Vagrant Vagrants](https://github.com/Varying-Vagrant-Vagrants/VVV). However, if you are using MAMP then the following command will clone `trunk`.
-
-To clone the WordPress Core
-
-``` bash
-$ git clone https://github.com/xwp/wordpress-develop.git
-```
+The simplest method to get a testing environment up is by using [Varying Vagrant Vagrants](https://github.com/Varying-Vagrant-Vagrants/VVV).
 
 To clone this repository
 ``` bash
-$ git clone --recursive git@github.com:xwp/wp-foo-bar.git foo-bar
+$ cd {your-vvv-root}/www/wordpress-develop/public_html/src/wp-content/plugins
+$ git clone git@github.com:xwp/wp-foo-bar.git foo-bar
 ```
 
-To install packages
+Install Composer packages
 
 ``` bash
-# npm install -g grunt-cli
-$ npm install
+$ composer install
 ```
-
-To lint:
-
-``` bash
-$ grunt jshint
-```
-
-To check the text domain:
-
-``` bash
-$ grunt checktextdomain
-```
-
-To create a pot file:
-
-``` bash
-$ grunt makepot
-```
-
-The default task (simply running `grunt`) will do the following: `jshint -> checktextdomain`.
 
 ### PHPUnit Testing
 
 Run tests:
 
 ``` bash
-$ phpunit
+$ composer phpunit
 ```
 
 Run tests with an HTML coverage report:
 
 ``` bash
-$ phpunit --coverage-html /tmp/report
+$ composer phpunit-coverage
 ```
+
+The coverage report is stored in the `{your-vvv-root}/www/default/coverage/foo-bar` directory.
 
 Travis CI will run the unit tests and perform sniffs against the WordPress Coding Standards whenever you push changes to your PR. Tests are required to pass successfully for a merge to be considered.
