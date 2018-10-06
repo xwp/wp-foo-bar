@@ -77,6 +77,7 @@ git grep -lz "Foo_Bar" | xargs -0 sed -i '' -e "s/Foo_Bar/$class/g"
 
 rm -rf .git
 rm -rf vendor
+rm -f composer.lock
 rm -f init-plugin.sh
 
 git init
