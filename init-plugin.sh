@@ -65,6 +65,9 @@ cd ..
 
 git grep -lz "xwp/wp-foo-bar" | xargs -0 sed -i '' -e "s/xwp\/wp-foo-bar/$user\/$slug/g"
 git grep -lz "xwp" | xargs -0 sed -i '' -e "s/xwp/$user/g"
+git grep -lz "$user/wp-dev-lib" | xargs -0 sed -i '' -e "s/$user\/wp-dev-lib/xwp\/wp-dev-lib/g"
+git grep -lz "vendor/$user" | xargs -0 sed -i '' -e "s/vendor\/$user/vendor\/xwp/g"
+git grep -lz "$user.co" | xargs -0 sed -i '' -e "s/$user.co/xwp.co/g"
 git grep -lz "Foo Bar" | xargs -0 sed -i '' -e "s/Foo Bar/$name/g"
 git grep -lz "foo-bar" | xargs -0 sed -i '' -e "s/foo-bar/$slug/g"
 git grep -lz "foo_bar" | xargs -0 sed -i '' -e "s/foo_bar/$prefix/g"
@@ -80,6 +83,8 @@ git add -A .
 git commit -m "Initial commit"
 git remote add origin "git@github.com:$user/$slug.git"
 git push -u origin master
+
+composer install
 
 echo "Plugin is located at:"
 pwd
