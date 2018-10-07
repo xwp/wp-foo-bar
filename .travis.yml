@@ -23,8 +23,12 @@ env:
   - WP_VERSION=trunk WP_MULTISITE=0
   - WP_VERSION=trunk WP_MULTISITE=1
 
+addons:
+  apt:
+    packages:
+      - libxml2-utils
+
 install:
-  - sudo apt-get install -y libxml2-utils
   - composer install
   - export DEV_LIB_PATH=vendor/xwp/wp-dev-lib/scripts
   - source "$DEV_LIB_PATH/travis.install.sh"
