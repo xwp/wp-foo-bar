@@ -9,5 +9,7 @@ namespace FooBar;
 
 /**
  * Plugin Exception class.
+ *
+ * @codeCoverageIgnore
  */
 class Exception extends \Exception {}
