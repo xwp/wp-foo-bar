@@ -1,0 +1,41 @@
+version: '3'
+
+services:
+
+  mysql:
+    image: mysql:5
+    volumes:
+      - ./docker/mysql:/var/lib/mysql
+      - ./docker/wordpress/config/mysql/wptests.sql:/docker-entrypoint-initdb.d/wptests.sql
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: password
+
+  wordpress:
+    build:
+      context: ./docker/wordpress
+      args:
+        WP_VERSION: ${WP_VERSION}
+    depends_on:
+      - mysql
+    ports:
+      - 80:80
+    volumes:
+      - ./docker/wordpress/html:/var/www/html
+      - .:/var/www/html/wp-content/plugins/foo-bar
+    restart: always
+    environment:
+      WORDPRESS_DEBUG: 1
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: password
+
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - 1025:1025
+      - 8025:8025

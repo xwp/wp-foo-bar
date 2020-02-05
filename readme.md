@@ -4,8 +4,8 @@
 Template plugin for scaffolding WordPress plugins at XWP.
 
 **Contributors:** [xwp](https://profiles.wordpress.org/xwp)  
-**Requires at least:** 4.6  
-**Tested up to:** 4.9.8  
+**Requires at least:** 5.0  
+**Tested up to:** 5.3.2  
 **Stable tag:** trunk (master)  
 **License:** [GPLv2 or later](http://www.gnu.org/licenses/gpl-2.0.html)  
 
