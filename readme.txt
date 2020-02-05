@@ -10,12 +10,10 @@ Template plugin for scaffolding WordPress plugins at XWP.
 
 == Description ==
 
-Template plugin for scaffolding WordPress plugins at XWP.
-
-Use the [`init-plugin.sh`](init-plugin.sh) script on your system to pull down this repo and make the necessary replacements via:
+Use the [`init-plugin.sh`](init-plugin.sh) bash script to enter an interactive shell on your system, which attempts to copy this repo while making necessary string replacements:
 
 ```bash
-./init-plugin.sh xwp "Hello World"
+./init-plugin.sh
 ```
 
-This will create a plugin `hello-world` one level up from the current directory, add a remote origin of `git@github.com:xwp/hello-world.git`, and push to the master branch. The `init-plugin.sh` script will be removed from the generated plugin. You should also update your new `readme.txt` and add any config files your project may need, read more about your options in the [`xwp/wp-dev-lib/readme.md`](https://github.com/xwp/wp-dev-lib) file.
+The `init-plugin.sh` script will be removed from the generated plugin. You should also update your new `readme.txt` and add any config files your project may need, read more about your options in the [`xwp/wp-dev-lib/readme.md`](https://github.com/xwp/wp-dev-lib) file.
