@@ -17,7 +17,7 @@
 		<whitelist processUncoveredFilesFromWhitelist="false">
 			<directory suffix=".php">./</directory>
 			<exclude>
-				<directory suffix=".php">./data</directory>
+				<directory suffix=".php">./docker</directory>
 				<directory suffix=".php">./node_modules</directory>
 				<directory suffix=".php">./tests</directory>
 				<directory suffix=".php">./vendor</directory>
