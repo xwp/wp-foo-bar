@@ -11,7 +11,7 @@
  * Text Domain: foo-bar
  * Domain Path: /languages
  *
- * Copyright (c) 2018 XWP (https://xwp.co/)
+ * Copyright (c) 2020 XWP (https://xwp.co/)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License, version 2 or, at
@@ -53,5 +53,5 @@ function _foo_bar_php_version_error() {
  * @return string
  */
 function _foo_bar_php_version_text() {
-	return __( 'Foo Bar plugin error: Your version of PHP is too old to run this plugin. You must be running PHP 5.3 or higher.', 'foo-bar' );
+	return esc_html__( 'Foo Bar plugin error: Your version of PHP is too old to run this plugin. You must be running PHP 5.6.20 or higher.', 'foo-bar' );
 }
