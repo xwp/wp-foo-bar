@@ -10,12 +10,22 @@ $_plugin_files = array();
 
 $_plugin_root = realpath( __DIR__ . '/..' );
 
-// Tests directory.
-$_tests_dir = $_plugin_root . '/vendor/xwp/wordpress-tests/phpunit';
+$_tests_dir = getenv( 'WP_TESTS_DIR' );
+
+// Travis CI & Vagrant SSH tests directory.
+if ( empty( $_tests_dir ) ) {
+	$_tests_dir = '/tmp/wordpress-tests';
+}
+
+// Composer tests directory.
+if ( ! is_dir( $_tests_dir . '/includes/' ) ) {
+	$_tests_dir = $_plugin_root . '/vendor/xwp/wordpress-tests/phpunit';
+}
 
 if ( ! file_exists( $_tests_dir . '/includes/' ) ) {
 	trigger_error( 'Unable to locate wordpress-tests', E_USER_ERROR ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_trigger_error
 }
+
 require_once $_tests_dir . '/includes/functions.php';
 
 // Build the plugins directory search array.
