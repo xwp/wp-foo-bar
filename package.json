@@ -32,7 +32,7 @@
     "test:js:coverage": "wp-scripts test-unit-js js/src --coverage --coverageDirectory=tests/coverage/js",
     "test:php": "composer test",
     "test:php:coverage": "composer test-coverage",
-    "docker": "docker-compose run --rm --workdir=/var/www/html/wp-content/plugins/wp-foo-bar wordpress"
+    "docker": "docker-compose run --rm --workdir=/var/www/html/wp-content/plugins/foo-bar wordpress"
   },
   "devDependencies": {
     "@wordpress/block-editor": "3.6.0",

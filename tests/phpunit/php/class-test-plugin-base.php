@@ -36,9 +36,9 @@ class Test_Plugin_Base extends \WP_UnitTestCase {
 	 */
 	public function test_locate_plugin() {
 		$location = $this->plugin->locate_plugin();
-		$this->assertEquals( 'wp-foo-bar', $location['dir_basename'] );
-		$this->assertContains( 'plugins/wp-foo-bar', $location['dir_path'] );
-		$this->assertEquals( 'http://example.org/wp-content/plugins/wp-foo-bar/', $location['dir_url'] );
+		$this->assertEquals( 'foo-bar', $location['dir_basename'] );
+		$this->assertContains( 'plugins/foo-bar', $location['dir_path'] );
+		$this->assertEquals( 'http://example.org/wp-content/plugins/foo-bar/', $location['dir_url'] );
 	}
 
 	/**
@@ -47,8 +47,8 @@ class Test_Plugin_Base extends \WP_UnitTestCase {
 	 * @see Plugin_Base::relative_path()
 	 */
 	public function test_relative_path() {
-		$this->assertEquals( 'plugins/wp-foo-bar', $this->plugin->relative_path( '/var/www/html/wp-content/plugins/wp-foo-bar', 'wp-content', '/' ) );
-		$this->assertEquals( 'themes/twentysixteen/plugins/wp-foo-bar', $this->plugin->relative_path( '/var/www/html/wp-content/themes/twentysixteen/plugins/wp-foo-bar', 'wp-content', '/' ) );
+		$this->assertEquals( 'plugins/foo-bar', $this->plugin->relative_path( '/var/www/html/wp-content/plugins/foo-bar', 'wp-content', '/' ) );
+		$this->assertEquals( 'themes/twentysixteen/plugins/foo-bar', $this->plugin->relative_path( '/var/www/html/wp-content/themes/twentysixteen/plugins/foo-bar', 'wp-content', '/' ) );
 	}
 
 	/**
@@ -57,7 +57,7 @@ class Test_Plugin_Base extends \WP_UnitTestCase {
 	 * @see Plugin_Base::asset_url()
 	 */
 	public function test_asset_url() {
-		$this->assertEquals( 'http://example.org/wp-content/plugins/wp-foo-bar/editor.js', $this->plugin->asset_url( 'editor.js' ) );
+		$this->assertEquals( 'http://example.org/wp-content/plugins/foo-bar/editor.js', $this->plugin->asset_url( 'editor.js' ) );
 	}
 
 	/**

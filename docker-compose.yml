@@ -27,7 +27,7 @@ services:
       - 80:80
     volumes:
       - ./docker/wordpress/html:/var/www/html
-      - .:/var/www/html/wp-content/plugins/wp-foo-bar
+      - .:/var/www/html/wp-content/plugins/foo-bar
     restart: always
     environment:
       WORDPRESS_DEBUG: 1
