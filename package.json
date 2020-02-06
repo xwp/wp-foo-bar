@@ -29,6 +29,7 @@
     "lint:php": "composer lint",
     "format": "npm-run-all --parallel format:*",
     "format:php": "composer format",
+    "format:js": "node_modules/.bin/prettier --write js/src/*.js",
     "test": "npm-run-all --parallel test:js test:php",
     "test-with-coverage": "npm-run-all --parallel test:js:coverage test:php:coverage",
     "test:js": "wp-scripts test-unit-js js/src",
@@ -42,7 +43,8 @@
     "@wordpress/block-editor": "3.6.0",
     "@wordpress/eslint-plugin": "3.4.1",
     "@wordpress/scripts": "7.0.1",
-    "npm-run-all": "4.1.5"
+    "npm-run-all": "4.1.5",
+    "wp-prettier": "git+https://github.com/Automattic/wp-prettier.git#wp-prettier-1.18.2"
   },
   "dependencies": {}
 }

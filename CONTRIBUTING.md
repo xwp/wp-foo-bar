@@ -97,6 +97,8 @@ We use `npm` as the canonical task runner for the project. Some of the PHP relat
 
 - `npm run lint:php` to lint only PHP files with [phpcs](https://github.com/squizlabs/PHP_CodeSniffer).
 
+- `npm run format:js` to format the PHP files with [wp-prettier](https://github.com/Automattic/wp-prettier).
+
 - `npm run format:php` to format the PHP files with [phpcbf](https://github.com/squizlabs/PHP_CodeSniffer).
 
 - `npm run readme` to generate the `readme.md` from the `readme.txt`.
