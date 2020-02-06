@@ -3,7 +3,7 @@
  * Plugin Name: Foo Bar
  * Plugin URI: https://github.com/xwp/wp-foo-bar
  * Description: ...
- * Version: 0.1
+ * Version: 0.0.1
  * Author:  XWP
  * Author URI: https://xwp.co/
  * License: GPLv2+

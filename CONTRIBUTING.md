@@ -37,7 +37,9 @@ or [Chocolatey](https://chocolatey.org) for Windows:
     - Provide detailed description of the bug in the PR. Live demo preferred.
     - Add appropriate test coverage if applicable.
 
-Travis CI will run the unit tests and perform sniffs against the WordPress Coding Standards whenever you push changes to your PR. Tests are required to pass successfully for a merge to be considered.
+## Continuous Integration
+
+We use [Travis CI](https://travis-ci.com) to lint all code, run tests and report test coverage to [Coveralls](https://coveralls.io) as defined in [`.travis.yml`](.travis.yml). Travis CI will run the unit tests and perform sniffs against the WordPress Coding Standards whenever you push changes to your PR. Tests are required to pass successfully for a merge to be considered.
 
 ## Development
 
@@ -74,6 +76,37 @@ Add the following entry to your hosts file if you want to map `localhost` to a d
 	127.0.0.1 wp-foo-bar.local
 
 ### Scripts
+
+We use `npm` as the canonical task runner for the project. Some of the PHP related scripts are defined in `composer.json` and described further down.
+
+**Important**: The commands that execute unit tests or generate coverage reports (i.e. contain `test` in the name) should be executed inside the Docker container.
+
+#### NPM
+
+- `npm run build` to build the plugin JS and CSS assets. Use `npm run dev` to watch and re-build as you work.
+
+- `npm run lint` to lint both PHP and JS files.
+
+- `npm run lint:js` to lint only JavaScript files with [eslint](https://eslint.org/).
+
+- `npm run lint:php` to lint only PHP files with [phpcs](https://github.com/squizlabs/PHP_CodeSniffer).
+
+- `npm run test:js` to run tests for JS.
+
+- `npm run test:js:coverage` to run tests for JS with coverage reporting.
+
+- `npm run docker -- npm run test` to run both PHP and JS tests without coverage reporting.
+
+- `npm run docker -- npm run test-with-coverage` to run both PHP and JS tests with coverage reporting.
+
+- `npm run docker -- npm run test:php` to run tests for PHP.
+
+- `npm run docker -- npm run test:php:coverage` to run tests for PHP with coverage reporting.
+
+
+#### Composer
+
+There are several Composer scripts available that you also have access to — these are _mostly_ all used in `npm` scripts above.
 
 - `composer format` to format the PHP files with [phpcbf](https://github.com/squizlabs/PHP_CodeSniffer).
 

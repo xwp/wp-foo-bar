@@ -185,12 +185,13 @@ abstract class Plugin_Base {
 	}
 
 	/**
-	 * Return whether we're on WordPress.com VIP production.
+	 * Get the public URL to the asset file.
 	 *
-	 * @return bool
+	 * @param string $path_relative Path relative to this plugin directory root.
+	 * @return string The URL to the asset.
 	 */
-	public function is_wpcom_vip_prod() {
-		return ( defined( '\WPCOM_IS_VIP_ENV' ) && \WPCOM_IS_VIP_ENV );
+	public function asset_url( $path_relative ) {
+		return $this->dir_url . $path_relative;
 	}
 
 	/**
@@ -205,6 +206,60 @@ abstract class Plugin_Base {
 			trigger_error( esc_html( get_class( $this ) . ': ' . $message ), $code );
 			// phpcs:enable
 		}
+	}
+
+	/**
+	 * Return whether we're on WordPress.com VIP production.
+	 *
+	 * @return bool
+	 */
+	public function is_wpcom_vip_prod() {
+		return ( defined( '\WPCOM_IS_VIP_ENV' ) && \WPCOM_IS_VIP_ENV );
+	}
+
+	/**
+	 * Is WP debug mode enabled.
+	 *
+	 * @return boolean
+	 */
+	public function is_debug() {
+		return ( defined( 'WP_DEBUG' ) && \WP_DEBUG );
+	}
+
+	/**
+	 * Is WP script debug mode enabled.
+	 *
+	 * @return boolean
+	 */
+	public function is_script_debug() {
+		return ( defined( 'SCRIPT_DEBUG' ) && \SCRIPT_DEBUG );
+	}
+
+	/**
+	 * Return the current version of the plugin.
+	 *
+	 * @return mixed
+	 */
+	public function version() {
+		$args = [
+			'Version' => 'Version',
+		];
+		$meta = get_file_data( $this->dir_path . '/foo-bar.php', $args );
+
+		return isset( $meta['Version'] ) ? $meta['Version'] : time();
+	}
+
+	/**
+	 * Sync the plugin version with the asset version.
+	 *
+	 * @return string
+	 */
+	public function asset_version() {
+		if ( $this->is_debug() || $this->is_script_debug() ) {
+			return time();
+		}
+
+		return $this->version();
 	}
 
 	/**

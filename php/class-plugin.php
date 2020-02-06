@@ -26,7 +26,26 @@ class Plugin extends Plugin_Base {
 	}
 
 	/**
-	 * Register scripts.
+	 * Load Gutenberg assets.
+	 *
+	 * @action enqueue_block_editor_assets
+	 */
+	public function enqueue_editor_assets() {
+		wp_enqueue_script(
+			'wp-foo-bar-js',
+			$this->plugin->asset_url( 'js/dist/editor.js' ),
+			[
+				'lodash',
+				'react',
+				'wp-block-editor',
+			],
+			$this->plugin->asset_version(),
+			false
+		);
+	}
+
+	/**
+	 * Register Customizer scripts.
 	 *
 	 * @action wp_default_scripts, 11
 	 *
@@ -35,7 +54,7 @@ class Plugin extends Plugin_Base {
 	public function register_scripts( \WP_Scripts $wp_scripts ) {}
 
 	/**
-	 * Register styles.
+	 * Register Customizer styles.
 	 *
 	 * @action wp_default_styles, 11
 	 *

@@ -36,9 +36,9 @@ class Test_Plugin_Base extends \WP_UnitTestCase {
 	 */
 	public function test_locate_plugin() {
 		$location = $this->plugin->locate_plugin();
-		$this->assertEquals( 'foo-bar', $location['dir_basename'] );
-		$this->assertContains( 'plugins/foo-bar', $location['dir_path'] );
-		$this->assertContains( 'plugins/foo-bar', $location['dir_url'] );
+		$this->assertEquals( 'wp-foo-bar', $location['dir_basename'] );
+		$this->assertContains( 'plugins/wp-foo-bar', $location['dir_path'] );
+		$this->assertEquals( 'http://example.org/wp-content/plugins/wp-foo-bar/', $location['dir_url'] );
 	}
 
 	/**
@@ -47,8 +47,17 @@ class Test_Plugin_Base extends \WP_UnitTestCase {
 	 * @see Plugin_Base::relative_path()
 	 */
 	public function test_relative_path() {
-		$this->assertEquals( 'plugins/foo-bar', $this->plugin->relative_path( '/srv/www/wordpress-develop/src/wp-content/plugins/foo-bar', 'wp-content', '/' ) );
-		$this->assertEquals( 'themes/twentysixteen/plugins/foo-bar', $this->plugin->relative_path( '/srv/www/wordpress-develop/src/wp-content/themes/twentysixteen/plugins/foo-bar', 'wp-content', '/' ) );
+		$this->assertEquals( 'plugins/wp-foo-bar', $this->plugin->relative_path( '/var/www/html/wp-content/plugins/wp-foo-bar', 'wp-content', '/' ) );
+		$this->assertEquals( 'themes/twentysixteen/plugins/wp-foo-bar', $this->plugin->relative_path( '/var/www/html/wp-content/themes/twentysixteen/plugins/wp-foo-bar', 'wp-content', '/' ) );
+	}
+
+	/**
+	 * Test asset_url.
+	 *
+	 * @see Plugin_Base::asset_url()
+	 */
+	public function test_asset_url() {
+		$this->assertEquals( 'http://example.org/wp-content/plugins/wp-foo-bar/editor.js', $this->plugin->asset_url( 'editor.js' ) );
 	}
 
 	/**
@@ -71,6 +80,45 @@ class Test_Plugin_Base extends \WP_UnitTestCase {
 	}
 
 	/**
+	 * Test asset_version().
+	 *
+	 * @see Plugin_Base::asset_version()
+	 */
+	public function test_asset_version() {
+		$mock = $this->getMockBuilder( 'FooBar\Plugin' )
+			->setMethods(
+				[
+					'is_debug',
+					'is_script_debug',
+				]
+			)
+			->getMock();
+
+		$mock->method( 'is_debug' )
+			->willReturn( false );
+
+		$mock->method( 'is_script_debug' )
+			->willReturn( false );
+
+		$this->assertFalse( $mock->is_debug() );
+		$this->assertFalse( $mock->is_script_debug() );
+		$this->assertEquals( $mock->version(), $mock->asset_version() );
+
+		$mock = $this->getMockBuilder( 'FooBar\Plugin' )
+			->setMethods(
+				[
+					'is_debug',
+				]
+			)
+			->getMock();
+
+		$mock->method( 'is_debug' )
+			->willReturn( true );
+
+		$this->assertNotEquals( $mock->version(), $mock->asset_version() );
+	}
+
+	/**
 	 * Test is_wpcom_vip_prod().
 	 *
 	 * @see Plugin_Base::is_wpcom_vip_prod()
@@ -80,7 +128,25 @@ class Test_Plugin_Base extends \WP_UnitTestCase {
 			$this->assertFalse( $this->plugin->is_wpcom_vip_prod() );
 			define( 'WPCOM_IS_VIP_ENV', true );
 		}
-		$this->assertEquals( WPCOM_IS_VIP_ENV, $this->plugin->is_wpcom_vip_prod() );
+		$this->assertEquals( \WPCOM_IS_VIP_ENV, $this->plugin->is_wpcom_vip_prod() );
+	}
+
+	/**
+	 * Test is_debug().
+	 *
+	 * @see Plugin_Base::is_debug()
+	 */
+	public function test_is_debug() {
+		$this->assertEquals( \WP_DEBUG, $this->plugin->is_debug() );
+	}
+
+	/**
+	 * Test is_script_debug().
+	 *
+	 * @see Plugin_Base::is_script_debug()
+	 */
+	public function test_is_script_debug() {
+		$this->assertEquals( \SCRIPT_DEBUG, $this->plugin->is_script_debug() );
 	}
 
 	/**
