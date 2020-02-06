@@ -67,15 +67,15 @@ which will make it available at [localhost](http://localhost). Ensure that no ot
 
 Alternatively you can run Docker in daemon mode with the following command, but should initialize the container for the first time with the recommended way above.
 
-	npm run evn:start
+	npm run env:start
 
 To stop the Docker environment and free up port `80` and `3306` open a new shell and run:
 
-	npm run evn:stop
+	npm run env:stop
 
 To see the Docker logs run:
 
-	npm run evn:logs
+	npm run env:logs
 
 Visit [localhost:8025](http://localhost:8025) to check all emails sent by WordPress.
 
