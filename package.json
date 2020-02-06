@@ -37,7 +37,10 @@
     "test:php": "composer test",
     "test:php:coverage": "composer test-coverage",
     "docker": "docker-compose run --rm --workdir=/var/www/html/wp-content/plugins/foo-bar wordpress",
-    "readme": "composer readme"
+    "readme": "composer readme",
+    "xdebug:status": "bin/xdebug status",
+    "xdebug:start": "bin/xdebug start",
+    "xdebug:stop": "bin/xdebug stop"
   },
   "devDependencies": {
     "@wordpress/block-editor": "3.6.0",

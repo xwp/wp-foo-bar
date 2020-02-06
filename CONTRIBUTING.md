@@ -120,3 +120,9 @@ We use `npm` as the canonical task runner for the project. Some of the PHP relat
 - `npm run docker -- npm run test:php:coverage` to run tests for PHP with coverage reporting.
 
 	_The coverage report is stored in the `tests/coverage/html` directory._
+
+- `npm run xdebug:status` to get the status of xdebug.
+
+- `npm run xdebug:start` to start xdebug.
+
+- `npm run xdebug:start` to stop xdebug.
