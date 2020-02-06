@@ -33,13 +33,13 @@ class Plugin extends Plugin_Base {
 	public function enqueue_editor_assets() {
 		wp_enqueue_script(
 			'wp-foo-bar-js',
-			$this->plugin->asset_url( 'js/dist/editor.js' ),
+			$this->asset_url( 'js/dist/editor.js' ),
 			[
 				'lodash',
 				'react',
 				'wp-block-editor',
 			],
-			$this->plugin->asset_version(),
+			$this->asset_version(),
 			false
 		);
 	}

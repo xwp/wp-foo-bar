@@ -41,6 +41,17 @@ class Test_Plugin extends \WP_UnitTestCase {
 	}
 
 	/**
+	 * Test for enqueue_editor_assets() method.
+	 *
+	 * @see Plugin::enqueue_editor_assets()
+	 */
+	public function test_enqueue_editor_assets() {
+		$plugin = get_plugin_instance();
+		$plugin->enqueue_editor_assets();
+		$this->assertTrue( wp_script_is( 'wp-foo-bar-js', 'enqueued' ) );
+	}
+
+	/**
 	 * Filter to test 'foo_bar_plugin_config'.
 	 *
 	 * @see Plugin::init()
