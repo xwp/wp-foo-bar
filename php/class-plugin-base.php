@@ -95,6 +95,7 @@ abstract class Plugin_Base {
 			$reflection = new \ReflectionObject( $this );
 			// @codeCoverageIgnoreEnd
 		}
+
 		return $reflection;
 	}
 
@@ -104,6 +105,7 @@ abstract class Plugin_Base {
 	 * @codeCoverageIgnore
 	 *
 	 * @param string $class Class name.
+	 *
 	 * @return void
 	 */
 	public function autoload( $class ) {
@@ -137,8 +139,8 @@ abstract class Plugin_Base {
 	 * Version of plugin_dir_url() which works for plugins installed in the plugins directory,
 	 * and for plugins bundled with themes.
 	 *
-	 * @throws Exception If the plugin is not located in the expected location.
 	 * @return array
+	 * @throws Exception If the plugin is not located in the expected location.
 	 */
 	public function locate_plugin() {
 		$file_name = $this->get_object_reflection()->getFileName();
@@ -181,6 +183,7 @@ abstract class Plugin_Base {
 				}
 			}
 		}
+
 		return implode( $sep, $path );
 	}
 
@@ -188,6 +191,7 @@ abstract class Plugin_Base {
 	 * Get the public URL to the asset file.
 	 *
 	 * @param string $path_relative Path relative to this plugin directory root.
+	 *
 	 * @return string The URL to the asset.
 	 */
 	public function asset_url( $path_relative ) {
@@ -317,6 +321,7 @@ abstract class Plugin_Base {
 		$arg_count = isset( $args['arg_count'] ) ? $args['arg_count'] : PHP_INT_MAX;
 		$fn        = sprintf( '\add_%s', $type );
 		$retval    = \call_user_func( $fn, $name, $callback, $priority, $arg_count );
+
 		return $retval;
 	}
 
@@ -337,6 +342,7 @@ abstract class Plugin_Base {
 				trigger_error( esc_html( $notice ), \E_USER_NOTICE );
 				// phpcs:enable
 			}
+
 			return;
 		}
 		$this->_called_doc_hooks[ $class_name ] = true;
