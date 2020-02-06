@@ -65,9 +65,17 @@ which will make it available at [localhost](http://localhost). Ensure that no ot
 
 **Important**: You must execute the `docker-compose up` command before the `pre-commit` hook will work properly. This is because the unit tests depend on the MySQL database being initialized.
 
+Alternatively you can run Docker in daemon mode with the following command, but should initialize the container for the first time with the recommended way above.
+
+	npm run evn:start
+
 To stop the Docker environment and free up port `80` and `3306` open a new shell and run:
 
-	docker-compose down
+	npm run evn:stop
+
+To see the Docker logs run:
+
+	npm run evn:logs
 
 Visit [localhost:8025](http://localhost:8025) to check all emails sent by WordPress.
 
@@ -80,8 +88,6 @@ Add the following entry to your hosts file if you want to map `localhost` to a d
 We use `npm` as the canonical task runner for the project. Some of the PHP related scripts are defined in `composer.json` but are not meant to be executed directly.
 
 **Important**: The commands that execute unit tests or generate coverage reports (i.e. contain `test` in the name) should be executed inside the Docker container.
-
-#### NPM
 
 - `npm run build` to build the plugin JS and CSS assets. Use `npm run dev` to watch and re-build as you work.
 
