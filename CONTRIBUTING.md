@@ -47,9 +47,9 @@ We use [Travis CI](https://travis-ci.com) to lint all code, run tests and report
 
 	    git clone git@github.com:xwp/wp-foo-bar.git
 
-2. Setup the development tools using [Composer](https://getcomposer.org):
+2. Setup the development tools using [Node.js](https://nodejs.org) and [Composer](https://getcomposer.org):
 
-	    composer install
+	    npm install
 
     This will automatically install the `pre-commit` hook from the `wp-dev-lib` Composer package and setup the unit tests.
 
@@ -77,7 +77,7 @@ Add the following entry to your hosts file if you want to map `localhost` to a d
 
 ### Scripts
 
-We use `npm` as the canonical task runner for the project. Some of the PHP related scripts are defined in `composer.json` and described further down.
+We use `npm` as the canonical task runner for the project. Some of the PHP related scripts are defined in `composer.json` but are not meant to be executed directly.
 
 **Important**: The commands that execute unit tests or generate coverage reports (i.e. contain `test` in the name) should be executed inside the Docker container.
 
@@ -91,9 +91,17 @@ We use `npm` as the canonical task runner for the project. Some of the PHP relat
 
 - `npm run lint:php` to lint only PHP files with [phpcs](https://github.com/squizlabs/PHP_CodeSniffer).
 
+- `npm run format:php` to format the PHP files with [phpcbf](https://github.com/squizlabs/PHP_CodeSniffer).
+
+- `npm run readme` to generate the `readme.md` from the `readme.txt`.
+
+	_The `readme.md` file will automatically generate on commit when the `readme.txt` changes_
+
 - `npm run test:js` to run tests for JS.
 
 - `npm run test:js:coverage` to run tests for JS with coverage reporting.
+
+	_The coverage report is stored in the `tests/coverage/js` directory._
 
 - `npm run docker -- npm run test` to run both PHP and JS tests without coverage reporting.
 
@@ -103,21 +111,4 @@ We use `npm` as the canonical task runner for the project. Some of the PHP relat
 
 - `npm run docker -- npm run test:php:coverage` to run tests for PHP with coverage reporting.
 
-
-#### Composer
-
-There are several Composer scripts available that you also have access to — these are _mostly_ all used in `npm` scripts above.
-
-- `composer format` to format the PHP files with [phpcbf](https://github.com/squizlabs/PHP_CodeSniffer).
-
-- `composer lint` to lint the PHP files with [phpcs](https://github.com/squizlabs/PHP_CodeSniffer).
-
-- `composer readme` to generate the `readme.md` from the `readme.txt`.
-
-    _The `readme.md` file will automatically generate on commit when the `readme.txt` changes_
-
-- `composer test` to run PHPUnit tests without generating a coverage report.
-
-- `composer test-coverage` to run PHPUnit tests while generating an HTML coverage report.
-
-    _The coverage report is stored in the `tests/reports/html` directory._
+	_The coverage report is stored in the `tests/coverage/html` directory._

@@ -26,13 +26,16 @@
     "lint": "npm-run-all --parallel lint:*",
     "lint:js": "wp-scripts lint-js js/src",
     "lint:php": "composer lint",
+    "format": "npm-run-all --parallel format:*",
+    "format:php": "composer format",
     "test": "npm-run-all --parallel test:js test:php",
     "test-with-coverage": "npm-run-all --parallel test:js:coverage test:php:coverage",
     "test:js": "wp-scripts test-unit-js js/src",
     "test:js:coverage": "wp-scripts test-unit-js js/src --coverage --coverageDirectory=tests/coverage/js",
     "test:php": "composer test",
     "test:php:coverage": "composer test-coverage",
-    "docker": "docker-compose run --rm --workdir=/var/www/html/wp-content/plugins/foo-bar wordpress"
+    "docker": "docker-compose run --rm --workdir=/var/www/html/wp-content/plugins/foo-bar wordpress",
+    "readme": "composer readme"
   },
   "devDependencies": {
     "@wordpress/block-editor": "3.6.0",
