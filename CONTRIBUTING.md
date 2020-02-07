@@ -125,4 +125,4 @@ We use `npm` as the canonical task runner for the project. Some of the PHP relat
 
 - `npm run xdebug:start` to start xdebug.
 
-- `npm run xdebug:start` to stop xdebug.
+- `npm run xdebug:stop` to stop xdebug.
