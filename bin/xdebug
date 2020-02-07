@@ -94,7 +94,7 @@ case $@ in
         echo "xDebug [Stop | Start | Status] in the ${WORDPRESS_CONTAINER} container."
         echo "xDebug must have already been installed."
         echo "Usage:"
-        echo "  .wordpress/xdebug stop|start|status"
+        echo "  .bin/xdebug stop|start|status"
 
 esac
 
