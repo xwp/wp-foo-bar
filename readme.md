@@ -10,7 +10,7 @@ WordPress plugin template for extending Gutenberg at XWP.
 **Stable tag:** trunk (master)  
 **License:** [GPLv2 or later](http://www.gnu.org/licenses/gpl-2.0.html)  
 
-[![Build Status](https://travis-ci.org/xwp/wp-foo-bar.svg?branch=develop)](https://travis-ci.org/xwp/wp-foo-bar) [![Coverage Status](https://coveralls.io/repos/xwp/wp-foo-bar/badge.svg?branch=develop)](https://coveralls.io/github/xwp/wp-foo-bar) 
+[![Build Status](https://travis-ci.org/xwp/wp-foo-bar.svg?branch=develop)](https://travis-ci.org/xwp/wp-foo-bar) [![Coverage Status](https://coveralls.io/repos/xwp/wp-foo-bar/badge.svg?branch=develop)](https://coveralls.io/github/xwp/wp-foo-bar) [![Built with Grunt](https://gruntjs.com/cdn/builtwith.svg)](http://gruntjs.com) 
 
 ## Description ##
 
