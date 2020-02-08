@@ -21,3 +21,7 @@ Use the [`init-plugin.sh`](init-plugin.sh) bash script to enter an interactive s
 
 The `init-plugin.sh` script will be removed from the generated plugin. You should also update your new `readme.txt` and add any config files your project may need, read more about your options in the [`xwp/wp-dev-lib/readme.md`](https://github.com/xwp/wp-dev-lib) file.
 
+**Coveralls Pro**
+
+To use Coveralls Pro with your private repository you will need to change the `service_name` inside `.coveralls.yml` to `travis-pro`, and add the `COVERALLS_REPO_TOKEN` to the settings in Travis CI.
+
