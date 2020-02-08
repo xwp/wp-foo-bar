@@ -20,13 +20,21 @@ class Test_Plugin_Base extends \WP_UnitTestCase {
 	public $plugin;
 
 	/**
+	 * Plugin basename.
+	 *
+	 * @var string
+	 */
+	public $basename;
+
+	/**
 	 * Setup.
 	 *
 	 * @inheritdoc
 	 */
 	public function setUp() {
 		parent::setUp();
-		$this->plugin = get_plugin_instance();
+		$this->plugin   = get_plugin_instance();
+		$this->basename = basename( dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) );
 	}
 
 	/**
@@ -36,9 +44,11 @@ class Test_Plugin_Base extends \WP_UnitTestCase {
 	 */
 	public function test_locate_plugin() {
 		$location = $this->plugin->locate_plugin();
-		$this->assertEquals( 'foo-bar', $location['dir_basename'] );
-		$this->assertContains( 'plugins/foo-bar', $location['dir_path'] );
-		$this->assertEquals( 'http://example.org/wp-content/plugins/foo-bar/', $location['dir_url'] );
+
+
+		$this->assertEquals( $this->basename, $location['dir_basename'] );
+		$this->assertEquals( WP_CONTENT_DIR . '/plugins/' . $this->basename, $location['dir_path'] );
+		$this->assertEquals( content_url( '/plugins/' . $this->basename . '/' ), $location['dir_url'] );
 	}
 
 	/**
@@ -57,7 +67,7 @@ class Test_Plugin_Base extends \WP_UnitTestCase {
 	 * @see Plugin_Base::asset_url()
 	 */
 	public function test_asset_url() {
-		$this->assertEquals( 'http://example.org/wp-content/plugins/foo-bar/editor.js', $this->plugin->asset_url( 'editor.js' ) );
+		$this->assertContains( '/plugins/' . $this->basename . '/editor.js', $this->plugin->asset_url( 'editor.js' ) );
 	}
 
 	/**
