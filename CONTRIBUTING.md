@@ -97,6 +97,8 @@ We use `npm` as the canonical task runner for the project. Some of the PHP relat
 
 - `npm run lint:php` to lint only PHP files with [phpcs](https://github.com/squizlabs/PHP_CodeSniffer).
 
+- `npm run format:js` to format the PHP files with [prettier](https://www.npmjs.com/package/prettier).
+
 - `npm run format:php` to format the PHP files with [phpcbf](https://github.com/squizlabs/PHP_CodeSniffer).
 
 - `npm run readme` to generate the `readme.md` from the `readme.txt`.
@@ -118,3 +120,9 @@ We use `npm` as the canonical task runner for the project. Some of the PHP relat
 - `npm run docker -- npm run test:php:coverage` to run tests for PHP with coverage reporting.
 
 	_The coverage report is stored in the `tests/coverage/html` directory._
+
+- `npm run xdebug:status` to get the status of Xdebug in the running WordPress container.
+
+- `npm run xdebug:start` to start Xdebug in the running WordPress container.
+
+- `npm run xdebug:stop` to stop Xdebug in the running WordPress container.
