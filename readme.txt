@@ -6,17 +6,17 @@ Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Template plugin for scaffolding WordPress plugins at XWP.
+WordPress plugin template for extending Gutenberg at XWP.
 
 == Description ==
 
-Use the [`init-plugin.sh`](init-plugin.sh) bash script to enter an interactive shell on your system, which attempts to copy this repo while making necessary string replacements:
+Use the [`init-plugin.sh`](init-plugin.sh) bash script to scaffold a new plugin. The script will enter an interactive shell on your host machine and copy this plugin while making necessary string replacements:
 
 ```bash
 ./init-plugin.sh
 ```
 
-The `init-plugin.sh` script will be removed from the generated plugin. You should also update your new `readme.txt` and add any config files your project may need, read more about your options in the [`xwp/wp-dev-lib/readme.md`](https://github.com/xwp/wp-dev-lib) file.
+The `init-plugin.sh` script will be removed from the generated plugin. You should also update your `readme.txt` and add/change any of the config files your project may need, read more about your options in the [`xwp/wp-dev-lib/readme.md`](https://github.com/xwp/wp-dev-lib) file.
 
 **Coveralls Pro**
 
