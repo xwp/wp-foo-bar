@@ -1,7 +1,7 @@
 === Foo Bar ===
 Contributors: xwp
-Requires at least: 4.4
-Tested up to: 4.5
+Requires at least: 5.0
+Tested up to: 5.3.2
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -10,12 +10,10 @@ Template plugin for scaffolding WordPress plugins at XWP.
 
 == Description ==
 
-Template plugin for scaffolding WordPress plugins at XWP.
-
-Use the [`init-plugin.sh`](init-plugin.sh) script on your system to pull down this repo and make the necessary replacements via:
+Use the [`init-plugin.sh`](init-plugin.sh) bash script to enter an interactive shell on your system, which attempts to copy this repo while making necessary string replacements:
 
 ```bash
-./init-plugin.sh "Hello World"
+./init-plugin.sh
 ```
 
-This will create a plugin `hello-world` one level up from the current directory. The `init-plugin.sh` script will be removed from the scaffolded plugin.
+The `init-plugin.sh` script will be removed from the generated plugin. You should also update your new `readme.txt` and add any config files your project may need, read more about your options in the [`xwp/wp-dev-lib/readme.md`](https://github.com/xwp/wp-dev-lib) file.

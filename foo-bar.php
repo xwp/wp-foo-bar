@@ -3,7 +3,7 @@
  * Plugin Name: Foo Bar
  * Plugin URI: https://github.com/xwp/wp-foo-bar
  * Description: ...
- * Version: 0.1
+ * Version: 0.0.1
  * Author:  XWP
  * Author URI: https://xwp.co/
  * License: GPLv2+
@@ -11,7 +11,7 @@
  * Text Domain: foo-bar
  * Domain Path: /languages
  *
- * Copyright (c) 2016 XWP (https://xwp.co/)
+ * Copyright (c) 2020 XWP (https://xwp.co/)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License, version 2 or, at
@@ -30,7 +30,7 @@
  * @package FooBar
  */
 
-if ( version_compare( phpversion(), '5.3', '>=' ) ) {
+if ( version_compare( phpversion(), '5.6.20', '>=' ) ) {
 	require_once __DIR__ . '/instance.php';
 } else {
 	if ( defined( 'WP_CLI' ) ) {
@@ -53,5 +53,5 @@ function _foo_bar_php_version_error() {
  * @return string
  */
 function _foo_bar_php_version_text() {
-	return __( 'Foo Bar plugin error: Your version of PHP is too old to run this plugin. You must be running PHP 5.3 or higher.', 'foo-bar' );
+	return esc_html__( 'Foo Bar plugin error: Your version of PHP is too old to run this plugin. You must be running PHP 5.6.20 or higher.', 'foo-bar' );
 }

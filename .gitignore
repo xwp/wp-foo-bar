@@ -1,10 +1,7 @@
 .DS_Store
-
-# Grunt
-/build/
-/node_modules/
-npm-debug.log
-
-# Composer
+.env
+.idea
 composer.lock
-/vendor/
+package-lock.json
+node_modules/
+vendor/

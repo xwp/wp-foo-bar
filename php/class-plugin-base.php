@@ -19,7 +19,7 @@ abstract class Plugin_Base {
 	 *
 	 * @var array
 	 */
-	public $config = array();
+	public $config = [];
 
 	/**
 	 * Plugin slug.
@@ -54,7 +54,7 @@ abstract class Plugin_Base {
 	 *
 	 * @var array
 	 */
-	protected $autoload_matches_cache = array();
+	protected $autoload_matches_cache = [];
 
 	/**
 	 * Required instead of a static variable inside the add_doc_hooks method
@@ -62,24 +62,24 @@ abstract class Plugin_Base {
 	 *
 	 * @var array
 	 */
-	protected $_called_doc_hooks = array();
+	protected $_called_doc_hooks = [];
 
 	/**
 	 * Plugin_Base constructor.
 	 */
 	public function __construct() {
-		$location = $this->locate_plugin();
-		$this->slug = $location['dir_basename'];
+		$location       = $this->locate_plugin();
+		$this->slug     = $location['dir_basename'];
 		$this->dir_path = $location['dir_path'];
-		$this->dir_url = $location['dir_url'];
-		spl_autoload_register( array( $this, 'autoload' ) );
+		$this->dir_url  = $location['dir_url'];
+		spl_autoload_register( [ $this, 'autoload' ] );
 		$this->add_doc_hooks();
 	}
 
 	/**
 	 * Plugin_Base destructor.
 	 */
-	function __destruct() {
+	public function __destruct() {
 		$this->remove_doc_hooks();
 	}
 
@@ -91,15 +91,21 @@ abstract class Plugin_Base {
 	public function get_object_reflection() {
 		static $reflection;
 		if ( empty( $reflection ) ) {
+			// @codeCoverageIgnoreStart
 			$reflection = new \ReflectionObject( $this );
+			// @codeCoverageIgnoreEnd
 		}
+
 		return $reflection;
 	}
 
 	/**
 	 * Autoload for classes that are in the same namespace as $this.
 	 *
+	 * @codeCoverageIgnore
+	 *
 	 * @param string $class Class name.
+	 *
 	 * @return void
 	 */
 	public function autoload( $class ) {
@@ -133,13 +139,17 @@ abstract class Plugin_Base {
 	 * Version of plugin_dir_url() which works for plugins installed in the plugins directory,
 	 * and for plugins bundled with themes.
 	 *
-	 * @throws Exception If the plugin is not located in the expected location.
 	 * @return array
+	 * @throws Exception If the plugin is not located in the expected location.
 	 */
 	public function locate_plugin() {
 		$file_name = $this->get_object_reflection()->getFileName();
+
+		// Windows compat.
 		if ( '/' !== \DIRECTORY_SEPARATOR ) {
-			$file_name = str_replace( \DIRECTORY_SEPARATOR, '/', $file_name ); // Windows compat.
+			// @codeCoverageIgnoreStart
+			$file_name = str_replace( \DIRECTORY_SEPARATOR, '/', $file_name );
+			// @codeCoverageIgnoreEnd
 		}
 
 		$plugin_dir  = dirname( dirname( $file_name ) );
@@ -157,9 +167,9 @@ abstract class Plugin_Base {
 	 *
 	 * Returns a relative path from a specified starting position of a full path
 	 *
-	 * @param string $path The full path to start with.
+	 * @param string $path  The full path to start with.
 	 * @param string $start The directory after which to start creating the relative path.
-	 * @param string $sep The directory separator.
+	 * @param string $sep   The directory separator.
 	 *
 	 * @return string
 	 */
@@ -173,7 +183,33 @@ abstract class Plugin_Base {
 				}
 			}
 		}
+
 		return implode( $sep, $path );
+	}
+
+	/**
+	 * Get the public URL to the asset file.
+	 *
+	 * @param string $path_relative Path relative to this plugin directory root.
+	 *
+	 * @return string The URL to the asset.
+	 */
+	public function asset_url( $path_relative ) {
+		return $this->dir_url . $path_relative;
+	}
+
+	/**
+	 * Call trigger_error() if not on VIP production.
+	 *
+	 * @param string $message Warning message.
+	 * @param int    $code    Warning code.
+	 */
+	public function trigger_warning( $message, $code = \E_USER_WARNING ) {
+		if ( ! $this->is_wpcom_vip_prod() ) {
+			// phpcs:disable
+			trigger_error( esc_html( get_class( $this ) . ': ' . $message ), $code );
+			// phpcs:enable
+		}
 	}
 
 	/**
@@ -186,15 +222,48 @@ abstract class Plugin_Base {
 	}
 
 	/**
-	 * Call trigger_error() if not on VIP production.
+	 * Is WP debug mode enabled.
 	 *
-	 * @param string $message Warning message.
-	 * @param int    $code    Warning code.
+	 * @return boolean
 	 */
-	public function trigger_warning( $message, $code = \E_USER_WARNING ) {
-		if ( ! $this->is_wpcom_vip_prod() ) {
-			trigger_error( esc_html( get_class( $this ) . ': ' . $message ), $code );
+	public function is_debug() {
+		return ( defined( 'WP_DEBUG' ) && \WP_DEBUG );
+	}
+
+	/**
+	 * Is WP script debug mode enabled.
+	 *
+	 * @return boolean
+	 */
+	public function is_script_debug() {
+		return ( defined( 'SCRIPT_DEBUG' ) && \SCRIPT_DEBUG );
+	}
+
+	/**
+	 * Return the current version of the plugin.
+	 *
+	 * @return mixed
+	 */
+	public function version() {
+		$args = [
+			'Version' => 'Version',
+		];
+		$meta = get_file_data( $this->dir_path . '/foo-bar.php', $args );
+
+		return isset( $meta['Version'] ) ? $meta['Version'] : time();
+	}
+
+	/**
+	 * Sync the plugin version with the asset version.
+	 *
+	 * @return string
+	 */
+	public function asset_version() {
+		if ( $this->is_debug() || $this->is_script_debug() ) {
+			return time();
 		}
+
+		return $this->version();
 	}
 
 	/**
@@ -206,8 +275,15 @@ abstract class Plugin_Base {
 	 *
 	 * @return mixed
 	 */
-	public function add_filter( $name, $callback, $args = array( 'priority' => 10, 'arg_count' => PHP_INT_MAX ) ) {
-		return $this->_add_hook( 'filter', $name, $callback, $args );
+	public function add_filter(
+		$name,
+		$callback,
+		$args = [
+			'priority'  => 10,
+			'arg_count' => PHP_INT_MAX,
+		]
+	) {
+		return $this->add_hook( 'filter', $name, $callback, $args );
 	}
 
 	/**
@@ -219,8 +295,15 @@ abstract class Plugin_Base {
 	 *
 	 * @return mixed
 	 */
-	public function add_action( $name, $callback, $args = array( 'priority' => 10, 'arg_count' => PHP_INT_MAX ) ) {
-		return $this->_add_hook( 'action', $name, $callback, $args );
+	public function add_action(
+		$name,
+		$callback,
+		$args = [
+			'priority'  => 10,
+			'arg_count' => PHP_INT_MAX,
+		]
+	) {
+		return $this->add_hook( 'action', $name, $callback, $args );
 	}
 
 	/**
@@ -233,11 +316,12 @@ abstract class Plugin_Base {
 	 *
 	 * @return mixed
 	 */
-	protected function _add_hook( $type, $name, $callback, $args = array() ) {
-		$priority = isset( $args['priority'] ) ? $args['priority'] : 10;
+	protected function add_hook( $type, $name, $callback, $args = [] ) {
+		$priority  = isset( $args['priority'] ) ? $args['priority'] : 10;
 		$arg_count = isset( $args['arg_count'] ) ? $args['arg_count'] : PHP_INT_MAX;
-		$fn = sprintf( '\add_%s', $type );
-		$retval = \call_user_func( $fn, $name, $callback, $priority, $arg_count );
+		$fn        = sprintf( '\add_%s', $type );
+		$retval    = \call_user_func( $fn, $name, $callback, $priority, $arg_count );
+
 		return $retval;
 	}
 
@@ -254,23 +338,26 @@ abstract class Plugin_Base {
 		if ( isset( $this->_called_doc_hooks[ $class_name ] ) ) {
 			$notice = sprintf( 'The add_doc_hooks method was already called on %s. Note that the Plugin_Base constructor automatically calls this method.', $class_name );
 			if ( ! $this->is_wpcom_vip_prod() ) {
+				// phpcs:disable
 				trigger_error( esc_html( $notice ), \E_USER_NOTICE );
+				// phpcs:enable
 			}
+
 			return;
 		}
 		$this->_called_doc_hooks[ $class_name ] = true;
 
 		$reflector = new \ReflectionObject( $object );
 		foreach ( $reflector->getMethods() as $method ) {
-			$doc = $method->getDocComment();
+			$doc       = $method->getDocComment();
 			$arg_count = $method->getNumberOfParameters();
 			if ( preg_match_all( '#\* @(?P<type>filter|action)\s+(?P<name>[a-z0-9\-\._/=]+)(?:,\s+(?P<priority>\-?[0-9]+))?#', $doc, $matches, PREG_SET_ORDER ) ) {
 				foreach ( $matches as $match ) {
-					$type = $match['type'];
-					$name = $match['name'];
+					$type     = $match['type'];
+					$name     = $match['name'];
 					$priority = empty( $match['priority'] ) ? 10 : intval( $match['priority'] );
-					$callback = array( $object, $method->getName() );
-					call_user_func( array( $this, "add_{$type}" ), $name, $callback, compact( 'priority', 'arg_count' ) );
+					$callback = [ $object, $method->getName() ];
+					call_user_func( [ $this, "add_{$type}" ], $name, $callback, compact( 'priority', 'arg_count' ) );
 				}
 			}
 		}
@@ -292,10 +379,10 @@ abstract class Plugin_Base {
 			$doc = $method->getDocComment();
 			if ( preg_match_all( '#\* @(?P<type>filter|action)\s+(?P<name>[a-z0-9\-\._/=]+)(?:,\s+(?P<priority>\-?[0-9]+))?#', $doc, $matches, PREG_SET_ORDER ) ) {
 				foreach ( $matches as $match ) {
-					$type = $match['type'];
-					$name = $match['name'];
+					$type     = $match['type'];
+					$name     = $match['name'];
 					$priority = empty( $match['priority'] ) ? 10 : intval( $match['priority'] );
-					$callback = array( $object, $method->getName() );
+					$callback = [ $object, $method->getName() ];
 					call_user_func( "remove_{$type}", $name, $callback, $priority );
 				}
 			}
