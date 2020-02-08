@@ -227,7 +227,7 @@ abstract class Plugin_Base {
 	 * @return boolean
 	 */
 	public function is_debug() {
-		return ( defined( 'WP_DEBUG' ) && \WP_DEBUG );
+		return ( defined( '\WP_DEBUG' ) && \WP_DEBUG );
 	}
 
 	/**
@@ -236,7 +236,7 @@ abstract class Plugin_Base {
 	 * @return boolean
 	 */
 	public function is_script_debug() {
-		return ( defined( 'SCRIPT_DEBUG' ) && \SCRIPT_DEBUG );
+		return ( defined( '\SCRIPT_DEBUG' ) && \SCRIPT_DEBUG );
 	}
 
 	/**
