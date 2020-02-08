@@ -34,6 +34,7 @@
     "test-with-coverage": "npm-run-all --parallel test:js:coverage test:php:coverage",
     "test:js": "wp-scripts test-unit-js js/src",
     "test:js:coverage": "wp-scripts test-unit-js js/src --coverage --coverageDirectory=tests/coverage/js",
+    "test:js:coveralls": "wp-scripts test-unit-js js/src --coverage --coverageReporters=text-lcov | coveralls",
     "test:php": "composer test",
     "test:php:coverage": "composer test-coverage",
     "docker": "docker-compose run --rm --workdir=/var/www/html/wp-content/plugins/foo-bar wordpress",
@@ -46,6 +47,7 @@
     "@wordpress/block-editor": "3.6.0",
     "@wordpress/eslint-plugin": "3.4.1",
     "@wordpress/scripts": "7.0.1",
+    "coveralls": "3.0.9",
     "npm-run-all": "4.1.5"
   },
   "dependencies": {}

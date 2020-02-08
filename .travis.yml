@@ -26,9 +26,7 @@ addons:
 
 env:
   - WP_VERSION=latest WP_MULTISITE=0
-  - WP_VERSION=latest WP_MULTISITE=1
   - WP_VERSION=trunk WP_MULTISITE=0
-  - WP_VERSION=trunk WP_MULTISITE=1
 
 before_install:
   - nvm install
@@ -40,6 +38,7 @@ install:
   - source "$DEV_LIB_PATH/travis.install.sh"
 
 script:
+  - npm run test:js:coveralls
   - source "$DEV_LIB_PATH/travis.script.sh"
 
 after_script:
