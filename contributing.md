@@ -91,13 +91,19 @@ We use `npm` as the canonical task runner for the project. Some of the PHP relat
 
 - `npm run build` to build the plugin JS and CSS assets. Use `npm run dev` to watch and re-build as you work.
 
-- `npm run lint` to lint both PHP and JS files.
+- `npm run lint` to lint CSS, PHP, and JS files.
+
+- `npm run lint:css` to lint the CSS files with [stylelint](https://www.npmjs.com/package/stylelint-config-wordpress).
 
 - `npm run lint:js` to lint only JavaScript files with [eslint](https://eslint.org/).
 
 - `npm run lint:php` to lint only PHP files with [phpcs](https://github.com/squizlabs/PHP_CodeSniffer).
 
-- `npm run format:js` to format the PHP files with [prettier](https://www.npmjs.com/package/prettier).
+- `npm run format` to format CSS, PHP, and JS files.
+
+- `npm run format:css` to format the CSS files with [stylelint](https://www.npmjs.com/package/stylelint-config-wordpress).
+
+- `npm run format:js` to format the JS files with [prettier](https://www.npmjs.com/package/prettier).
 
 - `npm run format:php` to format the PHP files with [phpcbf](https://github.com/squizlabs/PHP_CodeSniffer).
 
