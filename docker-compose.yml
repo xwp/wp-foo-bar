@@ -5,16 +5,16 @@ services:
   mysql:
     image: mysql:5
     volumes:
-      - ./docker/mysql:/var/lib/mysql
-      - ./docker/wordpress/config/mysql/wptests.sql:/docker-entrypoint-initdb.d/wptests.sql
+    - ./docker/mysql:/var/lib/mysql
+    - ./docker/wordpress/config/mysql/wptests.sql:/docker-entrypoint-initdb.d/wptests.sql
     restart: always
     ports:
-      - 3306:3306
+    - 3306:3306
     environment:
-      MYSQL_DATABASE: wordpress
-      MYSQL_USER: wordpress
-      MYSQL_PASSWORD: password
-      MYSQL_ROOT_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
 
   wordpress:
     build:
@@ -31,8 +31,8 @@ services:
     restart: always
     environment:
       WORDPRESS_DEBUG: 1
-      WORDPRESS_DB_USER: wordpress
-      WORDPRESS_DB_PASSWORD: password
+      WORDPRESS_DB_USER: ${WP_DB_USER}
+      WORDPRESS_DB_PASSWORD: ${WP_DB_PASSWORD}
 
   mailhog:
     image: mailhog/mailhog
