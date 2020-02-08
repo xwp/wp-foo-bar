@@ -1,3 +1,4 @@
 DEFAULT_BASE_BRANCH=develop
 ASSETS_DIR=wp-assets
 README_MD_TITLE="Foo Bar Plugin for WordPress"
+CHECK_SCOPE=all

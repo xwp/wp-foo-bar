@@ -11,10 +11,10 @@ const defaultConfig = require( '@wordpress/scripts/config/webpack.config' );
 module.exports = {
 	...defaultConfig,
 	entry: {
-		editor: './js/src/editor.js',
+		editor: './assets/src/editor.js',
 	},
 	output: {
-		path: path.resolve( __dirname, 'js/dist' ),
+		path: path.resolve( process.cwd(), 'assets', 'js' ),
 		filename: '[name].js',
 	},
 };

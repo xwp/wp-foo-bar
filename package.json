@@ -25,16 +25,16 @@
     "env:start": "docker-compose up -d",
     "env:stop": "docker-compose stop",
     "lint": "npm-run-all --parallel lint:*",
-    "lint:js": "wp-scripts lint-js js/src",
+    "lint:js": "wp-scripts lint-js",
     "lint:php": "composer lint",
     "format": "npm-run-all --parallel format:*",
-    "format:js": "wp-scripts format-js js/src",
+    "format:js": "wp-scripts format-js",
     "format:php": "composer format",
     "test": "npm-run-all --parallel test:js test:php",
     "test-with-coverage": "npm-run-all --parallel test:js:coverage test:php:coverage",
-    "test:js": "wp-scripts test-unit-js js/src",
-    "test:js:coverage": "wp-scripts test-unit-js js/src --coverage --coverageDirectory=tests/coverage/js",
-    "test:js:coveralls": "wp-scripts test-unit-js js/src --coverage --coverageReporters=text-lcov | coveralls",
+    "test:js": "wp-scripts test-unit-js tests/js",
+    "test:js:coverage": "wp-scripts test-unit-js --coverage --coverageDirectory=tests/coverage/js",
+    "test:js:coveralls": "wp-scripts test-unit-js --coverage --coverageReporters=text-lcov | coveralls",
     "test:php": "composer test",
     "test:php:coverage": "composer test-coverage",
     "docker": "docker-compose run --rm --workdir=/var/www/html/wp-content/plugins/foo-bar wordpress",
@@ -50,5 +50,16 @@
     "coveralls": "3.0.9",
     "npm-run-all": "4.1.5"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "jest": {
+    "collectCoverageFrom": [
+      "assets/js/admin.js",
+      "assets/src/*.js"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/vendor/",
+      "/bin/"
+    ]
+  }
 }
