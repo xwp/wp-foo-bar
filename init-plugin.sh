@@ -116,10 +116,6 @@ rm -f init-plugin.sh
 rm -f composer.lock
 rm -f package-lock.json
 
-# Setup PHPCS and PHPUnit config files
-mv phpcs.xml.dist phpcs.xml
-mv phpunit.xml.dist phpunit.xml
-
 # Setup Git.
 git init
 git add .
