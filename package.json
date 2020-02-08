@@ -25,9 +25,11 @@
     "env:start": "docker-compose up -d",
     "env:stop": "docker-compose stop",
     "lint": "npm-run-all --parallel lint:*",
+    "lint:css": "wp-scripts lint-style",
     "lint:js": "wp-scripts lint-js",
     "lint:php": "composer lint",
     "format": "npm-run-all --parallel format:*",
+    "format:css": "npm run lint:css -- --fix",
     "format:js": "wp-scripts format-js",
     "format:php": "composer format",
     "test": "npm-run-all --parallel test:js test:php",
@@ -45,6 +47,7 @@
   },
   "devDependencies": {
     "@wordpress/block-editor": "3.6.0",
+    "@wordpress/browserslist-config": "2.6.0",
     "@wordpress/eslint-plugin": "3.4.1",
     "@wordpress/scripts": "7.0.1",
     "coveralls": "3.0.9",
@@ -61,5 +64,8 @@
       "/vendor/",
       "/bin/"
     ]
-  }
+  },
+  "browserslist": [
+    "extends @wordpress/browserslist-config"
+  ]
 }
