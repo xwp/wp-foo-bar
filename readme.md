@@ -24,7 +24,7 @@ The `init-plugin.sh` script will be removed from the generated plugin. You shoul
 
 **Coveralls Pro**
 
-To use Coveralls Pro with your private repository you will need to change the `service_name` inside `.coveralls.yml` to `travis-pro`, and add the `COVERALLS_REPO_TOKEN` to the settings in Travis CI.
+To use Coveralls Pro with your private repository you will need to change the `service_name` inside `.coveralls.yml` to `travis-pro`, and add the `COVERALLS_REPO_TOKEN` to the settings in Travis CI. If you don't want to use Coveralls then you will need to delete the `.coveralls.yml` and remove `npm run test:js:coveralls` step from the script section in the `.travis.yml` file.
 
 ## Installation ##
 
