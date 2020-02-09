@@ -14,6 +14,8 @@ WordPress plugin template for extending Gutenberg at XWP.
 
 ## Description ##
 
+**Scaffolding**
+
 Use the [`init-plugin.sh`](init-plugin.sh) bash script to scaffold a new plugin. The script will enter an interactive shell on your host machine and copy this plugin while making necessary string replacements:
 
 ```bash
