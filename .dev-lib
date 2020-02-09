@@ -3,8 +3,10 @@ ASSETS_DIR=wp-assets
 README_MD_TITLE="Foo Bar Plugin for WordPress"
 CHECK_SCOPE=all
 
-if [ "$TRAVIS" == true ]; then
-	npm run test:js:coverage
-else
-	npm run test:js
-fi
+function run_tests {
+	if [ "$TRAVIS" == true ]; then
+		npm run test:js:coverage
+	else
+		npm run test:js
+	fi
+}
