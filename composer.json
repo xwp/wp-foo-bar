@@ -22,7 +22,7 @@
     "slowprog/composer-copy-file": "*",
     "wp-coding-standards/wpcs": "*",
     "xwp/wordpress-tests-installer": "*",
-    "xwp/wp-dev-lib": "*"
+    "xwp/wp-dev-lib": "dev-feature/run_tests"
   },
   "scripts": {
     "build": [
