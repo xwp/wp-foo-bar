@@ -1,6 +1,78 @@
 #!/bin/bash
 
+source .env
+
+##
+# Check if the command exists as some sort of executable.
+#
+# The executable form of the command could be an alias, function, builtin, executable file or shell keyword.
+#
+# @param {string} command The command to check.
+#
+# @return {bool} Whether the command exists or not.
+##
+command_exists() {
+	type -t "$1" >/dev/null 2>&1
+}
+
+##
+# Add error message formatting to a string, and echo it.
+#
+# @param {string} message The string to add formatting to.
+##
+error_message() {
+	echo -en "\033[31mERROR\033[0m: $1"
+}
+
+##
+# Add warning message formatting to a string, and echo it.
+#
+# @param {string} message The string to add formatting to.
+##
+warning_message() {
+	echo -en "\033[33mWARNING\033[0m: $1"
+}
+
+##
+# Add formatting to an action string.
+#
+# @param {string} message The string to add formatting to.
+##
+action_format() {
+	echo -en "\033[32m$1\033[0m"
+}
+
+##
+# WordPress helper
+#
+# Executes a request in the WordPress container.
+##
+function is_wp_available() {
+	if command_exists "curl"; then
+        RESULT=`curl -w "%{redirect_url}" -o /dev/null -s localhost`
+
+        if [[ '' != "$RESULT" ]]; then
+			return 0
+		else
+			return 1
+		fi
+    fi
+
+	echo -e "$(error_message "The $(action_format "curl") command is not installed on your host machine.")"
+	echo -e "$(warning_message "Checking that WordPress has been installed has failed.")"
+	echo -e "$(warning_message "It could take a minute for the Database to become available.")"
+
+	return 0
+}
+
+# Start the containers.
 docker-compose up -d
+
+# Check for WordPress.
+until is_wp_available; do
+   echo -e "$(warning_message "Waiting for WordPress to become available") $(action_format "...")"
+   sleep 5
+done
 
 echo "  ____  _             _           _ ";
 echo " / ___|| |_ __ _ _ __| |_ ___  __| |";

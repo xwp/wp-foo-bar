@@ -59,15 +59,11 @@ This repository includes a WordPress development environment based on [Docker](h
 
 To use the Docker based environment with the Docker engine running on your host, run:
 
-	docker-compose up
+	npm run env:start
 
 which will make it available at [localhost](http://localhost). Ensure that no other Docker containers or services are using port `80` or `3306` on your machine. 
 
-**Important**: You must execute the `docker-compose up` command before the `pre-commit` hook will work properly. This is because the unit tests depend on the MySQL database being initialized.
-
-Alternatively you can run Docker in daemon mode with the following command, but should initialize the container for the first time with the recommended way above.
-
-	npm run env:start
+**Important**: You must execute the `npm run env:start` command before the `pre-commit` hook will work properly. This is because the unit tests depend on the MySQL database being initialized.
 
 To stop the Docker environment and free up port `80` and `3306` open a new shell and run:
 
