@@ -24,6 +24,7 @@ module.exports = function( grunt ) {
 					'!contributing.md',
 				  	'!docker-compose.yml',
 					'!Gruntfile.js',
+				    '!jest.config.js',
 					'!node_modules/**',
 					'!npm-debug.log',
 					'!package.json',

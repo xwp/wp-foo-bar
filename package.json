@@ -1,21 +1,41 @@
 {
-  "name": "@xwp/wp-foo-bar",
-  "version": "0.0.1",
+  "name": "wp-foo-bar",
   "private": true,
-  "description": "Plugin Scaffolding for WordPress.",
+  "title": "Foo Bar Plugin for WordPress",
+  "description": "WordPress plugin template for extending Gutenberg at XWP.",
   "author": "XWP",
   "license": "GPL-2.0-or-later",
-  "bugs": {
-    "url": "https://github.com/xwp/wp-foo-bar/issues"
-  },
+  "keywords": [
+    "amp",
+    "amphtml",
+    "wordpress",
+    "wordpress-plugin"
+  ],
   "homepage": "https://github.com/xwp/wp-foo-bar#readme",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/xwp/wp-foo-bar.git"
   },
+  "bugs": {
+    "url": "https://github.com/xwp/wp-foo-bar/issues"
+  },
   "engines": {
     "node": ">=10",
     "npm": ">=6.9"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@wordpress/block-editor": "3.6.0",
+    "@wordpress/browserslist-config": "2.6.0",
+    "@wordpress/eslint-plugin": "3.4.1",
+    "@wordpress/scripts": "7.0.1",
+    "coveralls": "3.0.9",
+    "grunt": "1.0.4",
+    "grunt-contrib-clean": "2.0.0",
+    "grunt-contrib-copy": "1.0.0",
+    "grunt-shell": "3.0.1",
+    "grunt-wp-deploy": "2.0.0",
+    "npm-run-all": "4.1.5"
   },
   "scripts": {
     "build": "wp-scripts build",
@@ -45,32 +65,10 @@
     "xdebug:start": "bin/xdebug start",
     "xdebug:stop": "bin/xdebug stop"
   },
-  "devDependencies": {
-    "@wordpress/block-editor": "3.6.0",
-    "@wordpress/browserslist-config": "2.6.0",
-    "@wordpress/eslint-plugin": "3.4.1",
-    "@wordpress/scripts": "7.0.1",
-    "coveralls": "3.0.9",
-    "grunt": "1.0.4",
-    "grunt-contrib-clean": "2.0.0",
-    "grunt-contrib-copy": "1.0.0",
-    "grunt-shell": "3.0.1",
-    "grunt-wp-deploy": "2.0.0",
-    "npm-run-all": "4.1.5"
-  },
-  "dependencies": {},
-  "jest": {
-    "collectCoverageFrom": [
-      "assets/js/admin.js",
-      "assets/src/*.js"
-    ],
-    "testPathIgnorePatterns": [
-      "/node_modules/",
-      "/vendor/",
-      "/bin/"
-    ]
-  },
-  "browserslist": [
-    "extends @wordpress/browserslist-config"
-  ]
+  "npmPackageJsonLintConfig": {
+    "extends": "@wordpress/npm-package-json-lint-config",
+    "rules": {
+      "require-version": "off"
+    }
+  }
 }
