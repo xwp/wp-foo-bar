@@ -5,4 +5,5 @@ composer.lock
 package-lock.json
 build/
 node_modules/
+tests/coverage
 vendor/
