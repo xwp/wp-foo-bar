@@ -49,7 +49,7 @@ action_format() {
 ##
 function is_wp_available() {
 	if command_exists "curl"; then
-        RESULT=`curl -w "%{redirect_url}" -o /dev/null -s localhost`
+        RESULT=`curl -w "%{redirect_url}" -o /dev/null -s localhost:8088`
 
         if [[ '' != "$RESULT" ]]; then
 			return 0

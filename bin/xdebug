@@ -22,7 +22,7 @@ else
 fi
 
 xdebug_status () {
-    echo 'Xdebug status'
+    echo 'Xdebug Status'
 
     # If running on Windows, need to prepend with winpty :(
     if [[ ${OS_TYPE} == "MINGW" ]]; then
@@ -32,8 +32,8 @@ xdebug_status () {
     fi
 }
 
-xdebug_start () {
-    echo "Starting Xdebug"
+xdebug_on () {
+    echo "Turning Xdebug On"
 
     # And uncomment line with xdebug extension, thus enabling it
     ON_CMD="sed -i 's/^;zend_extension=/zend_extension=/g' \
@@ -46,12 +46,12 @@ xdebug_start () {
         docker exec -it ${WORDPRESS_CONTAINER} bash -c "${ON_CMD}"
     fi
 
-    echo "Xdebug Started"
+    echo "Xdebug On"
     container_restart
 }
 
-xdebug_stop () {
-    echo "Stopping Xdebug"
+xdebug_off () {
+    echo "Turning Xdebug Off"
 
     # Comment out xdebug extension line
     OFF_CMD="sed -i 's/^zend_extension=/;zend_extension=/g' /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini"
@@ -66,12 +66,12 @@ xdebug_stop () {
         docker exec -it ${WORDPRESS_CONTAINER} bash -c "${OFF_CMD}"
     fi
 
-    echo "Xdebug Stopped"
+    echo "Xdebug Off"
     container_restart
 }
 
 container_restart () {
-    echo "Restarting container"
+    echo "Restarting Container"
 
     # docker-compose restart wordpress
     docker restart ${WORDPRESS_CONTAINER}
@@ -80,18 +80,18 @@ container_restart () {
 }
 
 case $@ in
-    stop|STOP)
-        xdebug_stop
+    off|OFF)
+        xdebug_off
         ;;
-    start|START)
-        xdebug_start
+    on|ON)
+        xdebug_on
         ;;
     status|STATUS)
         xdebug_status
         ;;
     *)
         echo "Usage:"
-        echo "  bin/xdebug stop|start|status"
+        echo "  bin/xdebug off|on|status"
 esac
 
 exit 0
