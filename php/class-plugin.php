@@ -13,6 +13,13 @@ namespace FooBar;
 class Plugin extends Plugin_Base {
 
 	/**
+	 * Sample class.
+	 *
+	 * @var Sample
+	 */
+	public $sample;
+
+	/**
 	 * Initiate the plugin resources.
 	 *
 	 * Priority is 9 because WP_Customize_Widgets::register_settings() happens at
@@ -23,6 +30,9 @@ class Plugin extends Plugin_Base {
 	 */
 	public function init() {
 		$this->config = apply_filters( 'foo_bar_plugin_config', $this->config, $this );
+
+		$this->sample = new Sample( $this );
+		$this->sample->init();
 	}
 
 	/**

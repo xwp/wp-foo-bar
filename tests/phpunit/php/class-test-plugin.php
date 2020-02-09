@@ -38,6 +38,7 @@ class Test_Plugin extends \WP_UnitTestCase {
 
 		$this->assertInternalType( 'array', $plugin->config );
 		$this->assertArrayHasKey( 'foo', $plugin->config );
+		$this->assertInstanceOf( Sample::class, $plugin->sample );
 	}
 
 	/**

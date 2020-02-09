@@ -22,6 +22,10 @@ The `init-plugin.sh` script will be removed from the generated plugin. You shoul
 
 To use Coveralls Pro with your private repository you will need to change the `service_name` inside `.coveralls.yml` to `travis-pro`, and add the `COVERALLS_REPO_TOKEN` to the settings in Travis CI. If you don't want to use Coveralls then you will need to delete the `.coveralls.yml` and remove `npm run test:js:coveralls` step from the script section in the `.travis.yml` file.
 
+**Adding Classes**
+
+When adding a new class you should instantiate it in `Plugin::init` and inject `Plugin` as a dependency. There is a `Sample` class inside the `php` directory that demonstrates this behavior and how doc hooks work.
+
 == Installation ==
 
 1. Upload the folder to the `/wp-content/plugins/` directory.
