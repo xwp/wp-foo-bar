@@ -6,7 +6,7 @@ DOCKER_PHPUNIT_BIN=bin/phpunit.sh
 
 function run_tests {
 	if [ "$TRAVIS" == true ]; then
-		npm run test:js:coverage
+		npm run test:js:coveralls
 	else
 		npm run test:js
 	fi
