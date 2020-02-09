@@ -41,9 +41,9 @@
     "build:js": "wp-scripts build",
     "dev": "wp-scripts start",
     "docker": "docker-compose run --rm --workdir=/var/www/html/wp-content/plugins/foo-bar wordpress",
-    "env:logs": "docker-compose logs -f",
-    "env:start": "bin/start",
-    "env:stop": "bin/stop",
+    "env:logs": "bin/logs.sh",
+    "env:start": "bin/start.sh",
+    "env:stop": "bin/stop.sh",
     "format": "npm-run-all --parallel format:*",
     "format:css": "npm run lint:css -- --fix",
     "format:js": "wp-scripts format-js",
@@ -61,9 +61,9 @@
     "test:js:coveralls": "wp-scripts test-unit-js --coverage --coverageReporters=text-lcov | coveralls",
     "test:php": "composer test",
     "test:php:coverage": "composer test-coverage",
-    "xdebug:status": "bin/xdebug status",
-    "xdebug:on": "bin/xdebug on",
-    "xdebug:off": "bin/xdebug off"
+    "xdebug:status": "bin/xdebug.sh status",
+    "xdebug:on": "bin/xdebug.sh on",
+    "xdebug:off": "bin/xdebug.sh off"
   },
   "npmPackageJsonLintConfig": {
     "extends": "@wordpress/npm-package-json-lint-config",

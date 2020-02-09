@@ -2,15 +2,15 @@
 
 # NOTE: At the moment, this has only been confirmed to work with PHP 7
 
+source ./bin/includes.sh
+
 # Grab full name of wordpress container
 WORDPRESS_CONTAINER=$(docker ps | grep wordpress | awk '{print $1}')
 
-echo ""
-
 if [[ '' == $WORDPRESS_CONTAINER ]]; then
-	echo "The WordPress Docker container must be running!"
-	echo "Execute the following command:"
-	echo "  npm run env:start"
+	echo -e "$(error_message "The WordPress Docker container must be running!")"
+	echo -e "Execute the following command: $(action_format "npm run env:start")"
+	echo ""
 	exit 0
 fi
 
@@ -22,18 +22,22 @@ else
 fi
 
 xdebug_status () {
-    echo 'Xdebug Status'
+    printf "Getting Xdebug status ... "
 
     # If running on Windows, need to prepend with winpty :(
     if [[ ${OS_TYPE} == "MINGW" ]]; then
-        winpty docker exec -it ${WORDPRESS_CONTAINER} bash -c 'php -v'
+        STATUS=`winpty docker exec -it ${WORDPRESS_CONTAINER} bash -c 'php -v'`
     else
-        docker exec -it ${WORDPRESS_CONTAINER} bash -c 'php -v'
+        STATUS=`docker exec -it ${WORDPRESS_CONTAINER} bash -c 'php -v'`
     fi
+
+    printf "$(action_format "done")"
+   	echo ""
+    echo "$(action_format "$STATUS")"
 }
 
 xdebug_on () {
-    echo "Turning Xdebug On"
+    printf "Turning Xdebug ON ... ";
 
     # And uncomment line with xdebug extension, thus enabling it
     ON_CMD="sed -i 's/^;zend_extension=/zend_extension=/g' \
@@ -46,12 +50,14 @@ xdebug_on () {
         docker exec -it ${WORDPRESS_CONTAINER} bash -c "${ON_CMD}"
     fi
 
-    echo "Xdebug On"
+    printf "$(action_format "done")";
+   	echo ""
+
     container_restart
 }
 
 xdebug_off () {
-    echo "Turning Xdebug Off"
+    printf "Turning Xdebug OFF ... ";
 
     # Comment out xdebug extension line
     OFF_CMD="sed -i 's/^zend_extension=/;zend_extension=/g' /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini"
@@ -66,15 +72,16 @@ xdebug_off () {
         docker exec -it ${WORDPRESS_CONTAINER} bash -c "${OFF_CMD}"
     fi
 
-    echo "Xdebug Off"
+    printf "$(action_format "done")";
+   	echo ""
+
     container_restart
 }
 
 container_restart () {
-    echo "Restarting Container"
-
     # docker-compose restart wordpress
-    docker restart ${WORDPRESS_CONTAINER}
+    printf "Restarting container ... "; docker restart ${WORDPRESS_CONTAINER} >/dev/null; printf "$(action_format "done")";
+   	echo ""
 
     xdebug_status
 }
@@ -91,7 +98,7 @@ case $@ in
         ;;
     *)
         echo "Usage:"
-        echo "  bin/xdebug off|on|status"
+        echo "  $(action_format "bin/xdebug") ($(action_format "off")|$(action_format "on")|$(action_format "status"))"
 esac
 
 exit 0
