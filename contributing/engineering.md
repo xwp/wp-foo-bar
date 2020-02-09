@@ -69,12 +69,14 @@ Start the the Docker environment:
 npm run env:start
 ```
 
-_**Important**: You must execute this command before the `pre-commit` hook will work properly. This is because the unit tests depend on the MySQL database being initialized._
+_**Important**: You must execute this command before the `pre-commit` hook will work properly. This is because the unit tests depend on the MySQL database being initialized. The first time you run this command the Docker image needs to be built and could take several minutes to complete, so have patience young Padawan._
 
 If everything was successful, you'll see this on your screen:
 
 ```bash
-Welcome to ...
+Starting up containers ... done
+
+Welcome to:
   _____             ____             
  |  ___|__   ___   | __ )  __ _ _ __ 
  | |_ / _ \ / _ \  |  _ \ / _` | '__|

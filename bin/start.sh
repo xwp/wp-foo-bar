@@ -26,17 +26,23 @@ function is_wp_available() {
 	return 0
 }
 
+echo ""
+printf "Starting up containers ..."
+
 # Start the containers.
-docker-compose up -d
+docker-compose up -d 2>/dev/null
 
 # Check for WordPress.
 until is_wp_available; do
-	echo -e "$(warning_message "Waiting for WordPress to become available") $(action_format "...")"
+	printf "."
 	sleep 5
 done
 
+printf " $(action_format "done")"
+
 echo ""
-echo "$(action_format "Welcome to ...")"
+echo ""
+echo "Welcome to:"
 
 # From: http://patorjk.com/software/taag/#p=display&c=echo&f=Standard&t=Foo%20Bar
 echo "  _____             ____             ";

@@ -80,7 +80,11 @@ xdebug_off () {
 
 container_restart () {
     # docker-compose restart wordpress
-    printf "Restarting container ... "; docker restart ${WORDPRESS_CONTAINER} >/dev/null; printf "$(action_format "done")";
+    printf "Restarting container ... "
+
+    docker restart ${WORDPRESS_CONTAINER} >/dev/null
+
+    printf "$(action_format "done")";
    	echo ""
 
     xdebug_status
