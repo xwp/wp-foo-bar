@@ -35,6 +35,9 @@ until is_wp_available; do
    sleep 5
 done
 
+echo ""
+echo "$(action_format "Welcome to ...")"
+
 # From: http://patorjk.com/software/taag/#p=display&c=echo&f=Standard&t=Foo%20Bar
 echo "  _____             ____             ";
 echo " |  ___|__   ___   | __ )  __ _ _ __ ";

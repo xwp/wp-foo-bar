@@ -71,6 +71,20 @@ npm run env:start
 
 _**Important**: You must execute this command before the `pre-commit` hook will work properly. This is because the unit tests depend on the MySQL database being initialized._
 
+If everything was successful, you'll see this on your screen:
+
+```bash
+Welcome to ...
+  _____             ____             
+ |  ___|__   ___   | __ )  __ _ _ __ 
+ | |_ / _ \ / _ \  |  _ \ / _` | '__|
+ |  _| (_) | (_) | | |_) | (_| | |   
+ |_|  \___/ \___/  |____/ \__,_|_|   
+                                     
+Run npm run dev to build the latest version of the Foo Bar plugin,
+then open http://localhost:8088/ to get started!
+```
+
 Stop the Docker environment:
 
 ```bash
