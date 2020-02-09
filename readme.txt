@@ -41,7 +41,7 @@ An answer to that question.
 
 == Getting Started ==
 
-If you are a developer, we encourage you to [follow along](https://github.com/xwp/wp-foo-bar) or [contribute](https://github.com/xwp/wp-foo-bar/blob/develop/contributing.md) to the development of this plugin on GitHub.
+If you are a developer, we encourage you to [follow along](https://github.com/xwp/wp-foo-bar) or [contribute](https://github.com/xwp/wp-foo-bar/contributing.md) to the development of this plugin on GitHub.
 
 == Screenshots ==
 

@@ -17,7 +17,7 @@ function is_wp_available() {
 		else
 			return 1
 		fi
-    fi
+	fi
 
 	echo -e "$(error_message "The $(action_format "curl") command is not installed on your host machine.")"
 	echo -e "$(warning_message "Checking that WordPress has been installed has failed.")"
@@ -31,8 +31,8 @@ docker-compose up -d
 
 # Check for WordPress.
 until is_wp_available; do
-   echo -e "$(warning_message "Waiting for WordPress to become available") $(action_format "...")"
-   sleep 5
+	echo -e "$(warning_message "Waiting for WordPress to become available") $(action_format "...")"
+	sleep 5
 done
 
 echo ""
