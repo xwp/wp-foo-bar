@@ -2,3 +2,11 @@ DEFAULT_BASE_BRANCH=develop
 ASSETS_DIR=wp-assets
 README_MD_TITLE="Foo Bar Plugin for WordPress"
 CHECK_SCOPE=all
+
+function after_wp_install {
+	if [ "$TRAVIS" == true ]; then
+		npm run test:js:coverage
+	else
+		npm run test:js
+	fi
+}
