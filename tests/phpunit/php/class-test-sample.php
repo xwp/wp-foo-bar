@@ -49,7 +49,7 @@ class Test_Sample extends \WP_UnitTestCase {
 	 * @see Sample::sub_sample
 	 */
 	public function test_sub_sample() {
-		$sample = new Sample( new Plugin(), new SubSample() );
-		$this->assertEquals( 'Hello World', $sample->sub_sample->hello_world() );
+		$sample = new SubSample();
+		$this->assertEquals( 'Hello World', $sample->hello_world() );
 	}
 }
