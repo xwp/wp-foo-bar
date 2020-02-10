@@ -5,5 +5,6 @@ module.exports = {
 	plugins: [
 		'@wordpress/babel-plugin-import-jsx-pragma',
 		'@babel/transform-react-jsx',
+		'@babel/plugin-proposal-optional-chaining',
 	],
 };
