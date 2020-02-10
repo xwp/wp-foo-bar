@@ -62,11 +62,4 @@ class Sample {
 	public function body_class( $classes ) {
 		return array_merge( $classes, [ 'custom-class-name' ] );
 	}
-
-	/**
-	 * Get the SubSample instance.
-	 */ 
-	public function get_sub_sample() {
-		return $this->sub_sample;
-	}
 }

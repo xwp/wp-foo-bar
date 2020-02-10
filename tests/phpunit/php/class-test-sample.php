@@ -42,4 +42,14 @@ class Test_Sample extends \WP_UnitTestCase {
 	public function test_body_class() {
 		$this->assertEquals( [ 'custom-class-name' ], get_plugin_instance()->sample->body_class( [] ) );
 	}
+
+	/**
+	 * Test sub_sample property.
+	 *
+	 * @see Sample::sub_sample
+	 */
+	public function test_sub_sample() {
+		$sample = new Sample( new Plugin(), new SubSample() );
+		$this->assertEquals( 'Hello World', $sample->sub_sample->hello_world() );
+	}
 }
