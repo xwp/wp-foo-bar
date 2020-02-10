@@ -34,6 +34,7 @@
     "@wordpress/dom-ready": "2.7.0",
     "@wordpress/eslint-plugin": "3.4.1",
     "@wordpress/i18n": "3.9.0",
+    "@wordpress/postcss-themes": "2.2.0",
     "@wordpress/scripts": "7.0.1",
     "@wordpress/server-side-render": "1.7.0",
     "@wordpress/url": "2.10.0",
