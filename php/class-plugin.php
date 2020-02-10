@@ -7,6 +7,8 @@
 
 namespace FooBar;
 
+use FooBar\BarBaz\Sample as SubSample;
+
 /**
  * Main plugin bootstrap file.
  */
@@ -31,7 +33,7 @@ class Plugin extends Plugin_Base {
 	public function init() {
 		$this->config = apply_filters( 'foo_bar_plugin_config', $this->config, $this );
 
-		$this->sample = new Sample( $this );
+		$this->sample = new Sample( $this, new SubSample() );
 		$this->sample->init();
 	}
 

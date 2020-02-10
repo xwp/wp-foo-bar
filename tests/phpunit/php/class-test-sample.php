@@ -7,6 +7,8 @@
 
 namespace FooBar;
 
+use FooBar\BarBaz\Sample as SubSample;
+
 /**
  * Tests for Sample class.
  */
@@ -27,7 +29,7 @@ class Test_Sample extends \WP_UnitTestCase {
 	 * @see Sample::init()
 	 */
 	public function test_init() {
-		$sample = new Sample( new Plugin() );
+		$sample = new Sample( new Plugin(), new SubSample() );
 		$sample->init();
 		$this->assertEquals( 99, has_filter( 'body_class', [ $sample, 'body_class' ] ) );
 	}
