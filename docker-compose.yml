@@ -24,7 +24,7 @@ services:
     depends_on:
       - mysql
     ports:
-      - 8088:80
+      - ${WP_HTTP_PORT}:80
     volumes:
       - ./bin/local-dev/wordpress/html:/var/www/html
       - .:/var/www/html/wp-content/plugins/foo-bar
@@ -33,6 +33,7 @@ services:
       WORDPRESS_DEBUG: 1
       WORDPRESS_DB_USER: ${WP_DB_USER}
       WORDPRESS_DB_PASSWORD: ${WP_DB_PASSWORD}
+      WORDPRESS_HTTP_PORT: ${WP_HTTP_PORT}
 
   mailhog:
     image: mailhog/mailhog
