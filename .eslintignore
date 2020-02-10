@@ -3,5 +3,5 @@
 **/node_modules/**
 **/vendor/**
 **/assets/js/*.js
-!assets/js/admin.js
 build/*
+built/*
