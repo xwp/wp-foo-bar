@@ -5,7 +5,9 @@
  * @package FooBar
  */
 
-namespace FooBar;
+namespace FooBar\BazBar;
+
+use FooBar\Plugin;
 
 /**
  * Tests for Sample class.
@@ -18,7 +20,7 @@ class Test_Sample extends \WP_UnitTestCase {
 	 * @see Sample::__construct()
 	 */
 	public function test_construct() {
-		$this->assertInstanceOf( Sample::class, get_plugin_instance()->sample );
+		$this->assertInstanceOf( Sample::class, \FooBar\get_plugin_instance()->sample );
 	}
 
 	/**
@@ -38,6 +40,6 @@ class Test_Sample extends \WP_UnitTestCase {
 	 * @see Sample::body_class()
 	 */
 	public function test_body_class() {
-		$this->assertEquals( [ 'custom-class-name' ], get_plugin_instance()->sample->body_class( [] ) );
+		$this->assertEquals( [ 'custom-class-name' ], \FooBar\get_plugin_instance()->sample->body_class( [] ) );
 	}
 }
