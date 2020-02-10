@@ -9,38 +9,38 @@ source ./bin/includes.sh
 # Executes a request in the WordPress container.
 ##
 function is_wp_available() {
-	if command_exists "curl"; then
-        RESULT=`curl -w "%{redirect_url}" -o /dev/null -s localhost:8088`
+	RESULT=`curl -w "%{redirect_url}" -o /dev/null -s localhost:8088`
 
-        if [[ '' != "$RESULT" ]]; then
-			return 0
-		else
-			return 1
-		fi
+	if [[ '' != "$RESULT" ]]; then
+		return 0
+	else
+		return 1
 	fi
-
-	echo -e "$(error_message "The $(action_format "curl") command is not installed on your host machine.")"
-	echo -e "$(warning_message "Checking that WordPress has been installed has failed.")"
-	echo -e "$(warning_message "It could take a minute for the Database to become available.")"
-
-	return 0
 }
 
-echo ""
 printf "Starting up containers ..."
 
 # Start the containers.
 docker-compose up -d 2>/dev/null
 
-# Check for WordPress.
-until is_wp_available; do
-	printf "."
-	sleep 5
-done
+if ! command_exists "curl"; then
+	printf " $(action_format "unknown")"
+	echo ""
+	echo -e "$(error_message "The $(action_format "curl") command is not installed on your host machine.")"
+	echo -e "$(warning_message "Checking that WordPress has been installed has failed.")"
+	echo -e "$(warning_message "It could take a minute for the Database to become available.")"
+else
 
-printf " $(action_format "done")"
+	# Check for WordPress.
+	until is_wp_available; do
+		printf "."
+		sleep 5
+	done
 
-echo ""
+	printf " $(action_format "done")"
+	echo ""
+fi
+
 echo ""
 echo "Welcome to:"
 

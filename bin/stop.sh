@@ -2,7 +2,6 @@
 
 source ./bin/includes.sh
 
-echo ""
 printf "Shutting down containers ... "
 
 docker-compose down 2>/dev/null
