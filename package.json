@@ -37,7 +37,7 @@
     "@wordpress/scripts": "7.0.1",
     "@wordpress/server-side-render": "1.7.0",
     "@wordpress/url": "2.10.0",
-    "accessible-autocomplete": "1.6.2",
+    "accessible-autocomplete": "2.0.2",
     "autoprefixer": "9.7.4",
     "babel-eslint": "10.0.3",
     "babel-jest": "25.1.0",
