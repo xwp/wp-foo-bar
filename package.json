@@ -32,7 +32,7 @@
     "@wordpress/browserslist-config": "2.6.0",
     "@wordpress/dom": "2.8.0",
     "@wordpress/dom-ready": "2.7.0",
-    "@wordpress/eslint-plugin": "3.4.1",
+    "@wordpress/eslint-plugin": "4.0.0",
     "@wordpress/i18n": "3.9.0",
     "@wordpress/jest-preset-default": "5.3.1",
     "@wordpress/postcss-themes": "2.3.0",
