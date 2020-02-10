@@ -1,12 +1,13 @@
 module.exports = {
   verbose: true,
   collectCoverageFrom: [
-	"assets/js/admin.js",
-	"assets/src/*.js"
+	"assets/src/**",
+	"!**/polyfills/**"
   ],
   testPathIgnorePatterns: [
-	"/node_modules/",
-	"/vendor/",
-	"/bin/"
+	"/bin/",
+	"/build/",
+    "/node_modules/",
+	"/vendor/"
   ]
 };

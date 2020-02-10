@@ -47,6 +47,9 @@ module.exports = function( grunt ) {
 
 		// Clean up the build.
 		clean: {
+			compiled: {
+				src: [ 'assets/js/*.js', '!assets/js/admin.js', 'assets/js/*.asset.php' ],
+			},
 			build: {
 				src: [ 'build' ]
 			}
@@ -60,7 +63,10 @@ module.exports = function( grunt ) {
 			},
 			readme: {
 				command: './vendor/xwp/wp-dev-lib/scripts/generate-markdown-readme' // Generate the readme.md.
-			}
+			},
+			create_build_zip: {
+				command: 'if [ ! -e build ]; then echo "Run grunt build first."; exit 1; fi; if [ -e foo-bar.zip ]; then rm foo-bar.zip; fi; cd build; zip -r ../foo-bar.zip .; cd ..; echo; echo "ZIP of build: $(pwd)/foo-bar.zip"',
+			},
 		},
 
 		// Deploys a git Repo to the WordPress SVN repo.
@@ -94,6 +100,10 @@ module.exports = function( grunt ) {
 	grunt.registerTask( 'build', [
 		'readme',
 		'copy'
+	] );
+
+	grunt.registerTask( 'create-build-zip', [
+		'shell:create_build_zip',
 	] );
 
 	grunt.registerTask( 'deploy', [

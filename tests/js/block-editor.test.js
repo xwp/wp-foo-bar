@@ -1,4 +1,4 @@
-import { add } from '../../assets/src/editor';
+import { add } from '../../assets/src/block-editor/';
 
 describe( 'ensure setup works', () => {
 	it( 'should be equal when adding two numbers', () => {

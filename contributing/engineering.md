@@ -227,6 +227,16 @@ To run the full test suite, you can use the following command:
 npm run test:js
 ```
 
+## Creating a plugin build
+
+To create a build of the plugin for installing in WordPress as a ZIP package, run:
+
+```bash
+npm run build
+```
+
+This will create an `foo-bar.zip` in the plugin directory which you can install. The contents of this ZIP are also located in the `build` directory which you can `rsync` somewhere as well if needed.
+
 ## Creating a pre-release
 
 1. Create changelog draft on [Wiki page](https://github.com/xwp/wp-foo-bar/wiki/Release-Changelog-Draft).

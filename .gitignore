@@ -2,7 +2,13 @@
 .env
 .idea
 composer.lock
+foo-bar.zip
 package-lock.json
+assets/css/*
+!assets/css/src/
+assets/js/*.js
+assets/js/*.asset.php
+assets/js/*.map
 build/
 node_modules/
 tests/coverage
