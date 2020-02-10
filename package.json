@@ -97,7 +97,6 @@
     "env:logs": "bin/logs.sh",
     "env:start": "bin/start.sh",
     "env:stop": "bin/stop.sh",
-    "env:init": "docker-compose exec wordpress sh /var/www/html/wp-content/plugins/foo-bar/bin/wp-init.sh",
     "format": "npm-run-all --parallel format:*",
     "format:css": "npm run lint:css -- --fix",
     "format:js": "wp-scripts format-js",
