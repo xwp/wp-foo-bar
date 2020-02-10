@@ -4,9 +4,6 @@ module.exports = {
 		"assets/src/**",
 		"!assets/src/polyfills/**"
 	],
-	testMatch: [
-		"**/tests/**/?(*.)+(spec|test).[jt]s?(x)"
-	],
 	testPathIgnorePatterns: [
 		"bin/",
 		"build/",
