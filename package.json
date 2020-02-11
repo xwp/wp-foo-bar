@@ -94,7 +94,7 @@
     "build:run": "grunt build",
     "build:zip": "grunt create-build-zip",
     "dev": "wp-scripts start",
-    "docker": "docker-compose run --rm --workdir=/var/www/html/wp-content/plugins/foo-bar wordpress",
+    "docker": "docker-compose run --rm -u 1000 --workdir=/var/www/html/wp-content/plugins/foo-bar wordpress",
     "env:logs": "bin/logs.sh",
     "env:start": "bin/start.sh",
     "env:stop": "bin/stop.sh",
@@ -117,6 +117,7 @@
     "test:js:coveralls": "wp-scripts test-unit-js --coverage --coverageReporters=text-lcov | coveralls",
     "test:php": "composer test",
     "test:php:coverage": "composer test-coverage",
+    "wp": "composer wp",
     "xdebug:status": "bin/xdebug.sh status",
     "xdebug:on": "bin/xdebug.sh on",
     "xdebug:off": "bin/xdebug.sh off"
