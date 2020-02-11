@@ -39,8 +39,8 @@ Since you need a WordPress environment to run the plugin, the quickest way to ge
 Clone this project somewhere on your computer:
 
 ```bash
-git clone git@github.com:xwp/wp-foo-bar.git
-cd wp-foo-bar
+git clone git@github.com:xwp/wp-foo-bar.git foo-bar
+cd foo-bar
 ```
 
 Alternatively, you can use your own local WordPress environment and clone this repository right into your `wp-content/plugins` directory. However, the phpunit tests need Docker to be setup unless the environment can run them outside of the container.
@@ -51,8 +51,8 @@ Support for the following environments have been verified to work
 
 ```bash
 cd wp-content/plugins
-git clone git@github.com:xwp/wp-foo-bar.git
-cd wp-foo-bar
+git clone git@github.com:xwp/wp-foo-bar.git foo-bar
+cd foo-bar
 ```
 
 Setup the development tools using [Node.js](https://nodejs.org) and [Composer](https://getcomposer.org):
@@ -107,11 +107,19 @@ Build of the JavaScript files:
 npm run build:js
 ```
 
-Lastly, to get the plugin running in your WordPress install, activate the plugin via the WordPress dashboard, or the `wp-cli` if the following command is available:
+Lastly, to get the plugin running in your WordPress install, activate the plugin via the WordPress dashboard, or the following `wp-cli` command:
 
 ```bash
-wp plugin activate wp-foo-bar
+wp plugin activate foo-bar
 ```
+
+If running this from the including Docker environment:
+
+```bash
+npm run docker -- npm run wp plugin activate foo-bar
+```
+
+_This command assumes you went through the WordPress install process already_
 
 Visit [localhost:8025](http://localhost:8025) to check all emails sent by WordPress.
 

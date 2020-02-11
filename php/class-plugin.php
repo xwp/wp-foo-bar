@@ -7,6 +7,8 @@
 
 namespace FooBar;
 
+use FooBar\BazBar\Sample;
+
 /**
  * Main plugin bootstrap file.
  */

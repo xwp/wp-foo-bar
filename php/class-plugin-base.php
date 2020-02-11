@@ -113,23 +113,36 @@ abstract class Plugin_Base {
 			if ( ! preg_match( '/^(?P<namespace>.+)\\\\(?P<class>[^\\\\]+)$/', $class, $matches ) ) {
 				$matches = false;
 			}
+
 			$this->autoload_matches_cache[ $class ] = $matches;
 		} else {
 			$matches = $this->autoload_matches_cache[ $class ];
 		}
+
 		if ( empty( $matches ) ) {
 			return;
 		}
-		if ( $this->get_object_reflection()->getNamespaceName() !== $matches['namespace'] ) {
+
+		$namespace = $this->get_object_reflection()->getNamespaceName();
+
+		if ( strpos( $matches['namespace'], $namespace ) === false ) {
 			return;
 		}
-		$class_name = $matches['class'];
 
+		$class_name = $matches['class'];
 		$class_path = \trailingslashit( $this->dir_path );
+
 		if ( $this->autoload_class_dir ) {
 			$class_path .= \trailingslashit( $this->autoload_class_dir );
+
+			$sub_path = str_replace( $namespace . '\\', '', $matches['namespace'] );
+			if ( ! empty( $sub_path ) && 'FooBar' !== $sub_path ) {
+				$class_path .= str_replace( '\\-', '/', strtolower( preg_replace( '/(?<!^)([A-Z])/', '-\\1', $sub_path ) ) . '/' );
+			}
 		}
+
 		$class_path .= sprintf( 'class-%s.php', strtolower( str_replace( '_', '-', $class_name ) ) );
+
 		if ( is_readable( $class_path ) ) {
 			require_once $class_path;
 		}
