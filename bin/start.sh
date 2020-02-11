@@ -9,9 +9,9 @@ source ./bin/includes.sh
 # Executes a request in the WordPress container.
 ##
 function is_wp_available() {
-	RESULT=`curl -w "%{redirect_url}" -o /dev/null -s localhost:8088`
+	RESULT=`curl -w "%{http_code}" -o /dev/null -s localhost:8088`
 
-	if [[ '' != "$RESULT" ]]; then
+	if test "$RESULT" -ge 200 && test "$RESULT" -le 302; then
 		return 0
 	else
 		return 1
