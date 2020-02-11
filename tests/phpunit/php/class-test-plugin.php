@@ -7,6 +7,8 @@
 
 namespace FooBar;
 
+use FooBar\BazBar\Sample;
+
 /**
  * Tests for Plugin class.
  */

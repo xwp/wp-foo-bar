@@ -3,8 +3,8 @@
 module.exports = function( grunt ) {
 	'use strict';
 
+	// prettier-ignore
 	grunt.initConfig( {
-
 		// Build a deploy-able plugin.
 		copy: {
 			build: {
@@ -37,32 +37,36 @@ module.exports = function( grunt ) {
 					'!renovate.json',
 					'!tests/**',
 					'!vendor/**',
-					'!webpack.config.js'
+					'!webpack.config.js',
 				],
 				dest: 'build',
 				expand: true,
-				dot: true
-			}
+				dot: true,
+			},
 		},
 
 		// Clean up the build.
 		clean: {
 			compiled: {
-				src: [ 'assets/js/*.js', '!assets/js/admin.js', 'assets/js/*.asset.php' ],
+				src: [
+					'assets/js/*.js',
+					'!assets/js/admin.js',
+					'assets/js/*.asset.php',
+				],
 			},
 			build: {
-				src: [ 'build' ]
-			}
+				src: [ 'build' ],
+			},
 		},
 
 		// Shell actions.
 		shell: {
 			options: {
 				stdout: true,
-				stderr: true
+				stderr: true,
 			},
 			readme: {
-				command: './vendor/xwp/wp-dev-lib/scripts/generate-markdown-readme' // Generate the readme.md.
+				command: './vendor/xwp/wp-dev-lib/scripts/generate-markdown-readme', // Generate the readme.md.
 			},
 			create_build_zip: {
 				command: 'if [ ! -e build ]; then echo "Run grunt build first."; exit 1; fi; if [ -e foo-bar.zip ]; then rm foo-bar.zip; fi; cd build; zip -r ../foo-bar.zip .; cd ..; echo; echo "ZIP of build: $(pwd)/foo-bar.zip"',
@@ -75,11 +79,10 @@ module.exports = function( grunt ) {
 				options: {
 					plugin_slug: 'foo-bar',
 					build_dir: 'build',
-				  	assets_dir: 'wp-assets'
-				}
-			}
-		}
-
+				  	assets_dir: 'wp-assets',
+				},
+			},
+		},
 	} );
 
 	// Load tasks.
@@ -89,27 +92,13 @@ module.exports = function( grunt ) {
 	grunt.loadNpmTasks( 'grunt-wp-deploy' );
 
 	// Register tasks.
-	grunt.registerTask( 'default', [
-		'build'
-	] );
+	grunt.registerTask( 'default', [ 'build' ] );
 
-	grunt.registerTask( 'readme', [
-		'shell:readme'
-	] );
+	grunt.registerTask( 'readme', [ 'shell:readme' ] );
 
-	grunt.registerTask( 'build', [
-		'readme',
-		'copy'
-	] );
+	grunt.registerTask( 'build', [ 'readme', 'copy' ] );
 
-	grunt.registerTask( 'create-build-zip', [
-		'shell:create_build_zip',
-	] );
+	grunt.registerTask( 'create-build-zip', [ 'shell:create_build_zip' ] );
 
-	grunt.registerTask( 'deploy', [
-		'build',
-		'wp_deploy',
-		'clean'
-	] );
-
+	grunt.registerTask( 'deploy', [ 'build', 'wp_deploy', 'clean' ] );
 };

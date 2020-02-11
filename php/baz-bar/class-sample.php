@@ -5,7 +5,9 @@
  * @package FooBar
  */
 
-namespace FooBar;
+namespace FooBar\BazBar;
+
+use FooBar\Plugin;
 
 /**
  * Sample class.

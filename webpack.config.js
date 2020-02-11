@@ -13,7 +13,10 @@ const WebpackBar = require( 'webpackbar' );
  */
 const defaultConfig = require( '@wordpress/scripts/config/webpack.config' );
 const DependencyExtractionWebpackPlugin = require( '@wordpress/dependency-extraction-webpack-plugin' );
-const { defaultRequestToExternal, defaultRequestToHandle } = require( '@wordpress/dependency-extraction-webpack-plugin/util' );
+const {
+	defaultRequestToExternal,
+	defaultRequestToHandle,
+} = require( '@wordpress/dependency-extraction-webpack-plugin/util' );
 
 const sharedConfig = {
 	output: {
@@ -34,7 +37,7 @@ const sharedConfig = {
 				},
 				extractComments: false,
 			} ),
-			new OptimizeCSSAssetsPlugin( { } ),
+			new OptimizeCSSAssetsPlugin( {} ),
 		],
 	},
 };
@@ -43,7 +46,7 @@ const blockEditor = {
 	...defaultConfig,
 	...sharedConfig,
 	entry: {
-		'block-editor': './assets/src/block-editor/index.js'
+		'block-editor': './assets/src/block-editor/index.js',
 	},
 	module: {
 		...defaultConfig.module,
@@ -52,6 +55,7 @@ const blockEditor = {
 			{
 				test: /\.css$/,
 				use: [
+					// prettier-ignore
 					MiniCssExtractPlugin.loader,
 					'css-loader',
 					'postcss-loader',
@@ -112,7 +116,7 @@ const wpPolyfills = {
 	plugins: [
 		new DependencyExtractionWebpackPlugin( {
 			useDefaults: false,
-			requestToHandle: ( request ) => {
+			requestToHandle: request => {
 				switch ( request ) {
 					case '@wordpress/dom-ready':
 					case '@wordpress/i18n':
@@ -125,7 +129,7 @@ const wpPolyfills = {
 						return defaultRequestToHandle( request );
 				}
 			},
-			requestToExternal: ( request ) => {
+			requestToExternal: request => {
 				switch ( request ) {
 					case '@wordpress/dom-ready':
 					case '@wordpress/i18n':
@@ -154,8 +158,9 @@ const wpPolyfills = {
 };
 
 module.exports = [
+	// prettier-ignore
 	blockEditor,
 	classicEditor,
 	customizer,
-	wpPolyfills
+	wpPolyfills,
 ];
