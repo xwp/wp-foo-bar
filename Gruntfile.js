@@ -25,6 +25,7 @@ module.exports = function( grunt ) {
 					'!composer.lock',
 					'!contributing.md',
 					'!docker-compose.yml',
+					'!foo-bar.zip',
 					'!Gruntfile.js',
 					'!jest.config.js',
 					'!node_modules/**',
