@@ -82,7 +82,7 @@
     "terser-webpack-plugin": "2.3.4",
     "uuid": "3.4.0",
     "webpack": "4.41.6",
-    "webpack-cli": "3.3.10",
+    "webpack-cli": "3.3.11",
     "webpackbar": "4.0.0"
   },
   "scripts": {
