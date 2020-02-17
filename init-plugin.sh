@@ -17,8 +17,9 @@ echo "Hello, "$USER"."
 echo
 echo "This script will automatically generate a new plugin based on the scaffolding."
 echo "The way it works is you enter a plugin name like 'Hello World' and the script "
-echo "will create a directory 'hello-world' in the current working directory, while "
-echo "performing substitutions on the 'wp-foo-bar' scaffolding plugin."
+echo "will create a directory 'hello-world' in the current working directory, or one "
+echo "directory up if called from the plugin root, all while performing substitutions "
+echo "on the 'wp-foo-bar' scaffolding plugin."
 echo
 
 echo -n "Enter your plugin name and press [ENTER]: "
@@ -123,11 +124,7 @@ git commit -m "Initial commit"
 git remote add origin "git@github.com:$org_lower/$repo.git"
 
 # Install dependencies.
-if [[ -f package.json ]]; then
-    npm install
-else
-    composer install
-fi
+npm install
 
 if [[ "$push" == Y ]] || [[ "$push" == y ]]; then
     git push -u origin master
