@@ -34,6 +34,15 @@ function after_wp_install {
 	echo ""
 	vendor/wp-cli/wp-cli/bin/wp config create --dbname=wordpress_test --dbuser=root --dbpass=
 	vendor/wp-cli/wp-cli/bin/wp core install --path=/tmp/wordpress/src --url=localhost --title=WordPress --admin_user=admin --admin_password=password --admin_email=admin@example.com
+
+	# Check for WordPress.
+	until is_wp_available "localhost"; do
+		printf "."
+		sleep 1
+	done
+
+	printf " $(action_format "done")"
+
 	echo ""
 	if can_run_e2e "localhost"; then
 		npm run test:e2e:coveralls
