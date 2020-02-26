@@ -27,8 +27,12 @@ function run_tests {
 }
 
 function after_wp_install {
-	# @todo setup WordPress, this will fail right now.
 	if can_run_e2e "localhost"; then
+		echo ""
+		echo "@todo setup WordPress, this will fail right now."
+		echo ""
+		echo "## E2E tests"
 		npm run test:e2e:coveralls
+		echo ""
 	fi
 }
