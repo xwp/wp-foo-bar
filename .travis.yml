@@ -20,6 +20,8 @@ services:
   - mysql
 
 addons:
+  hosts:
+    - local.dev
   apt:
     packages:
       - libxml2-utils
