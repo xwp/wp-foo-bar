@@ -34,7 +34,7 @@ function after_wp_install {
 	echo ""
 	echo "@todo setup WordPress, this will fail right now."
 	echo ""
-	npm run wp -- option get siteurl
+	npm run wp -- core install --url=localhost --title=WordPress --admin_user=admin --admin_password=password --admin_email=admin@example.com
 	echo ""
 	if can_run_e2e "localhost"; then
 		npm run test:e2e:coveralls
