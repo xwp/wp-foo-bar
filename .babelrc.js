@@ -1,7 +1,5 @@
 module.exports = {
-	presets: [
-		'@wordpress/default',
-	],
+	presets: [ '@wordpress/default' ],
 	plugins: [
 		'@wordpress/babel-plugin-import-jsx-pragma',
 		'@babel/transform-react-jsx',

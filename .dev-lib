@@ -4,10 +4,31 @@ README_MD_TITLE="Foo Bar Plugin for WordPress"
 CHECK_SCOPE=all
 DOCKER_PHPUNIT_BIN=bin/phpunit.sh
 
+source ./bin/includes.sh
+
+function can_run_e2e() {
+	if command_exists "curl" && is_wp_available "$1"; then
+		return 0
+	fi
+
+	return 1
+}
+
 function run_tests {
 	if [ "$TRAVIS" == true ]; then
 		npm run test:js:coveralls
 	else
 		npm run test:js
+
+		if can_run_e2e "localhost:8088"; then
+        	npm run test:e2e
+        fi
+	fi
+}
+
+function after_wp_install {
+	# @todo setup WordPress, this will fail right now.
+	if can_run_e2e "localhost"; then
+		npm run test:e2e:coveralls
 	fi
 }
