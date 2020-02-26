@@ -50,7 +50,6 @@ before_script:
   # configure apache virtual hosts
   - sudo cp -f bin/local-dev/travis-ci/apache /etc/apache2/sites-available/000-default.conf
   - sudo service apache2 restart
-  - sudo service apache2 status
 
 script:
   - source "$DEV_LIB_PATH/travis.script.sh"

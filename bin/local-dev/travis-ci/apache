@@ -1,7 +1,7 @@
 <VirtualHost *:80>
-  DocumentRoot %WP_CORE_DIR%
+  DocumentRoot /tmp/wordpress/src
 
-  <Directory "%WP_CORE_DIR%/">
+  <Directory "/tmp/wordpress/src/">
     Options FollowSymLinks MultiViews ExecCGI
     AllowOverride All
     Require all granted

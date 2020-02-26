@@ -34,8 +34,7 @@ function after_wp_install {
     echo ""
     echo "@todo setup WordPress, this will fail right now."
     echo ""
-    cat /etc/apache2/sites-available/000-default.conf
-	if can_run_e2e "localhost:80"; then
+	if can_run_e2e "localhost"; then
 		npm run test:e2e:coveralls
 		echo ""
 	fi
