@@ -54,9 +54,6 @@
     ],
     "test-coverage": [
       "phpunit --coverage-html tests/coverage/html"
-    ],
-    "wp": [
-      "wp"
     ]
   },
   "extra": {

@@ -113,10 +113,10 @@ Lastly, to get the plugin running in your WordPress install, activate the plugin
 wp plugin activate foo-bar
 ```
 
-If running this from the including Docker environment:
+If running this from the included Docker environment:
 
 ```bash
-npm run docker -- npm run wp plugin activate foo-bar
+npm run wp -- wp plugin activate foo-bar
 ```
 
 _This command assumes you went through the WordPress install process already_
