@@ -127,7 +127,7 @@
     "test:js:coveralls": "wp-scripts test-unit-js --coverage --coverageReporters=text-lcov | coveralls",
     "test:php": "composer test",
     "test:php:coverage": "composer test-coverage",
-    "wp": "composer wp",
+    "wp": "docker-compose exec -u xfs cli",
     "xdebug:status": "bin/xdebug.sh status",
     "xdebug:on": "bin/xdebug.sh on",
     "xdebug:off": "bin/xdebug.sh off"
