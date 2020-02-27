@@ -60,12 +60,11 @@ jobs:
     - stage: test
       name: E2E tests with Docker (7.4, WordPress latest, with code coverage)
       php: "7.4"
-      env: PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=false
+      env: PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=
       before_script:
         - sudo service mysql stop
         - echo "Running E2E tests with code coverage ..."
       script:
-        - npm install
         - npm run build:js
         - npm run build:css
         - docker-compose build
@@ -81,7 +80,6 @@ jobs:
       before_script:
         - echo "Running PHP unit tests with code coverage ..."
       script:
-        - npm install
         - npm run build:js
         - npm run build:css
         - source "$DEV_LIB_PATH/travis.script.sh"
@@ -92,29 +90,9 @@ jobs:
       before_script:
         - echo "Running JS unit tests with code coverage ..."
       script:
-        - npm install
         - npm run build:js
         - npm run build:css
         - npm run test:js:coveralls
-
-    - name: E2E tests with Docker (7.4, WordPress latest, with code coverage)
-      php: "7.4"
-      env: PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=false
-      before_script:
-        - sudo service mysql stop
-        - echo "Running E2E tests with code coverage ..."
-      script:
-        - npm install
-        - npm run build:js
-        - npm run build:css
-        - docker-compose build
-        - docker-compose up -d
-        - wait 10
-        - npm run env:start
-        - npm run wp -- wp core install --title=WordPress --admin_user=admin --admin_password=password --admin_email=admin@example.com --skip-email --url=http://localhost:8088 --quiet
-        - npm run wp -- wp plugin activate foo-bar
-        - npm run test:e2e:coveralls
-        - npm run env:stop
 
     - name: PHP unit tests (7.3, WordPress latest)
       php: "7.3"
