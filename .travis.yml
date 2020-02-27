@@ -65,7 +65,6 @@ jobs:
         - sudo service mysql stop
         - echo "Running E2E tests with code coverage ..."
       script:
-        - docker-compose build
         - npm run env:start
         - npm run wp -- wp core install --title=WordPress --admin_user=admin --admin_password=password --admin_email=admin@example.com --skip-email --url=http://localhost:8088 --quiet
         - npm run wp -- wp plugin activate foo-bar
@@ -82,7 +81,6 @@ jobs:
         - npm run build:js
         - npm run build:css
         - source "$DEV_LIB_PATH/travis.script.sh"
-        - npm run test:js:coveralls
 
     - name: JavaScript unit tests (7.4, WordPress latest, with code coverage)
       php: "7.4"
