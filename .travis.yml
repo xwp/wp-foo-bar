@@ -11,11 +11,12 @@ notifications:
     on_success: never
     on_failure: change
 
+dist: trusty
+
 language: php
 
 services:
   - mysql
-  - xvfb
 
 addons:
   apt:
@@ -28,8 +29,6 @@ env:
     - PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 
 before_install:
-  - "sysctl kernel.unprivileged_userns_clone=1"
-  - "export DISPLAY=:99.0"
   - nvm install
   - nvm use
 
@@ -37,18 +36,6 @@ install:
   - npm install
   - export DEV_LIB_PATH=vendor/xwp/wp-dev-lib/scripts
   - source "$DEV_LIB_PATH/travis.install.sh"
-  - sudo apt-get update
-  - sudo apt-get install apache2 libapache2-mod-fastcgi
-  # enable php-fpm
-  - sudo cp ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf.default ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf
-  - sudo a2enmod rewrite actions fastcgi alias
-  - echo "cgi.fix_pathinfo = 1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
-  - sudo sed -i -e "s,www-data,travis,g" /etc/apache2/envvars
-  - sudo chown -R travis:travis /var/lib/apache2/fastcgi
-  - ~/.phpenv/versions/$(phpenv version-name)/sbin/php-fpm
-  # configure apache virtual hosts
-  - sudo cp -f bin/local-dev/travis-ci/apache /etc/apache2/sites-available/000-default.conf
-  - sudo service apache2 restart
 
 before_script:
   - phpenv config-rm xdebug.ini || echo "xdebug.ini does not exist."
@@ -65,7 +52,7 @@ jobs:
     - stage: lint
       name: Lint (PHP, JavaScript, and configuration files)
       php: "7.4"
-      env: WP_VERSION=latest DEV_LIB_ONLY=phpcs,xmllint,phpsyntax
+      env: WP_VERSION=latest DEV_LIB_ONLY=xmllint,phpsyntax
       script:
         - source "$DEV_LIB_PATH/travis.script.sh"
         - npm run lint
@@ -81,9 +68,28 @@ jobs:
     - name: PHP unit and E2E tests (7.4, WordPress latest)
       php: "7.4"
       env: WP_VERSION=latest DEV_LIB_SKIP=phpcs,eslint,xmllint,phpsyntax PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=
-      install:
+      before_install:
+        - "sysctl kernel.unprivileged_userns_clone=1"
+        - "export DISPLAY=:99.0"
+        - "sh -e /etc/init.d/xvfb start"
         - nvm install
+        - nvm use
+      install:
         - npm install
+        - export DEV_LIB_PATH=vendor/xwp/wp-dev-lib/scripts
+        - source "$DEV_LIB_PATH/travis.install.sh"
+        - sudo apt-get update
+        - sudo apt-get install apache2 libapache2-mod-fastcgi
+        # enable php-fpm
+        - sudo cp ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf.default ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf
+        - sudo a2enmod rewrite actions fastcgi alias
+        - echo "cgi.fix_pathinfo = 1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+        - sudo sed -i -e "s,www-data,travis,g" /etc/apache2/envvars
+        - sudo chown -R travis:travis /var/lib/apache2/fastcgi
+        - ~/.phpenv/versions/$(phpenv version-name)/sbin/php-fpm
+        # configure apache virtual hosts
+        - sudo cp -f bin/local-dev/travis-ci/apache /etc/apache2/sites-available/000-default.conf
+        - sudo service apache2 restart
       script:
         - source "$DEV_LIB_PATH/travis.script.sh"
         - vendor/wp-cli/wp-cli/bin/wp config create --dbname=wordpress_test --dbuser=root --dbpass=
