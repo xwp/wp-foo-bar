@@ -11,12 +11,10 @@ notifications:
     on_success: never
     on_failure: change
 
-dist: trusty
-
 language: php
 
 services:
-  - mysql
+  - docker
 
 addons:
   apt:
@@ -66,7 +64,7 @@ jobs:
 
     - name: PHP unit and E2E tests (7.4, WordPress latest)
       php: "7.4"
-      env: WP_VERSION=latest DEV_LIB_SKIP=phpcs,eslint,xmllint,phpsyntax PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=
+      env: WP_VERSION=5.3.2 DEV_LIB_SKIP=phpcs,eslint,xmllint,phpsyntax PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=
       script:
         - npm install
         - npm run build:js
