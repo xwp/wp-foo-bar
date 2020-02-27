@@ -24,9 +24,6 @@ module.exports = {
 		'<rootDir>/bin',
 		'<rootDir>/tests/coverage',
 	],
-	collectCoverageFrom: [
-		'<rootDir>/assets/src/**/*.js',
-		'!<rootDir>/assets/src/polyfills/**',
-	],
+	collectCoverageFrom: [ '<rootDir>/assets/src/**/*.js' ],
 	reporters: [ [ 'jest-silent-reporter', { useDots: true } ] ],
 };

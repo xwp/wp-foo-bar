@@ -132,6 +132,7 @@ async function runAxeTestsForBlockEditor() {
 			'label',
 			'link-name',
 			'listitem',
+			'page-has-heading-one',
 			'region',
 		],
 		exclude: [
