@@ -29,6 +29,7 @@
     "@babel/core": "7.8.4",
     "@babel/plugin-proposal-optional-chaining": "7.8.3",
     "@babel/polyfill": "7.8.3",
+    "@wordpress/editor": "9.12.2",
     "@wordpress/block-editor": "3.7.2",
     "@wordpress/browserslist-config": "2.6.0",
     "@wordpress/dom": "2.8.0",
