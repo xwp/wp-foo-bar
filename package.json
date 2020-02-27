@@ -119,7 +119,7 @@
     "test:e2e:help": "npm run test:e2e -- --help",
     "test:e2e:watch": "npm run test:e2e -- --watch",
     "test:e2e:interactive": "npm run test:e2e -- --puppeteer-interactive",
-    "test:e2e:ci": "WP_BASE_URL=http://localhost wp-scripts test-e2e --config=tests/e2e/jest.config.js -- --runInBand",
+    "test:e2e:ci": "WP_BASE_URL=http://localhost wp-scripts test-e2e --config=tests/e2e/jest.config.js --runInBand",
     "test:js": "wp-scripts test-unit-js tests/js",
     "test:js:help": "wp-scripts test-unit-js --help",
     "test:js:watch": "npm run test:js -- --watch",
