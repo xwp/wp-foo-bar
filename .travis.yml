@@ -71,6 +71,7 @@ jobs:
         - npm install
         - npm run build:js
         - npm run build:css
+        - docker-compose build
         - npm run env:start
         - npm run docker -- vendor/wp-cli/wp-cli/bin/wp core install --path=/bin/local-dev/wordpress/html --url=localhost:8088 --title=WordPress --admin_user=admin --admin_password=password --admin_email=admin@example.com
         - npm run test:e2e:coveralls
