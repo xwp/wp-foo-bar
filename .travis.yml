@@ -33,7 +33,6 @@ before_install:
   - nvm use
 
 install:
-  - npm install
   - export DEV_LIB_PATH=vendor/xwp/wp-dev-lib/scripts
   - source "$DEV_LIB_PATH/travis.install.sh"
 
@@ -53,6 +52,10 @@ jobs:
       name: Lint (PHP, JavaScript, and configuration files)
       php: "7.4"
       env: WP_VERSION=latest DEV_LIB_ONLY=xmllint,phpsyntax
+      install:
+        - npm install
+        - export DEV_LIB_PATH=vendor/xwp/wp-dev-lib/scripts
+        - source "$DEV_LIB_PATH/travis.install.sh"
       script:
         - source "$DEV_LIB_PATH/travis.script.sh"
         - npm run lint
@@ -61,6 +64,10 @@ jobs:
       name: JavaScript unit tests
       php: "7.4"
       env: WP_VERSION=latest DEV_LIB_SKIP=phpcs,eslint,xmllint,phpsyntax,phpunit
+      install:
+        - npm install
+        - export DEV_LIB_PATH=vendor/xwp/wp-dev-lib/scripts
+        - source "$DEV_LIB_PATH/travis.install.sh"
       script:
         - source "$DEV_LIB_PATH/travis.script.sh"
         - npm run test:js -- --ci --cacheDirectory="$HOME/.jest-cache"
@@ -91,7 +98,9 @@ jobs:
         - sudo cp -f bin/local-dev/travis-ci/apache /etc/apache2/sites-available/000-default.conf
         - sudo service apache2 restart
       script:
+        - TRAVIS_INITIAL_DIR=$(pwd)
         - source "$DEV_LIB_PATH/travis.script.sh"
+        - cd $TRAVIS_INITIAL_DIR
         - vendor/wp-cli/wp-cli/bin/wp config create --dbname=wordpress_test --dbuser=root --dbpass=
         - vendor/wp-cli/wp-cli/bin/wp core install --path=/tmp/wordpress/src --url=localhost --title=WordPress --admin_user=admin --admin_password=password --admin_email=admin@example.com
         - npm run build:js
@@ -129,6 +138,10 @@ jobs:
     - name: PHP and JavaScript unit tests (7.4, WordPress trunk, with code coverage)
       php: "7.3"
       env: WP_VERSION=latest DEV_LIB_ONLY=phpunit
+      install:
+        - npm install
+        - export DEV_LIB_PATH=vendor/xwp/wp-dev-lib/scripts
+        - source "$DEV_LIB_PATH/travis.install.sh"
       before_script:
         - echo "Running unit tests with code coverage..."
       script:
