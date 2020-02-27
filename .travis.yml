@@ -22,7 +22,6 @@ addons:
   apt:
     packages:
       - libxml2-utils
-      - libnss3
 
 env:
   global:
@@ -33,7 +32,7 @@ before_install:
   - nvm use
 
 install:
-  - composer install
+  - npm install
   - export DEV_LIB_PATH=vendor/xwp/wp-dev-lib/scripts
   - source "$DEV_LIB_PATH/travis.install.sh"
 
@@ -54,7 +53,6 @@ jobs:
       php: "7.4"
       env: WP_VERSION=latest DEV_LIB_ONLY=xmllint,phpsyntax
       script:
-        - npm install
         - source "$DEV_LIB_PATH/travis.script.sh"
         - npm run lint
 
@@ -63,40 +61,21 @@ jobs:
       php: "7.4"
       env: WP_VERSION=latest DEV_LIB_SKIP=phpcs,eslint,xmllint,phpsyntax,phpunit
       script:
-        - npm install
         - source "$DEV_LIB_PATH/travis.script.sh"
         - npm run test:js -- --ci --cacheDirectory="$HOME/.jest-cache"
 
     - name: PHP unit and E2E tests (7.4, WordPress latest)
       php: "7.4"
       env: WP_VERSION=latest DEV_LIB_SKIP=phpcs,eslint,xmllint,phpsyntax PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=
-      before_install:
-        - "sysctl kernel.unprivileged_userns_clone=1"
-        - "export DISPLAY=:99.0"
-        - "sh -e /etc/init.d/xvfb start"
-        - nvm install
-        - nvm use
-        - sudo apt-get update
-        - sudo apt-get install apache2 libapache2-mod-fastcgi
-        # enable php-fpm
-        - sudo cp ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf.default ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf
-        - sudo a2enmod rewrite actions fastcgi alias
-        - echo "cgi.fix_pathinfo = 1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
-        - sudo sed -i -e "s,www-data,travis,g" /etc/apache2/envvars
-        - sudo chown -R travis:travis /var/lib/apache2/fastcgi
-        - ~/.phpenv/versions/$(phpenv version-name)/sbin/php-fpm
-        # configure apache virtual hosts
-        - sudo cp -f bin/local-dev/travis-ci/apache /etc/apache2/sites-available/000-default.conf
-        - sudo service apache2 restart
       script:
         - npm install
-        - source "$DEV_LIB_PATH/travis.script.sh"
-        - cd "$WP_CORE_DIR/src/wp-content/plugins/$PROJECT_SLUG"
-        - vendor/wp-cli/wp-cli/bin/wp config create --dbname=wordpress_test --dbuser=root --dbpass=
-        - vendor/wp-cli/wp-cli/bin/wp core install --path=/tmp/wordpress/src --url=localhost --title=WordPress --admin_user=admin --admin_password=password --admin_email=admin@example.com
         - npm run build:js
         - npm run build:css
+        - npm run env:start
+        - npm run docker -- vendor/wp-cli/wp-cli/bin/wp core install --path=/bin/local-dev/wordpress/html --url=localhost:8088 --title=WordPress --admin_user=admin --admin_password=password --admin_email=admin@example.com
         - npm run test:e2e:coveralls
+        - npm run env:stop
+        - source "$DEV_LIB_PATH/travis.script.sh"
 
     - name: PHP unit tests (7.3, WordPress latest)
       php: "7.3"
