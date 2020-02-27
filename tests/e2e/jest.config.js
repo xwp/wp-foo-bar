@@ -1,4 +1,5 @@
 module.exports = {
+	verbose: true,
 	rootDir: '../../',
 	...require( '@wordpress/scripts/config/jest-e2e.config' ),
 	transform: {
@@ -17,13 +18,7 @@ module.exports = {
 		'<rootDir>/bin',
 		'<rootDir>/build',
 		'<rootDir>/tests/coverage',
-	],
-	coveragePathIgnorePatterns: [
-		'<rootDir>/node_modules',
-		'<rootDir>/build/',
-		'<rootDir>/bin',
-		'<rootDir>/tests/coverage',
+		'<rootDir>/vendor',
 	],
 	collectCoverageFrom: [ '<rootDir>/assets/src/**/*.js' ],
-	reporters: [ [ 'jest-silent-reporter', { useDots: true } ] ],
 };
