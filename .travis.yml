@@ -58,11 +58,11 @@ jobs:
         - npm run lint
 
     - stage: test
-      name: PHP and JavaScript unit tests (7.4, WordPress latest, with code coverage)
+      name: PHP unit tests (7.4, WordPress latest, with code coverage)
       php: "7.4"
       env: WP_VERSION=latest DEV_LIB_ONLY=phpunit
       before_script:
-        - echo "Running unit tests with code coverage ..."
+        - echo "Running PHP unit tests with code coverage ..."
       script:
         - npm install
         - npm run build:js
@@ -70,9 +70,22 @@ jobs:
         - source "$DEV_LIB_PATH/travis.script.sh"
         - npm run test:js:coveralls
 
+    - name: JavaScript unit tests (7.4, WordPress latest, with code coverage)
+      php: "7.4"
+      before_script:
+        - echo "Running JS unit tests with code coverage ..."
+      script:
+        - npm install
+        - npm run build:js
+        - npm run build:css
+        - npm run test:js:coveralls
+
     - name: E2E tests with Docker (7.4, WordPress latest, with code coverage)
       php: "7.4"
-      env: PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=
+      env: PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=false
+      before_script:
+        - sudo service mysql stop
+        - echo "Running E2E tests with code coverage ..."
       script:
         - npm install
         - npm run build:js
