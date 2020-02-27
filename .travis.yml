@@ -18,6 +18,7 @@ php:
 
 services:
   - mysql
+  - xvfb
 
 addons:
   apt:
@@ -32,7 +33,6 @@ env:
 before_install:
   - "sysctl kernel.unprivileged_userns_clone=1"
   - "export DISPLAY=:99.0"
-  - "sh -e /etc/init.d/xvfb start"
   - nvm install
   - nvm use
 
