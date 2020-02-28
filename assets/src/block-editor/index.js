@@ -1,10 +1,11 @@
-// Add the JS code to this file. On running npm run dev, it will compile to assets/js/.
+/* istanbul ignore file */
 
 /**
  * Internal dependencies
  */
-import './edit.css';
+import { registerBlocks } from './helpers';
 
-export function add( to, howMuch ) {
-	return to + howMuch;
-}
+/**
+ * Register the blocks.
+ */
+registerBlocks( require.context( './blocks', true, /(?<!test\/)index\.js$/ ) );

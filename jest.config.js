@@ -1,6 +1,12 @@
 module.exports = {
 	verbose: true,
+	testMatch: [ '**/?(*.)+(spec|test).[jt]s?(x)' ],
 	preset: '@wordpress/jest-preset-default',
-	collectCoverageFrom: [ 'assets/src/**/*.js', '!assets/src/polyfills/**' ],
-	testPathIgnorePatterns: [ '/node_modules/', '/vendor/', '/bin/' ],
+	collectCoverageFrom: [ 'assets/src/**/*.js' ],
+	testPathIgnorePatterns: [
+		'/node_modules/',
+		'/vendor/',
+		'/bin/',
+		'/tests/e2e/',
+	],
 };

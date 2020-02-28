@@ -42,9 +42,9 @@ class Plugin extends Plugin_Base {
 	 *
 	 * @action enqueue_block_editor_assets
 	 */
-	public function enqueue_editor_assets() {
+	public function enqueue_block_editor_assets() {
 		wp_enqueue_script(
-			'wp-foo-bar-js',
+			'wp-foo-bar-block-editor-js',
 			$this->asset_url( 'assets/js/block-editor.js' ),
 			[
 				'lodash',
@@ -53,6 +53,35 @@ class Plugin extends Plugin_Base {
 			],
 			$this->asset_version(),
 			false
+		);
+
+		wp_enqueue_style(
+			'wp-foo-bar-block-editor-css',
+			$this->asset_url( 'assets/css/block-editor-compiled.css' ),
+			[],
+			$this->asset_version()
+		);
+	}
+
+	/**
+	 * Enqueue front-end styles and scripts.
+	 *
+	 * @action wp_enqueue_scripts
+	 */
+	public function enqueue_front_end_assets() {
+		wp_enqueue_script(
+			'wp-foo-bar-front-end-js',
+			$this->asset_url( 'assets/js/front-end.js' ),
+			[],
+			$this->asset_version(),
+			true
+		);
+
+		wp_enqueue_style(
+			'wp-foo-bar-front-end-css',
+			$this->asset_url( 'assets/css/front-end-compiled.css' ),
+			[],
+			$this->asset_version()
 		);
 	}
 
