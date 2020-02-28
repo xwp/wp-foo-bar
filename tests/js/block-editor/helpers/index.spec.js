@@ -10,7 +10,7 @@ jest.mock( '@wordpress/blocks', () => {
 	};
 } );
 
-const data = {
+const blocks = {
 	biz: {
 		name: 'foo-bar/biz',
 		settings: {
@@ -27,10 +27,10 @@ const data = {
 
 const mockBlocks = {
 	'./blocks/biz/index.js': {
-		...data.biz,
+		...blocks.biz,
 	},
 	'./blocks/baz/index.js': {
-		...data.baz,
+		...blocks.baz,
 	},
 };
 
@@ -49,14 +49,14 @@ describe( 'helpers: registerBlocks', () => {
 
 		expect( mockRegisterBlockType ).toHaveBeenNthCalledWith(
 			1,
-			data.biz.name,
-			data.biz.settings
+			blocks.biz.name,
+			blocks.biz.settings
 		);
 
 		expect( mockRegisterBlockType ).toHaveBeenNthCalledWith(
 			2,
-			data.baz.name,
-			data.baz.settings
+			blocks.baz.name,
+			blocks.baz.settings
 		);
 	} );
 } );
