@@ -17,8 +17,7 @@ describe( 'Components render as expected', () => {
 		[ Save, 'Hello Website' ],
 	] )( 'has the proper tag and text', ( Component, text ) => {
 		render( <Component /> );
-		const expectedTagName = 'h2';
-		const tag = document.querySelector( expectedTagName );
+		const tag = document.querySelector( 'h2' );
 
 		expect( tag.textContent ).toStrictEqual( text );
 	} );
