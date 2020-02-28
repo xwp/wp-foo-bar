@@ -1,9 +1,9 @@
 // On running npm run dev, this will compile to assets/js/.
 
 /**
- * Internal dependencies
+ * WordPress dependencies
  */
-import { registerBlocks } from './helpers';
+import { registerBlockType } from '@wordpress/blocks';
 
 const blocksToRegister = require.context(
 	'./blocks',
@@ -11,4 +11,17 @@ const blocksToRegister = require.context(
 	/(?<!test\/)index\.js$/
 );
 
-registerBlocks( blocksToRegister );
+/**
+ * Registers
+ *
+ * @param {Object} blocks The blocks to register.
+ */
+export const registerBlocks = blocks => {
+	blocks.keys().forEach( modulePath => {
+		const { name, settings } = blocks( modulePath );
+
+		registerBlockType( name, settings );
+	} );
+};
+
+export default registerBlocks( blocksToRegister );
