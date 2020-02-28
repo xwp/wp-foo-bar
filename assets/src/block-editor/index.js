@@ -5,5 +5,10 @@
  */
 import { registerBlocks } from './helpers';
 
-const blocksToRegister = require.context( './blocks', true, /(?<!test\/)index\.js$/ );
+const blocksToRegister = require.context(
+	'./blocks',
+	true,
+	/(?<!test\/)index\.js$/
+);
+
 registerBlocks( blocksToRegister );

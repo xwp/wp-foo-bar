@@ -6,7 +6,10 @@ import { render } from '@testing-library/react';
 /**
  * Internal dependencies
  */
-import { Edit, Save } from '../../../../../assets/src/block-editor/blocks/hello-world/';
+import {
+	Edit,
+	Save,
+} from '../../../../../assets/src/block-editor/blocks/hello-world/';
 
 describe( 'Components render as expected', () => {
 	it.each( [
