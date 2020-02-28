@@ -1,7 +1,7 @@
 import { add } from '../../../assets/src/classic-editor/';
 
-describe( 'ensure setup works', () => {
-	it( 'should be equal when adding two numbers', () => {
+describe( 'demo: add', () => {
+	it( 'should equal the sum of two numbers', () => {
 		expect( add( 1, 2 ) ).toStrictEqual( 3 );
 	} );
 } );

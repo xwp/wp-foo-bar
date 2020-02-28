@@ -5,9 +5,9 @@ module.exports = {
 		'@babel/transform-react-jsx',
 		'@babel/plugin-proposal-optional-chaining',
 	],
-	"env": {
-		"test": {
-			"plugins": ["transform-require-context"]
-		}
-	}
+	env: {
+		test: {
+			plugins: [ 'transform-require-context' ],
+		},
+	},
 };

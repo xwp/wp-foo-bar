@@ -1,7 +1,7 @@
 /**
  * Internal dependencies
  */
-import { registerBlocks } from '../../../assets/src/block-editor/';
+import { registerBlocks } from '../../../../assets/src/block-editor/helpers';
 
 const mockRegisterBlockType = jest.fn();
 jest.mock( '@wordpress/blocks', () => {
@@ -10,14 +10,28 @@ jest.mock( '@wordpress/blocks', () => {
 	};
 } );
 
-const firstName = 'Foo';
-const firstSettings = { title: 'Foo' };
-const secondName = 'Baz';
-const secondSettings = { title: 'Baz' };
+const data = {
+	biz: {
+		name: 'foo-bar/biz',
+		settings: {
+			title: 'Biz',
+		},
+	},
+	baz: {
+		name: 'foo-bar/baz',
+		settings: {
+			title: 'Baz',
+		},
+	},
+};
 
 const mockBlocks = {
-	'blocks/foo/index.js': { name: firstName, settings: firstSettings },
-	'block/baz/index.js': { name: secondName, settings: secondSettings },
+	'./blocks/biz/index.js': {
+		...data.biz,
+	},
+	'./blocks/baz/index.js': {
+		...data.baz,
+	},
 };
 
 // Mocks the return value of the require.context() Webpack function.
@@ -29,20 +43,20 @@ mockBlocksToRegister.keys = () => {
 	return Object.keys( mockBlocks );
 };
 
-describe( 'registerBlocks', () => {
-	it( 'registers all of the expected blocks, with the expected arguments', () => {
+describe( 'helpers: registerBlocks', () => {
+	it( 'should register all of the expected blocks, with the expected arguments', () => {
 		registerBlocks( mockBlocksToRegister );
 
 		expect( mockRegisterBlockType ).toHaveBeenNthCalledWith(
 			1,
-			firstName,
-			firstSettings
+			data.biz.name,
+			data.biz.settings
 		);
 
 		expect( mockRegisterBlockType ).toHaveBeenNthCalledWith(
 			2,
-			secondName,
-			secondSettings
+			data.baz.name,
+			data.baz.settings
 		);
 	} );
 } );
