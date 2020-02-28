@@ -12,7 +12,7 @@ const blocksToRegister = require.context(
 );
 
 /**
- * Registers
+ * Registers the blocks with the proper settings.
  *
  * @param {Object} blocks The blocks to register.
  */
