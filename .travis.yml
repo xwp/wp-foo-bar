@@ -24,6 +24,12 @@ addons:
     packages:
       - libxml2-utils
 
+branches:
+  only:
+    - master
+    - develop
+    - /^\d+\.\d+$/
+
 env:
   global:
     - PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
@@ -58,6 +64,7 @@ jobs:
         - npm run lint
 
     - stage: test
+      if: branch = develop AND type = push
       name: E2E tests with Docker (7.4, WordPress latest)
       php: "7.4"
       env: PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=
@@ -72,6 +79,7 @@ jobs:
         - npm run test:e2e:ci
 
     - name: JavaScript unit tests (7.4, WordPress latest, with code coverage)
+      if: branch = develop AND type = push
       php: "7.4"
       before_script:
         - sudo service mysql stop
@@ -81,6 +89,7 @@ jobs:
         - npm run test:js:coveralls
 
     - name: PHP unit tests (7.4, WordPress latest, with code coverage)
+      if: branch = develop AND type = push
       php: "7.4"
       env: WP_VERSION=latest DEV_LIB_ONLY=phpunit,coverage
       before_script:
