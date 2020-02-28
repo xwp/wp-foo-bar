@@ -30,7 +30,7 @@ mockBlocksToRegister.keys = () => {
 };
 
 describe( 'registerBlocks', () => {
-	it( 'registers the blocks', () => {
+	it( 'registers all of the expected blocks, with the expected arguments', () => {
 		registerBlocks( mockBlocksToRegister );
 
 		expect( mockRegisterBlockType ).toHaveBeenNthCalledWith(
@@ -39,7 +39,7 @@ describe( 'registerBlocks', () => {
 			firstSettings
 		);
 
-		expect(mockRegisterBlockType).toHaveBeenNthCalledWith(
+		expect( mockRegisterBlockType ).toHaveBeenNthCalledWith(
 			2,
 			secondName,
 			secondSettings
