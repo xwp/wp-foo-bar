@@ -10,16 +10,17 @@ jest.mock( '@wordpress/blocks', () => {
 	};
 } );
 
+const firstName = 'Foo';
 const firstSettings = { title: 'Foo' };
-
+const secondName = 'Baz';
 const secondSettings = { title: 'Baz' };
 
 const mockBlocks = {
-	'blocks/foo/index.js': firstSettings,
-	'block/baz/index.js': secondSettings,
+	'blocks/foo/index.js': { name: firstName, settings: firstSettings },
+	'block/baz/index.js': { name: secondName, settings: secondSettings },
 };
 
-// Mocks the require.context() Webpack function.
+// Mocks the return value of the require.context() Webpack function.
 const mockBlocksToRegister = modulePath => {
 	return mockBlocks[ modulePath ];
 };
@@ -31,15 +32,16 @@ mockBlocksToRegister.keys = () => {
 describe( 'registerBlocks', () => {
 	it( 'registers the blocks', () => {
 		registerBlocks( mockBlocksToRegister );
+
 		expect( mockRegisterBlockType ).toHaveBeenNthCalledWith(
 			1,
-			'foo',
+			firstName,
 			firstSettings
 		);
 
-		expect( mockRegisterBlockType ).toHaveBeenNthCalledWith(
+		expect(mockRegisterBlockType).toHaveBeenNthCalledWith(
 			2,
-			'baz',
+			secondName,
 			secondSettings
 		);
 	} );

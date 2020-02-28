@@ -12,7 +12,7 @@ describe( 'Components render as expected', () => {
 	it.each( [
 		[ Edit, 'Hello Editor' ],
 		[ Save, 'Hello Website' ],
-	] )( 'Has the proper tag and text', ( Component, text ) => {
+	] )( 'has the proper tag and text', ( Component, text ) => {
 		render( <Component /> );
 		const expectedTagName = 'h2';
 		const tag = document.querySelector( expectedTagName );
