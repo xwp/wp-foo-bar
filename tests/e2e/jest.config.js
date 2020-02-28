@@ -18,6 +18,7 @@ module.exports = {
 		'<rootDir>/bin',
 		'<rootDir>/build',
 		'<rootDir>/tests/coverage',
+		'<rootDir>/tests/js',
 		'<rootDir>/vendor',
 	],
 	collectCoverageFrom: [ '<rootDir>/assets/src/**/*.js' ],

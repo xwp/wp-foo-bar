@@ -1,14 +1,11 @@
-// On running npm run dev, this will compile to assets/js/.
+/* istanbul ignore file */
 
 /**
- * WordPress dependencies
+ * Internal dependencies
  */
-import { registerBlockType } from '@wordpress/blocks';
+import { registerBlocks } from './helpers';
 
-const blocks = require.context( './blocks', true, /(?<!test\/)index\.js$/ );
-
-blocks.keys().forEach( modulePath => {
-	const { name, settings } = blocks( modulePath );
-
-	registerBlockType( name, settings );
-} );
+/**
+ * Register the blocks.
+ */
+registerBlocks( require.context( './blocks', true, /(?<!test\/)index\.js$/ ) );
