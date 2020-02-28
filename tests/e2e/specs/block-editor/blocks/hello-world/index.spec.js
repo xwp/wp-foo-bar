@@ -1,7 +1,11 @@
 /**
  * WordPress dependencies
  */
-import { createNewPost, insertBlock, publishPost } from '@wordpress/e2e-test-utils';
+import {
+	createNewPost,
+	insertBlock,
+	publishPost,
+} from '@wordpress/e2e-test-utils';
 
 /**
  * WordPress dependencies
@@ -38,7 +42,9 @@ describe( 'blocks: foo-bar/hello-world', () => {
 		await page.waitForSelector( '[data-type="foo-bar/hello-world"] h2' );
 		await publishPost();
 
-		await page.waitForSelector( '.post-publish-panel__postpublish-post-address input' );
+		await page.waitForSelector(
+			'.post-publish-panel__postpublish-post-address input'
+		);
 
 		const url = await page.$eval(
 			'.post-publish-panel__postpublish-post-address input',
