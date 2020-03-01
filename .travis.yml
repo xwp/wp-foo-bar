@@ -67,7 +67,10 @@ jobs:
     - stage: test
       name: E2E tests with Docker (7.4, WordPress latest)
       php: "7.4"
-      env: PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=
+      before_install:
+        - nvm install
+        - nvm use
+        - unset PUPPETEER_SKIP_CHROMIUM_DOWNLOAD
       before_script:
         - sudo service mysql stop
         - echo "Running E2E tests with code coverage ..."
