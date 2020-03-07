@@ -1,8 +1,8 @@
 {
-  "name": "xwp/wp-foo-bar",
+  "name": "foo-bar-org/wp-foo-bar",
   "type": "wordpress-plugin",
   "description": "Plugin Scaffolding for WordPress.",
-  "homepage": "https://github.com/xwp/wp-foo-bar",
+  "homepage": "https://github.com/foo-bar-org/wp-foo-bar",
   "license": "GPL-2.0-or-later",
   "minimum-stability": "dev",
   "prefer-stable": true,

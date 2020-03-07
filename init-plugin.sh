@@ -101,7 +101,7 @@ cd "$repo"
 git mv foo-bar.php "$slug.php"
 git mv tests/phpunit/class-test-foo-bar.php "tests/phpunit/class-test-$slug.php"
 
-git grep -lz "xwp" | xargs -0 sed -i '' -e "s/xwp/$org_lower/g"
+git grep -lz "foo-bar-org" | xargs -0 sed -i '' -e "s/foo-bar-org/$org_lower/g"
 git grep -lz "wp-foo-bar" | xargs -0 sed -i '' -e "s/wp-foo-bar/$repo/g"
 git grep -lz "Foo Bar" | xargs -0 sed -i '' -e "s/Foo Bar/$name/g"
 git grep -lz "foo-bar" | xargs -0 sed -i '' -e "s/foo-bar/$slug/g"
