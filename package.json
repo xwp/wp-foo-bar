@@ -9,13 +9,13 @@
     "wordpress",
     "wordpress-plugin"
   ],
-  "homepage": "https://github.com/foo-bar-org/wp-foo-bar#readme",
+  "homepage": "https://github.com/xwp/wp-foo-bar#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/foo-bar-org/wp-foo-bar.git"
+    "url": "git+https://github.com/xwp/wp-foo-bar.git"
   },
   "bugs": {
-    "url": "https://github.com/foo-bar-org/wp-foo-bar/issues"
+    "url": "https://github.com/xwp/wp-foo-bar/issues"
   },
   "engines": {
     "node": ">=10",

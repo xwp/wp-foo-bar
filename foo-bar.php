@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Foo Bar
- * Plugin URI: https://github.com/foo-bar-org/wp-foo-bar
+ * Plugin URI: https://github.com/xwp/wp-foo-bar
  * Description: WordPress plugin template for extending Gutenberg at XWP.
  * Version: 0.0.1
  * Author:  XWP
