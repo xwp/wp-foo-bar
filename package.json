@@ -43,7 +43,7 @@
     "@wordpress/server-side-render": "1.8.3",
     "@wordpress/url": "2.11.0",
     "accessible-autocomplete": "2.0.2",
-    "autoprefixer": "9.7.4",
+    "autoprefixer": "9.7.6",
     "babel-eslint": "10.1.0",
     "babel-jest": "25.1.0",
     "babel-loader": "8.0.6",
