@@ -45,7 +45,7 @@
     "accessible-autocomplete": "2.0.2",
     "autoprefixer": "9.7.4",
     "babel-eslint": "10.1.0",
-    "babel-jest": "25.1.0",
+    "babel-jest": "25.4.0",
     "babel-loader": "8.0.6",
     "babel-plugin-transform-require-context": "0.1.1",
     "browserslist": "4.9.1",
