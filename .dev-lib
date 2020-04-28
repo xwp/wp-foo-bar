@@ -21,6 +21,12 @@ function run_tests {
 		npm run lint
 
 		echo ""
+	fi
+}
+
+function run_after_tests {
+	if [ "$TRAVIS" != true ]; then
+		echo ""
 		echo "## JavaScript tests"
 		npm run test:js
 
