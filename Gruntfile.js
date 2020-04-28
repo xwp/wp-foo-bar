@@ -41,6 +41,7 @@ module.exports = function ( grunt ) {
 					'!tests/**',
 					'!vendor/**',
 					'!webpack.config.js',
+					'!wp-assets/**',
 				],
 				dest: 'build',
 				expand: true,
