@@ -24,7 +24,7 @@
   "dependencies": {},
   "devDependencies": {
     "@babel/cli": "7.8.4",
-    "@babel/core": "7.9.0",
+    "@babel/core": "7.9.6",
     "@babel/plugin-proposal-optional-chaining": "7.9.0",
     "@babel/polyfill": "7.8.7",
     "@testing-library/react": "10.0.3",
