@@ -70,8 +70,18 @@ else
 fi
 
 echo
-echo -n "Do you want to push the plugin to your GitHub repository? [Y/N]: "
-read push
+echo -n "Do you want to make the initial commit? [Y/N]: "
+read commit
+
+if [[ "$commit" == Y ]] || [[ "$commit" == y ]]; then
+	echo
+	echo -n "Do you want to push the plugin to your GitHub repository? [Y/N]: "
+	read push
+fi
+
+echo
+echo -n "Do you want to install the dependencies in the new plugin? [Y/N]: "
+read deps
 
 echo
 
@@ -102,6 +112,7 @@ git mv foo-bar.php "$slug.php"
 git mv tests/phpunit/class-test-foo-bar.php "tests/phpunit/class-test-$slug.php"
 
 git grep -lz "xwp/wp-foo-bar" | xargs -0 sed -i '' -e "s|xwp/wp-foo-bar|$org_lower/$repo|g"
+git grep -lz "wp-foo-bar" | xargs -0 sed -i '' -e "s/wp-foo-bar/$repo/g"
 git grep -lz "Foo Bar" | xargs -0 sed -i '' -e "s/Foo Bar/$name/g"
 git grep -lz "foo-bar" | xargs -0 sed -i '' -e "s/foo-bar/$slug/g"
 git grep -lz "foo_bar" | xargs -0 sed -i '' -e "s/foo_bar/$prefix/g"
@@ -119,18 +130,28 @@ rm -f package-lock.json
 # Setup Git.
 git init
 git add .
-git commit -m "Initial commit"
 git remote add origin "git@github.com:$org_lower/$repo.git"
 
 # Install dependencies.
-npm install
+if [[ "$deps" == Y ]] || [[ "$deps" == y ]]; then
+	npm install
+fi
 
-if [[ "$push" == Y ]] || [[ "$push" == y ]]; then
-    git push -u origin master
+# Commit and push change.
+if [[ "$commit" == Y ]] || [[ "$commit" == y ]]; then
+	git commit -m "Initial commit"
+
+	if [[ "$push" == Y ]] || [[ "$push" == y ]]; then
+    	git push -u origin master
+    else
+    	echo
+    	echo "Push changes to GitHub with the following command:"
+    	echo "cd $(pwd) && git push -u origin master"
+    fi
 else
     echo
-    echo "Push changes to GitHub with the following command:"
-    echo "cd $(pwd) && git push -u origin master"
+    echo "Commit and push changes to GitHub with the following command:"
+    echo "cd $(pwd) && git commit -m \"Initial commit\" && git push -u origin master"
 fi
 
 echo

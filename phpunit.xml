@@ -7,22 +7,17 @@
 	convertWarningsToExceptions="true"
 	>
 
-	<testsuites name="Foo Bar">
-		<testsuite>
+	<testsuites>
+		<testsuite name="Foo Bar">
 			<directory suffix=".php">./tests/phpunit/</directory>
 		</testsuite>
 	</testsuites>
 
 	<filter>
 		<whitelist processUncoveredFilesFromWhitelist="false">
-			<directory suffix=".php">./</directory>
-			<exclude>
-				<directory suffix=".php">./assets</directory>
-				<directory suffix=".php">./bin</directory>
-				<directory suffix=".php">./node_modules</directory>
-				<directory suffix=".php">./tests</directory>
-				<directory suffix=".php">./vendor</directory>
-			</exclude>
+			<directory suffix=".php">./php</directory>
+			<file>foo-bar.php</file>
+			<file>instance.php</file>
 		</whitelist>
 	</filter>
 </phpunit>

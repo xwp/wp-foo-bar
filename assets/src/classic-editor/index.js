@@ -1,3 +1,3 @@
-export function add( to, howMuch ) {
-	return to + howMuch;
+export function add( a, b ) {
+	return a + b;
 }
