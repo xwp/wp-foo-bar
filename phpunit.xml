@@ -7,8 +7,8 @@
 	convertWarningsToExceptions="true"
 	>
 
-	<testsuites name="Foo Bar">
-		<testsuite>
+	<testsuites>
+		<testsuite name="Foo Bar">
 			<directory suffix=".php">./tests/phpunit/</directory>
 		</testsuite>
 	</testsuites>
