@@ -9,8 +9,8 @@ const istanbulCoverage = require( 'istanbul-lib-coverage' );
 const args = require( 'minimist' )( process.argv.slice( 2 ) );
 
 /* [ Configuration ] */
-const rootDir = './tests/coverage';
-const reportOut = './tests/coverage/js-e2e';
+const rootDir = './coverage';
+const reportOut = './coverage/js-e2e';
 
 const mergeAllReports = ( coverageMap, reports ) => {
 	if ( Array.isArray( reports ) === false ) {
@@ -50,7 +50,7 @@ const generateReport = ( coverageMap, type ) => {
 async function main() {
 	const coverageMap = istanbulCoverage.createCoverageMap( {} );
 
-	const reports = [ rootDir + '/e2e/coverage-puppeteer-istanbul.json' ];
+	const reports = [ rootDir + '/e2e/coverage-final.json' ];
 
 	if ( false !== args.js ) {
 		reports.push( rootDir + '/js/coverage-final.json' );

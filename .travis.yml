@@ -30,6 +30,10 @@ branches:
     - develop
     - /^\d+\.\d+$/
 
+env:
+  global:
+    - COVERALLS_PARALLEL=true
+
 before_install:
   - nvm install
   - nvm use

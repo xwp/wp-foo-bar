@@ -53,7 +53,7 @@
       "phpunit"
     ],
     "test-coverage": [
-      "phpunit --coverage-html tests/coverage/html"
+      "phpunit --coverage-html tests/coverage/phpunit"
     ]
   },
   "extra": {
