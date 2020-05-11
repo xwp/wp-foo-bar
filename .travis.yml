@@ -14,7 +14,7 @@ notifications:
 
 language: php
 
-dist: trusty
+dist: xenial
 
 services:
   - mysql
