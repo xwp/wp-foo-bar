@@ -80,6 +80,8 @@ jobs:
         - npm run wp -- wp plugin activate foo-bar
         - npm run build:js
         - npm run test:e2e:coveralls
+      after_script:
+        - echo "E2E tests complete"
 
     - name: JS unit tests (7.4, WordPress latest, with code coverage)
       php: "7.4"
@@ -92,6 +94,8 @@ jobs:
       script:
         - npm run build:js
         - npm run test:js:coveralls
+      after_script:
+        - echo "JS unit tests complete"
 
     - name: PHP unit tests (7.4, WordPress latest, with code coverage)
       php: "7.4"
