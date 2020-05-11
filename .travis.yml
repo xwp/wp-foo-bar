@@ -67,7 +67,7 @@ jobs:
     - stage: test
       name: E2E tests with Docker (7.4, WordPress latest, with code coverage)
       php: "7.4"
-      env: NODE_ENV=teste2e
+      env: NODE_ENV=e2e
       before_script:
         - sudo service mysql stop
         - echo "Running E2E tests with code coverage ..."

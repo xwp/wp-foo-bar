@@ -9,7 +9,7 @@ module.exports = {
 		test: {
 			plugins: [ 'transform-require-context' ],
 		},
-		teste2e: {
+		e2e: {
 			plugins: [ 'istanbul' ],
 		},
 		development: {
