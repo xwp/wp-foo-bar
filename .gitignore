@@ -1,7 +1,6 @@
 .DS_Store
 .env
 .idea
-composer.lock
 foo-bar.zip
 assets/css/*
 !assets/css/src/
