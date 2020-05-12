@@ -9,7 +9,8 @@
   "config": {
     "sort-packages": true,
     "platform": {
-      "php": "7.4.2"
+      "php": "7.4.2",
+      "ext-filter": "7.1"
     }
   },
   "require": {
