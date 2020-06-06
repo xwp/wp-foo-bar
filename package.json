@@ -27,7 +27,7 @@
     "@babel/core": "7.10.2",
     "@babel/plugin-proposal-optional-chaining": "7.10.1",
     "@babel/polyfill": "7.10.1",
-    "@testing-library/react": "10.0.4",
+    "@testing-library/react": "10.2.1",
     "@wordpress/block-editor": "3.11.0",
     "@wordpress/blocks": "6.16.0",
     "@wordpress/browserslist-config": "2.6.0",
