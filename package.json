@@ -86,7 +86,7 @@
     "postcss-nested": "4.2.1",
     "postcss-preset-env": "6.7.0",
     "prettier": "npm:wp-prettier@^2.0.4",
-    "puppeteer": "npm:puppeteer-core@3.0.0",
+    "puppeteer": "npm:puppeteer-core@4.0.1",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "rtlcss": "2.5.0",
