@@ -53,7 +53,7 @@
     "browserslist": "4.13.0",
     "coveralls": "3.1.0",
     "cross-env": "7.0.2",
-    "css-loader": "3.6.0",
+    "css-loader": "4.3.0",
     "cssnano": "4.1.10",
     "dotenv": "8.2.0",
     "eslint": "7.4.0",
