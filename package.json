@@ -68,7 +68,7 @@
     "grunt-contrib-clean": "2.0.0",
     "grunt-contrib-copy": "1.0.0",
     "grunt-shell": "3.0.1",
-    "grunt-wp-deploy": "2.0.0",
+    "grunt-wp-deploy": "2.1.2",
     "istanbul-lib-coverage": "3.0.0",
     "istanbul-lib-report": "3.0.0",
     "istanbul-reports": "3.0.2",
