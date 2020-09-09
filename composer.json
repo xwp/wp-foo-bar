@@ -21,7 +21,7 @@
     "dealerdirect/phpcodesniffer-composer-installer": "@stable",
     "php-coveralls/php-coveralls": "^2.2.0",
     "phpcompatibility/phpcompatibility-wp": "@stable",
-    "phpunit/phpcov": "^5.0",
+    "phpunit/phpcov": "^8.0",
     "phpunit/phpunit": "^7",
     "slowprog/composer-copy-file": "@stable",
     "wp-coding-standards/wpcs": "@stable",
