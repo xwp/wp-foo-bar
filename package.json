@@ -97,7 +97,7 @@
     "terser-webpack-plugin": "^4.0.0",
     "typescript": "4.0.3",
     "webpack": "4.44.2",
-    "webpack-cli": "3.3.12",
+    "webpack-cli": "4.0.0",
     "webpackbar": "4.0.0"
   },
   "scripts": {
