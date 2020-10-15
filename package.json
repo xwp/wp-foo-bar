@@ -40,7 +40,7 @@
     "@wordpress/jest-puppeteer-axe": "1.10.0",
     "@wordpress/postcss-themes": "2.6.0",
     "@wordpress/scripts": "9.1.0",
-    "@wordpress/server-side-render": "1.18.0",
+    "@wordpress/server-side-render": "1.18.1",
     "@wordpress/url": "2.19.0",
     "accessible-autocomplete": "2.0.3",
     "acorn": "^8.0.0",
