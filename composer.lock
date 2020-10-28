@@ -3254,16 +3254,16 @@
         },
         {
             "name": "xwp/wordpress-tests-installer",
-            "version": "1.0.2",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/xwp/wordpress-tests-installer.git",
-                "reference": "9ca3aa597430f2c71d18e325d9cea1f657a93d4e"
+                "reference": "9cdfe37885202fefec0dcb4ee10f1eb25bae2e9f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/xwp/wordpress-tests-installer/zipball/9ca3aa597430f2c71d18e325d9cea1f657a93d4e",
-                "reference": "9ca3aa597430f2c71d18e325d9cea1f657a93d4e",
+                "url": "https://api.github.com/repos/xwp/wordpress-tests-installer/zipball/9cdfe37885202fefec0dcb4ee10f1eb25bae2e9f",
+                "reference": "9cdfe37885202fefec0dcb4ee10f1eb25bae2e9f",
                 "shasum": ""
             },
             "require": {
