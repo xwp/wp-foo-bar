@@ -15,6 +15,22 @@ The [Definition][definition] project board covers the pipeline which issues go t
 * Review
 * Estimate
 
+#### Setup
+
+* Click the `Project` tab from the GitHub repository.
+* Click the `Create a Project` button.
+* Set `Definition` as the Project board name and select the `None` template.
+
+Create these columns with automation:
+* Revisit Later (None)
+* Prioritization (To do)
+    * Move issues here when... Newly added
+    * Move issues here when... Reopened
+* Acceptance Criteria (In progress)
+* Implementation Brief (In progress)
+* Review (In progress)
+* Estimate (In progress)
+
 ### Execution project board
 
 The [Execution][execution] project board covers the execution pipeline which issues go through for implementation. The board contains the following columns:
@@ -29,13 +45,36 @@ The [Execution][execution] project board covers the execution pipeline which iss
 * Approval
 * Done
 
-## Labels
+#### Setup
+
+* Click the `Project` tab from the GitHub repository.
+* Click the `New project`.
+* Set `Execution` as the Project board name and select the `None` template.
+
+Create these columns with automation:
+* Blocked (None)
+* Backlog (To do)
+    * Move issues here when... Reopened
+    * Move pull requests here when... Reopened
+* To Do (To do)
+* In Progress (In progress)
+    * Move pull requests here when... Newly added
+* Code Review (In progress)
+    * Move pull requests here when... Pending approval by reviewer
+* QA (In progress)
+    * Move pull requests here when... Approved by reviewer
+* Demo (In progress)
+* Approval (In progress)
+* Done (Done)
+    * Move issues here when... Closed
+    * Move pull requests here when... Closed with unmerged commits
+
 
 The labels below are utilized to categorize issues:
 
-* Type: `{type}` = the issue type (ex. `Type: Bug`, `Type: Feature`, `Type: Support`)
-* P`{priority}` = the priority of the task (ex. `P1`, `P2`, `P3`)
-* Size: `{size`} = the issue size (ex. `S`, `M`, `L`)
+* Type: `{type}` = the issue type (ex. `Type: Bug`, `Type: Enhancement`, `Type: Feature`, `Type: Taks`)
+* P`{priority}` = the priority of the task (ex. `P0`, `P1`, `P2`, `P3`, `P4`, `P5`)
+* S`{size}` = the issue size (ex. `S1`, `S2`, `S3`, `S5`, `S8`, `S13`, `S21`)
 * Sprint: `{sprint_number`} = the sprint associated to the issue (ex. `Sprint: 1`, `Sprint: 2`, `Sprint: 3`)
 
 ## Life of an issue

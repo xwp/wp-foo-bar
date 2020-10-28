@@ -3,6 +3,7 @@ ASSETS_DIR=wp-assets
 README_MD_TITLE="Foo Bar Plugin for WordPress"
 CHECK_SCOPE=all
 DOCKER_PHPUNIT_BIN=bin/phpunit.sh
+TRAVIS_CI_COM_URL=true
 BADGE_FURY_URL=https://badge.fury.io/gh/xwp%2Fwp-foo-bar
 
 source ./bin/includes.sh
