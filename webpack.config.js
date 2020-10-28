@@ -39,7 +39,9 @@ const sharedConfig = {
 		...defaultConfig.module,
 		rules: [
 			// Remove the css/postcss loaders from `@wordpress/scripts` due to version conflicts.
-			...defaultConfig.module.rules.filter( rule => ! rule.test.toString().match( '.css' ) ),
+			...defaultConfig.module.rules.filter(
+				rule => ! rule.test.toString().match( '.css' )
+			),
 			{
 				test: /\.css$/,
 				use: [
@@ -53,7 +55,12 @@ const sharedConfig = {
 	},
 	plugins: [
 		// Remove the CleanWebpackPlugin and  FixStyleWebpackPlugin plugins from `@wordpress/scripts` due to version conflicts.
-		...defaultConfig.plugins.filter( plugin => ! [ 'CleanWebpackPlugin', 'FixStyleWebpackPlugin' ].includes( plugin.constructor.name ) ),
+		...defaultConfig.plugins.filter(
+			plugin =>
+				! [ 'CleanWebpackPlugin', 'FixStyleWebpackPlugin' ].includes(
+					plugin.constructor.name
+				)
+		),
 		new MiniCssExtractPlugin( {
 			filename: '../css/[name]-compiled.css',
 		} ),
