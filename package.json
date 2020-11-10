@@ -47,7 +47,7 @@
     "autoprefixer": "10.0.1",
     "babel-eslint": "10.1.0",
     "babel-jest": "26.6.3",
-    "babel-loader": "8.1.0",
+    "babel-loader": "8.2.1",
     "babel-plugin-istanbul": "6.0.0",
     "babel-plugin-transform-require-context": "0.1.1",
     "browserslist": "4.14.7",
