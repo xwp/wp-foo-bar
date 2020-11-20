@@ -82,7 +82,7 @@
     "postcss": "8.1.8",
     "postcss-color-function": "4.1.0",
     "postcss-import": "13.0.0",
-    "postcss-loader": "4.0.4",
+    "postcss-loader": "4.1.0",
     "postcss-nested": "4.2.3",
     "postcss-preset-env": "6.7.0",
     "prettier": "npm:wp-prettier@^2.0.4",
