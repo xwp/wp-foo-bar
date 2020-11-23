@@ -23,9 +23,9 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@babel/cli": "7.12.1",
-    "@babel/core": "7.12.3",
-    "@babel/plugin-proposal-optional-chaining": "7.12.1",
+    "@babel/cli": "7.12.7",
+    "@babel/core": "7.12.7",
+    "@babel/plugin-proposal-optional-chaining": "7.12.7",
     "@babel/polyfill": "7.12.1",
     "@testing-library/react": "11.2.1",
     "@wordpress/block-editor": "5.1.3",
