@@ -89,7 +89,7 @@
     "puppeteer": "npm:puppeteer-core@3.0.0",
     "react": "17.0.1",
     "react-dom": "17.0.1",
-    "rtlcss": "2.6.1",
+    "rtlcss": "2.6.2",
     "rtlcss-webpack-plugin": "4.0.4",
     "semver": "7.3.2",
     "source-map-loader": "1.1.2",
