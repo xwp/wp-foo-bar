@@ -90,5 +90,5 @@ RUN curl -s https://getcomposer.org/installer | php \
 COPY config/php/* /usr/local/etc/php/conf.d/
 
 # Setup xdebug.
-RUN pecl install xdebug; \
+RUN pecl install xdebug-2.9.8; \
 	docker-php-ext-enable xdebug;
