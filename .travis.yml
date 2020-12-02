@@ -97,7 +97,7 @@ jobs:
       after_script:
         - echo "JS unit tests complete"
 
-    - name: PHP unit tests (7.4, WordPress latest, with code coverage)
+    - name: PHP unit tests (7.1, WordPress latest, with code coverage)
       php: "7.1"
       env: WP_VERSION=latest DEV_LIB_ONLY=phpunit,coverage
       before_script:
