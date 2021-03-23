@@ -4,7 +4,7 @@ on: [push]
 
 jobs:
   lint:
-
+    name: 'Lint'
     runs-on: ubuntu-latest
 
     steps:
@@ -15,3 +15,24 @@ jobs:
         node-version: '14'
     - run: npm ci
     - run: npm run lint
+
+  test_e2e_latest_coverage:
+    name: 'E2E tests (PHP 7.4, WordPress latest, with code coverage)'
+    runs-on: ubuntu-latest
+
+    env:
+      NODE_ENV: e2e
+      WP_VERSION: latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: '14'
+    - run: npm ci
+    - run: npm run env:start
+    - run: npm run wp -- wp core install --title=WordPress --admin_user=admin --admin_password=password --admin_email=admin@example.com --skip-email --url=http://localhost:8088 --quiet
+    - run: npm run wp -- wp plugin activate foo-bar
+    - run: npm run build:js
+    - run: npm run test:e2e:coveralls
