@@ -4,6 +4,7 @@ on: [push]
 
 env:
   DEV_LIB_PATH: vendor/xwp/wp-dev-lib/scripts
+  DIFF_HEAD: HEAD
 
 jobs:
   lint:
@@ -45,6 +46,10 @@ jobs:
     needs: [lint]
     name: 'PHP tests (PHP 7.4, WordPress latest, with code coverage)'
     runs-on: ubuntu-latest
+
+    env:
+      WP_VERSION: latest
+      DEV_LIB_ONLY: phpunit,coverage
 
     steps:
     - uses: actions/checkout@v2
