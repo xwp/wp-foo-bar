@@ -17,6 +17,7 @@ jobs:
     - run: npm run lint
 
   test_e2e_latest_coverage:
+    needs: [lint]
     name: 'E2E tests (PHP 7.4, WordPress latest, with code coverage)'
     runs-on: ubuntu-latest
 
