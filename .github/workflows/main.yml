@@ -53,5 +53,6 @@ jobs:
       with:
         php-version: '7.4'
         tools: phpunit
+    - run: composer install
     - run: source "$DEV_LIB_PATH/travis.install.sh"
     - run: source "$DEV_LIB_PATH/travis.script.sh"
