@@ -12,8 +12,7 @@ use FooBar\BazBar\Sample;
 /**
  * Main plugin bootstrap file.
  */
-class Plugin extends Plugin_Base
-{
+class Plugin extends Plugin_Base {
 
 	/**
 	 * Sample class.
