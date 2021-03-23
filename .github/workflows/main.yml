@@ -2,6 +2,9 @@ name: Lint and Test
 
 on: [push]
 
+env:
+  DEV_LIB_PATH: vendor/xwp/wp-dev-lib/scripts
+
 jobs:
   lint:
     name: 'Lint'
@@ -37,3 +40,18 @@ jobs:
     - run: npm run wp -- wp plugin activate foo-bar
     - run: npm run build:js
     - run: npm run test:e2e:coveralls
+
+  test_php_latest_coverage:
+    needs: [lint]
+    name: 'PHP tests (PHP 7.4, WordPress latest, with code coverage)'
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup PHP 7.4
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '7.4'
+        tools: phpunit
+    - run: source "$DEV_LIB_PATH/travis.install.sh"
+    - run: source "$DEV_LIB_PATH/travis.script.sh"
