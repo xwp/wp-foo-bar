@@ -225,4 +225,4 @@ install_test_suite
 install_db
 sync_project_dir
 
-composer test
+composer test-coverage-clover
