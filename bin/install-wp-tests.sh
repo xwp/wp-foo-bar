@@ -187,8 +187,8 @@ sync_project_dir() {
 		mkdir -p "$INSTALL_PATH"
 		rsync -a $(verbose_arg) --exclude .git/hooks --delete "$PROJECT_DIR/" "$INSTALL_PATH/"
 
+		cd "$INSTALL_PATH"
 		echo "Location: $INSTALL_PATH"
-		export INSTALL_PATH
 	elif [ "$PROJECT_TYPE" == theme ]; then
 		INSTALL_PATH="$WP_CORE_DIR/wp-content/themes/$PROJECT_SLUG"
 
@@ -208,7 +208,6 @@ sync_project_dir() {
 		fi
 
 		echo "Location: $INSTALL_PATH"
-		export INSTALL_PATH
 	elif [ "$PROJECT_TYPE" == site ]; then
 		cd "$PROJECT_DIR"
 		export INSTALL_PATH=$PROJECT_DIR
@@ -219,3 +218,5 @@ install_wp
 install_test_suite
 install_db
 sync_project_dir
+
+composer test
