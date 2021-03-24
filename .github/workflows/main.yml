@@ -78,25 +78,24 @@ jobs:
     strategy:
       matrix:
         php_versions: [7.4, 7.3, 7.2, 7.1, '7.0', 5.6.20]
-        wp_versions: ['latest', 'trunk', '5.0']
-        exclude:
-          - php_versions: [7.3, 7.2, 7.1, '7.0', 5.6.20]
-            wp_versions: ['trunk', '5.0']
+        wp_versions: ['latest']
         include:
           - php_versions: 5.6.20
             wp_versions: 5.0
+          - php_versions: 7.4
+            wp_versions: 'trunk'
 
     env:
-      WP_VERSION: latest
+      WP_VERSION: ${{ matrix.wp_versions }}
       COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       COVERALLS: ${{ matrix.php_versions == 7.4 && matrix.wp_versions == 'latest' }}
 
     steps:
     - uses: actions/checkout@v2
-    - name: Setup PHP 7.4
+    - name: Setup PHP ${{ matrix.php_versions }}
       uses: shivammathur/setup-php@v2
       with:
-        php-version: '7.4'
+        php-version: ${{ matrix.php_versions }}
         tools: phpunit
 
     - name: Start MySQL
