@@ -18,6 +18,9 @@ TMPDIR=$(echo $TMPDIR | sed -e "s/\/$//")
 export WP_TESTS_DIR=${WP_TESTS_DIR-$TMPDIR/wordpress-tests-lib}
 export WP_CORE_DIR=${WP_CORE_DIR-$TMPDIR/wordpress/}
 
+echo "WP_TESTS_DIR is $WP_TESTS_DIR"
+echo "WP_CORE_DIR is $WP_CORE_DIR"
+
 download() {
     if [ `which curl` ]; then
         curl -s "$1" > "$2";
@@ -59,6 +62,8 @@ install_wp() {
 
 	mkdir -p $WP_CORE_DIR
 
+	echo "Installing WP to $WP_CORE_DIR"
+
 	if [[ $WP_VERSION == 'nightly' || $WP_VERSION == 'trunk' ]]; then
 		mkdir -p $TMPDIR/wordpress-nightly
 		download https://wordpress.org/nightly-builds/wordpress-latest.zip  $TMPDIR/wordpress-nightly/wordpress-nightly.zip
@@ -90,6 +95,8 @@ install_wp() {
 		tar --strip-components=1 -zxmf $TMPDIR/wordpress.tar.gz -C $WP_CORE_DIR
 	fi
 
+	echo "WP installed to $WP_CORE_DIR"
+
 	download https://raw.github.com/markoheijnen/wp-mysqli/master/db.php $WP_CORE_DIR/wp-content/db.php
 }
 
@@ -100,6 +107,8 @@ install_test_suite() {
 	else
 		local ioption='-i'
 	fi
+
+	echo "Installing Tests to $WP_TESTS_DIR"
 
 	# set up testing suite if it doesn't yet exist
 	if [ ! -d $WP_TESTS_DIR ]; then
@@ -119,7 +128,7 @@ install_test_suite() {
 		sed $ioption "s/yourpasswordhere/$DB_PASS/" "$WP_TESTS_DIR"/wp-tests-config.php
 		sed $ioption "s|localhost|${DB_HOST}|" "$WP_TESTS_DIR"/wp-tests-config.php
 	fi
-
+	echo "Tests installed to $WP_TESTS_DIR"
 }
 
 install_db() {
