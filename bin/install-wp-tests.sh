@@ -160,8 +160,7 @@ install_db() {
 	fi
 
 	# create database
-	mysqladmin -f drop $DB_NAME --user="$DB_USER" --password="$DB_PASS"$EXTRA
-	mysqladmin create $DB_NAME --user="$DB_USER" --password="$DB_PASS"$EXTRA
+	mysqladmin create $DB_NAME --user="$DB_USER" --password="$DB_PASS"$EXTRA || true
 }
 
 install_wp
