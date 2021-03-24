@@ -7,23 +7,65 @@ if [ $# -lt 3 ]; then
 	exit 1
 fi
 
-DB_NAME=$1
-DB_USER=$2
-DB_PASS=$3
-DB_HOST=${4-localhost}
-WP_VERSION=${5-latest}
-SKIP_DB_CREATE=${6-false}
+function set_environment_variables {
+	DB_NAME=$1
+	DB_USER=$2
+	DB_PASS=$3
+	DB_HOST=${4-localhost}
+	WP_VERSION=${5-latest}
+	SKIP_DB_CREATE=${6-false}
 
-TMPDIR=${TMPDIR-/tmp}
-TMPDIR=$(echo $TMPDIR | sed -e "s/\/$//")
+	TMPDIR=${TMPDIR-/tmp}
+	TMPDIR=$(echo $TMPDIR | sed -e "s/\/$//")
 
-export WP_TESTS_DIR=${WP_TESTS_DIR-$TMPDIR/wordpress-tests}
-export WP_CORE_DIR=${WP_CORE_DIR-$TMPDIR/wordpress/}
+	PROJECT_DIR=$( git rev-parse --show-toplevel )
+	PROJECT_SLUG=${PROJECT_SLUG:-$( basename "$PROJECT_DIR" | sed 's/^wp-//' )}
 
-echo "WP_TESTS_DIR is $WP_TESTS_DIR"
-echo "WP_CORE_DIR is $WP_CORE_DIR"
+	if [ -z "$PROJECT_TYPE" ]; then
+		if [ -e style.css ]; then
+			PROJECT_TYPE=theme
+		elif grep -isqE "^[     ]*\*[     ]*Plugin Name[     ]*:" "$PROJECT_DIR"/*.php; then
+			PROJECT_TYPE=plugin
+		elif [ $( find . -maxdepth 2 -name wp-config.php | wc -l | sed 's/ //g' ) -gt 0 ]; then
+			PROJECT_TYPE=site
+		else
+			PROJECT_TYPE=unknown
+		fi
+	fi
 
-download() {
+	export WP_TESTS_DIR=${WP_TESTS_DIR-$TMPDIR/wordpress-tests}
+	export WP_CORE_DIR=${WP_CORE_DIR-$TMPDIR/wordpress/}
+
+	echo "WP_TESTS_DIR is $WP_TESTS_DIR"
+	echo "WP_CORE_DIR is $WP_CORE_DIR"
+
+	if [[ $WP_VERSION =~ ^[0-9]+\.[0-9]+$ ]]; then
+		WP_TESTS_TAG="branches/$WP_VERSION"
+	elif [[ $WP_VERSION =~ [0-9]+\.[0-9]+\.[0-9]+ ]]; then
+		if [[ $WP_VERSION =~ [0-9]+\.[0-9]+\.[0] ]]; then
+			# version x.x.0 means the first release of the major version, so strip off the .0 and download version x.x
+			WP_TESTS_TAG="tags/${WP_VERSION%??}"
+		else
+			WP_TESTS_TAG="tags/$WP_VERSION"
+		fi
+	elif [[ $WP_VERSION == 'nightly' || $WP_VERSION == 'trunk' ]]; then
+		WP_TESTS_TAG="trunk"
+	else
+		# http serves a single offer, whereas https serves multiple. we only want one
+		download http://api.wordpress.org/core/version-check/1.7/ /tmp/wp-latest.json
+
+		LATEST_VERSION=$(grep -o '"version":"[^"]*' /tmp/wp-latest.json | sed 's/"version":"//')
+		if [[ -z "$LATEST_VERSION" ]]; then
+			echo "Latest WordPress version could not be found"
+			exit 1
+		fi
+		WP_TESTS_TAG="tags/$LATEST_VERSION"
+	fi
+
+	echo "WP_TESTS_TAG is $WP_TESTS_TAG"
+}
+
+function download() {
 	echo "Download $1 to $2"
     if [ `which curl` ]; then
         curl -s "$1" > "$2";
@@ -35,32 +77,7 @@ download() {
     fi
 }
 
-if [[ $WP_VERSION =~ ^[0-9]+\.[0-9]+$ ]]; then
-	WP_TESTS_TAG="branches/$WP_VERSION"
-elif [[ $WP_VERSION =~ [0-9]+\.[0-9]+\.[0-9]+ ]]; then
-	if [[ $WP_VERSION =~ [0-9]+\.[0-9]+\.[0] ]]; then
-		# version x.x.0 means the first release of the major version, so strip off the .0 and download version x.x
-		WP_TESTS_TAG="tags/${WP_VERSION%??}"
-	else
-		WP_TESTS_TAG="tags/$WP_VERSION"
-	fi
-elif [[ $WP_VERSION == 'nightly' || $WP_VERSION == 'trunk' ]]; then
-	WP_TESTS_TAG="trunk"
-else
-	# http serves a single offer, whereas https serves multiple. we only want one
-	download http://api.wordpress.org/core/version-check/1.7/ /tmp/wp-latest.json
-
-	LATEST_VERSION=$(grep -o '"version":"[^"]*' /tmp/wp-latest.json | sed 's/"version":"//')
-	if [[ -z "$LATEST_VERSION" ]]; then
-		echo "Latest WordPress version could not be found"
-		exit 1
-	fi
-	WP_TESTS_TAG="tags/$LATEST_VERSION"
-fi
-
-echo "WP_TESTS_TAG is $WP_TESTS_TAG"
-
-install_wp() {
+function install_wp() {
 
 	if [ -d $WP_CORE_DIR ]; then
 		return;
@@ -106,7 +123,7 @@ install_wp() {
 	download https://raw.github.com/markoheijnen/wp-mysqli/master/db.php $WP_CORE_DIR/wp-content/db.php
 }
 
-install_test_suite() {
+function install_test_suite() {
 	# portable in-place argument for both GNU sed and Mac OSX sed
 	if [[ $(uname -s) == 'Darwin' ]]; then
 		local ioption='-i .bak'
@@ -137,7 +154,7 @@ install_test_suite() {
 	echo "Tests installed to $WP_TESTS_DIR"
 }
 
-install_db() {
+function install_db() {
 	$(echo mysql -V)
 
 	if [ ${SKIP_DB_CREATE} = "true" ]; then
@@ -164,6 +181,42 @@ install_db() {
 	mysqladmin create $DB_NAME --user="$DB_USER" --password="$DB_PASS"$EXTRA || true
 }
 
+function sync_project_dir() {
+	if [ "$PROJECT_TYPE" == plugin ]; then
+		INSTALL_PATH="$WP_CORE_DIR/wp-content/plugins/$PROJECT_SLUG"
+
+		# Rsync the files into the right location
+		mkdir -p "$INSTALL_PATH"
+		rsync -a $(verbose_arg) --exclude .git/hooks --delete "$PROJECT_DIR/" "$INSTALL_PATH/"
+		cd "$INSTALL_PATH"
+
+		echo "Location: $INSTALL_PATH"
+	elif [ "$PROJECT_TYPE" == theme ]; then
+		INSTALL_PATH="$WP_CORE_DIR/wp-content/themes/$PROJECT_SLUG"
+
+		# Rsync the files into the right location
+		mkdir -p "$INSTALL_PATH"
+		rsync -a $(verbose_arg) --exclude .git/hooks --exclude node_modules --delete "$PROJECT_DIR/" "$INSTALL_PATH/"
+		cd "$INSTALL_PATH"
+
+		# Clone the theme dependencies (i.e. plugins) into the plugins directory
+		if [ ! -z "$THEME_GIT_PLUGIN_DEPENDENCIES" ]; then
+			IFS=',' read -r -a dependencies <<< "$THEME_GIT_PLUGIN_DEPENDENCIES"
+			for dep in "${dependencies[@]}"
+			do
+				filename=$(basename "$dep")
+				git clone "$dep" "$WP_CORE_DIR/wp-content/plugins/${filename%.*}"
+			done
+		fi
+
+		echo "Location: $INSTALL_PATH"
+	elif [ "$PROJECT_TYPE" == site ]; then
+		cd "$PROJECT_DIR"
+	fi
+}
+
+set_environment_variables
 install_wp
 install_test_suite
 install_db
+sync_project_dir
