@@ -39,7 +39,6 @@ echo "WP_TESTS_DIR is $WP_TESTS_DIR"
 echo "WP_CORE_DIR is $WP_CORE_DIR"
 
 function download() {
-	echo "Download $1 to $2"
     if [ `which curl` ]; then
         curl -s "$1" > "$2";
     elif [ `which wget` ]; then
@@ -183,6 +182,7 @@ function install_db() {
 
 	# create database
 	mysqladmin create $DB_NAME --user="$DB_USER" --password="$DB_PASS"$EXTRA || true
+	mysql --user="$DB_USER" --password="$DB_PASS" --execute="ALTER USER '$DB_USER'@'localhost' IDENTIFIED WITH mysql_native_password BY '$DB_PASS';";
 }
 
 function sync_project_dir() {
