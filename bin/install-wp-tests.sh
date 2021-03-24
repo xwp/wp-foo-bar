@@ -17,7 +17,7 @@ SKIP_DB_CREATE=${6-false}
 TMPDIR=${TMPDIR-/tmp}
 TMPDIR=$(echo $TMPDIR | sed -e "s/\/$//")
 
-export WP_TESTS_DIR=${WP_TESTS_DIR-$TMPDIR/wordpress-tests-lib}
+export WP_TESTS_DIR=${WP_TESTS_DIR-$TMPDIR/wordpress-tests}
 export WP_CORE_DIR=${WP_CORE_DIR-$TMPDIR/wordpress/}
 
 echo "WP_TESTS_DIR is $WP_TESTS_DIR"

@@ -12,14 +12,9 @@ $_plugin_root = realpath( __DIR__ . '/..' );
 
 $_tests_dir = getenv( 'WP_TESTS_DIR' );
 print_r( $_tests_dir . "\n" );
-// Travis CI & Vagrant SSH tests directory.
+// Github Actions, Travis CI & Vagrant SSH tests directory.
 if ( empty( $_tests_dir ) ) {
 	$_tests_dir = '/tmp/wordpress-tests';
-}
-print_r( $_tests_dir . "\n" );
-// Github Actions tests directory.
-if ( ! is_dir( $_tests_dir . '/includes/' ) ) {
-	$_tests_dir = '/tmp/wordpress/tests/phpunit';
 }
 print_r( $_tests_dir . "\n" );
 // Composer tests directory.
