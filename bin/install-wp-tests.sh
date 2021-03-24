@@ -7,63 +7,61 @@ if [ $# -lt 3 ]; then
 	exit 1
 fi
 
-function set_environment_variables {
-	DB_NAME=$1
-	DB_USER=$2
-	DB_PASS=$3
-	DB_HOST=${4-localhost}
-	WP_VERSION=${5-latest}
-	SKIP_DB_CREATE=${6-false}
+DB_NAME=$1
+DB_USER=$2
+DB_PASS=$3
+DB_HOST=${4-localhost}
+WP_VERSION=${5-latest}
+SKIP_DB_CREATE=${6-false}
 
-	TMPDIR=${TMPDIR-/tmp}
-	TMPDIR=$(echo $TMPDIR | sed -e "s/\/$//")
+TMPDIR=${TMPDIR-/tmp}
+TMPDIR=$(echo $TMPDIR | sed -e "s/\/$//")
 
-	PROJECT_DIR=$( git rev-parse --show-toplevel )
-	PROJECT_SLUG=${PROJECT_SLUG:-$( basename "$PROJECT_DIR" | sed 's/^wp-//' )}
+PROJECT_DIR=$( git rev-parse --show-toplevel )
+PROJECT_SLUG=${PROJECT_SLUG:-$( basename "$PROJECT_DIR" | sed 's/^wp-//' )}
 
-	if [ -z "$PROJECT_TYPE" ]; then
-		if [ -e style.css ]; then
-			PROJECT_TYPE=theme
-		elif grep -isqE "^[     ]*\*[     ]*Plugin Name[     ]*:" "$PROJECT_DIR"/*.php; then
-			PROJECT_TYPE=plugin
-		elif [ $( find . -maxdepth 2 -name wp-config.php | wc -l | sed 's/ //g' ) -gt 0 ]; then
-			PROJECT_TYPE=site
-		else
-			PROJECT_TYPE=unknown
-		fi
-	fi
-
-	export WP_TESTS_DIR=${WP_TESTS_DIR-$TMPDIR/wordpress-tests}
-	export WP_CORE_DIR=${WP_CORE_DIR-$TMPDIR/wordpress/}
-
-	echo "WP_TESTS_DIR is $WP_TESTS_DIR"
-	echo "WP_CORE_DIR is $WP_CORE_DIR"
-
-	if [[ $WP_VERSION =~ ^[0-9]+\.[0-9]+$ ]]; then
-		WP_TESTS_TAG="branches/$WP_VERSION"
-	elif [[ $WP_VERSION =~ [0-9]+\.[0-9]+\.[0-9]+ ]]; then
-		if [[ $WP_VERSION =~ [0-9]+\.[0-9]+\.[0] ]]; then
-			# version x.x.0 means the first release of the major version, so strip off the .0 and download version x.x
-			WP_TESTS_TAG="tags/${WP_VERSION%??}"
-		else
-			WP_TESTS_TAG="tags/$WP_VERSION"
-		fi
-	elif [[ $WP_VERSION == 'nightly' || $WP_VERSION == 'trunk' ]]; then
-		WP_TESTS_TAG="trunk"
+if [ -z "$PROJECT_TYPE" ]; then
+	if [ -e style.css ]; then
+		PROJECT_TYPE=theme
+	elif grep -isqE "^[     ]*\*[     ]*Plugin Name[     ]*:" "$PROJECT_DIR"/*.php; then
+		PROJECT_TYPE=plugin
+	elif [ $( find . -maxdepth 2 -name wp-config.php | wc -l | sed 's/ //g' ) -gt 0 ]; then
+		PROJECT_TYPE=site
 	else
-		# http serves a single offer, whereas https serves multiple. we only want one
-		download http://api.wordpress.org/core/version-check/1.7/ /tmp/wp-latest.json
-
-		LATEST_VERSION=$(grep -o '"version":"[^"]*' /tmp/wp-latest.json | sed 's/"version":"//')
-		if [[ -z "$LATEST_VERSION" ]]; then
-			echo "Latest WordPress version could not be found"
-			exit 1
-		fi
-		WP_TESTS_TAG="tags/$LATEST_VERSION"
+		PROJECT_TYPE=unknown
 	fi
+fi
 
-	echo "WP_TESTS_TAG is $WP_TESTS_TAG"
-}
+export WP_TESTS_DIR=${WP_TESTS_DIR-$TMPDIR/wordpress-tests}
+export WP_CORE_DIR=${WP_CORE_DIR-$TMPDIR/wordpress/}
+
+echo "WP_TESTS_DIR is $WP_TESTS_DIR"
+echo "WP_CORE_DIR is $WP_CORE_DIR"
+
+if [[ $WP_VERSION =~ ^[0-9]+\.[0-9]+$ ]]; then
+	WP_TESTS_TAG="branches/$WP_VERSION"
+elif [[ $WP_VERSION =~ [0-9]+\.[0-9]+\.[0-9]+ ]]; then
+	if [[ $WP_VERSION =~ [0-9]+\.[0-9]+\.[0] ]]; then
+		# version x.x.0 means the first release of the major version, so strip off the .0 and download version x.x
+		WP_TESTS_TAG="tags/${WP_VERSION%??}"
+	else
+		WP_TESTS_TAG="tags/$WP_VERSION"
+	fi
+elif [[ $WP_VERSION == 'nightly' || $WP_VERSION == 'trunk' ]]; then
+	WP_TESTS_TAG="trunk"
+else
+	# http serves a single offer, whereas https serves multiple. we only want one
+	download http://api.wordpress.org/core/version-check/1.7/ /tmp/wp-latest.json
+
+	LATEST_VERSION=$(grep -o '"version":"[^"]*' /tmp/wp-latest.json | sed 's/"version":"//')
+	if [[ -z "$LATEST_VERSION" ]]; then
+		echo "Latest WordPress version could not be found"
+		exit 1
+	fi
+	WP_TESTS_TAG="tags/$LATEST_VERSION"
+fi
+
+echo "WP_TESTS_TAG is $WP_TESTS_TAG"
 
 function download() {
 	echo "Download $1 to $2"
@@ -215,7 +213,6 @@ function sync_project_dir() {
 	fi
 }
 
-set_environment_variables
 install_wp
 install_test_suite
 install_db
