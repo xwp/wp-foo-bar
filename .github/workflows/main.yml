@@ -74,7 +74,7 @@ jobs:
   #       parallel: true
 
   test-php-coverage:
-    needs: [lint]
+    # needs: [lint]
     name: 'PHP tests (PHP 7.4, WordPress latest, with code coverage)'
     runs-on: ubuntu-latest
 
