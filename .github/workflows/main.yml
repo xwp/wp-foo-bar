@@ -74,17 +74,20 @@ jobs:
   test-php:
     # needs: [lint]
     name: 'PHP tests (PHP ${{ matrix.php_versions }}, WordPress ${{ matrix.wp_versions }})'
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os_versions }}
     strategy:
       fail-fast: false
       matrix:
         php_versions: [7.4, 7.3, 7.2, 7.1, '7.0', 5.6.20]
         wp_versions: ['latest']
+        os_versions: ['ubuntu-latest']
         include:
           - php_versions: 7.4
             wp_versions: 'trunk'
+            os_versions: 'ubuntu-18.04'
           - php_versions: 5.6.20
             wp_versions: '5.0'
+            os_versions: 'ubuntu-18.04'
 
     env:
       WP_VERSION: ${{ matrix.wp_versions }}
@@ -101,7 +104,6 @@ jobs:
 
     - name: Start MySQL
       run: |
-        sudo echo "default-authentication-plugin=mysql_native_password" >> /etc/mysql/mysql.conf.d/mysqld.cnf
         sudo systemctl enable mysql.service
         sudo systemctl start mysql.service
 
