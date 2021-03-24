@@ -48,6 +48,7 @@ jobs:
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         path-to-lcov: ./tests/coverage/e2e/lcov.info
+        parallel: true
 
   test-js-coverage:
     needs: [lint]
@@ -70,6 +71,17 @@ jobs:
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         path-to-lcov: ./tests/coverage/js/lcov.info
+        parallel: true
+
+  finish:
+    needs: [test-e2e-coverage, test-js-coverage]
+    runs-on: ubuntu-latest
+    steps:
+    - name: Coveralls Finished
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.github_token }}
+        parallel-finished: true
 
   # test_php_latest_coverage:
   #   needs: [lint]
