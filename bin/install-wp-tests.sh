@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -x
+
 if [ $# -lt 3 ]; then
 	echo "usage: $0 <db-name> <db-user> <db-pass> [db-host] [wp-version] [skip-database-creation]"
 	exit 1
@@ -26,6 +28,9 @@ download() {
         curl -s "$1" > "$2";
     elif [ `which wget` ]; then
         wget -nv -O "$2" "$1"
+	else
+		echo 'wget or curl not found'
+		return 1
     fi
 }
 
@@ -52,7 +57,7 @@ else
 	WP_TESTS_TAG="tags/$LATEST_VERSION"
 fi
 
-set -x
+echo "WP_TESTS_TAG is $WP_TESTS_TAG"
 
 install_wp() {
 
