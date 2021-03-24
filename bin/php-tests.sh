@@ -38,7 +38,7 @@ export WP_CORE_DIR=${WP_CORE_DIR-$TMPDIR/wordpress/}
 echo "WP_TESTS_DIR is $WP_TESTS_DIR"
 echo "WP_CORE_DIR is $WP_CORE_DIR"
 
-download() {
+function download() {
 	echo "Download $1 to $2"
     if [ `which curl` ]; then
         curl -s "$1" > "$2";
@@ -48,6 +48,12 @@ download() {
 		echo 'wget or curl not found'
 		return 1
     fi
+}
+
+function verbose_arg {
+	if [ "$VERBOSE" == 1 ]; then
+		echo '-v'
+	fi
 }
 
 if [[ $WP_VERSION =~ ^[0-9]+\.[0-9]+$ ]]; then
@@ -75,7 +81,7 @@ fi
 
 echo "WP_TESTS_TAG is $WP_TESTS_TAG"
 
-install_wp() {
+function install_wp() {
 
 	if [ -d $WP_CORE_DIR ]; then
 		return;
@@ -121,7 +127,7 @@ install_wp() {
 	download https://raw.github.com/markoheijnen/wp-mysqli/master/db.php $WP_CORE_DIR/wp-content/db.php
 }
 
-install_test_suite() {
+function install_test_suite() {
 	# portable in-place argument for both GNU sed and Mac OSX sed
 	if [[ $(uname -s) == 'Darwin' ]]; then
 		local ioption='-i .bak'
@@ -152,7 +158,7 @@ install_test_suite() {
 	echo "Tests installed to $WP_TESTS_DIR"
 }
 
-install_db() {
+function install_db() {
 	$(echo mysql -V)
 
 	if [ ${SKIP_DB_CREATE} = "true" ]; then
@@ -179,7 +185,7 @@ install_db() {
 	mysqladmin create $DB_NAME --user="$DB_USER" --password="$DB_PASS"$EXTRA || true
 }
 
-sync_project_dir() {
+function sync_project_dir() {
 	if [ "$PROJECT_TYPE" == plugin ]; then
 		INSTALL_PATH="$WP_CORE_DIR/wp-content/plugins/$PROJECT_SLUG"
 
