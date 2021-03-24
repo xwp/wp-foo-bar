@@ -101,8 +101,8 @@ jobs:
 
     - name: Start MySQL
       run: |
-        echo "[mysqld]" >> /etc/mysql/my.cnf
-        echo "default-authentication-plugin=mysql_native_password" >> /etc/mysql/my.cnf
+        sudo echo "[mysqld]" >> /etc/mysql/my.cnf
+        sudo echo "default-authentication-plugin=mysql_native_password" >> /etc/mysql/my.cnf
         sudo systemctl enable mysql.service
         sudo systemctl start mysql.service
 
