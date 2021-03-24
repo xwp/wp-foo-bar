@@ -101,7 +101,7 @@ jobs:
 
     - name: Setup PHPUnit 5 for PHP 5.6||7.0
       if: ${{ matrix.php_versions == '7.0' || matrix.php_versions == '5.6.20' }}
-      run: composer require phpunit/phpunit:5.7.27
+      run: composer require phpunit/phpunit:5.7.27 --with-all-dependencies
 
     - name: Start MySQL
       run: |
