@@ -138,6 +138,7 @@ install_test_suite() {
 }
 
 install_db() {
+	$(echo mysql -V)
 
 	if [ ${SKIP_DB_CREATE} = "true" ]; then
 		return 0
