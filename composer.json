@@ -60,7 +60,7 @@
       "phpunit --coverage-html tests/coverage/phpunit"
     ],
     "test-coveralls": [
-      "composer test --coverage-clover tests/coverage/clover.xml",
+      "phpunit --coverage-clover tests/coverage/clover.xml",
       "php-coveralls --coverage_clover=tests/coverage/clover.xml -v"
     ]
   },
