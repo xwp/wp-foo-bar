@@ -73,6 +73,25 @@ jobs:
         path-to-lcov: ./tests/coverage/js/lcov.info
         parallel: true
 
+  test-php-coverage:
+    needs: [lint]
+    name: 'PHP tests (PHP 7.4, WordPress latest, with code coverage)'
+    runs-on: ubuntu-latest
+
+    env:
+      WP_VERSION: latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup PHP 7.4
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '7.4'
+        tools: phpunit
+    - run: composer install
+    - run: source "bin/install-wp-tests.sh"
+    - run: composer test
+
   finish:
     needs: [test-e2e-coverage, test-js-coverage]
     runs-on: ubuntu-latest
@@ -82,23 +101,3 @@ jobs:
       with:
         github-token: ${{ secrets.github_token }}
         parallel-finished: true
-
-  # test_php_latest_coverage:
-  #   needs: [lint]
-  #   name: 'PHP tests (PHP 7.4, WordPress latest, with code coverage)'
-  #   runs-on: ubuntu-latest
-
-  #   env:
-  #     WP_VERSION: latest
-  #     DEV_LIB_ONLY: phpunit,coverage
-
-  #   steps:
-  #   - uses: actions/checkout@v2
-  #   - name: Setup PHP 7.4
-  #     uses: shivammathur/setup-php@v2
-  #     with:
-  #       php-version: '7.4'
-  #       tools: phpunit
-  #   - run: composer install
-  #   - run: source "$DEV_LIB_PATH/travis.install.sh"
-  #   - run: source "$DEV_LIB_PATH/travis.script.sh"
