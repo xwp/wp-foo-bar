@@ -105,7 +105,7 @@ jobs:
         sudo systemctl start mysql.service
 
     - name: Install dependencies
-      run: composer install
+      run: composer install --no-scripts
 
     - name: Setup PHPUnit 5 for PHP 5.6||7.0
       if: ${{ matrix.php_versions == '7.0' || matrix.php_versions == '5.6.20' }}
