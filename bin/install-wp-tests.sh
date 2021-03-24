@@ -24,6 +24,7 @@ echo "WP_TESTS_DIR is $WP_TESTS_DIR"
 echo "WP_CORE_DIR is $WP_CORE_DIR"
 
 download() {
+	echo "Download $1 to $2"
     if [ `which curl` ]; then
         curl -s "$1" > "$2";
     elif [ `which wget` ]; then
