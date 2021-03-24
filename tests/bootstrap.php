@@ -17,6 +17,11 @@ if ( empty( $_tests_dir ) ) {
 	$_tests_dir = '/tmp/wordpress-tests';
 }
 
+// Github Actions tests directory.
+if ( ! is_dir( $_tests_dir . '/includes/' ) ) {
+	$_tests_dir = '/tmp/wordpress/tests/phpunit';
+}
+
 // Composer tests directory.
 if ( ! is_dir( $_tests_dir . '/includes/' ) ) {
 	$_tests_dir = $_plugin_root . '/vendor/xwp/wordpress-tests/phpunit';
