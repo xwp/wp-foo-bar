@@ -89,7 +89,7 @@ jobs:
     env:
       WP_VERSION: latest
       COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      COVERALLS: ${{ matrix.php_versions == 7.4 && matrix.wp_versions == latest }}
+      COVERALLS: ${{ matrix.php_versions == 7.4 && matrix.wp_versions == 'latest' }}
 
     steps:
     - uses: actions/checkout@v2
