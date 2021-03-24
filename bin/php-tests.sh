@@ -3,7 +3,7 @@
 set +x
 
 if [ $# -lt 3 ]; then
-	echo "usage: $0 <db-name> <db-user> <db-pass> [db-host] [skip-database-creation]"
+	echo "usage: $0 <db-name> <db-user> <db-pass> [db-host] [skip-database-creation] [phpunit]"
 	exit 1
 fi
 
@@ -12,6 +12,7 @@ DB_USER=$2
 DB_PASS=$3
 DB_HOST=${4-localhost}
 SKIP_DB_CREATE=${5-false}
+PHPUNIT_PATH=${6-false}
 
 WP_VERSION=${WP_VERSION:-latest}
 TMPDIR=${TMPDIR-/tmp}
@@ -19,6 +20,7 @@ TMPDIR=$(echo $TMPDIR | sed -e "s/\/$//")
 
 PROJECT_DIR=$( git rev-parse --show-toplevel )
 PROJECT_SLUG=${PROJECT_SLUG:-$( basename "$PROJECT_DIR" | sed 's/^wp-//' )}
+
 
 if [ -z "$PROJECT_TYPE" ]; then
 	if [ -e style.css ]; then
@@ -230,5 +232,10 @@ if [ "$COVERALLS" == true ]; then
 	composer test-coveralls
 else
 	echo "Running PHP unit tests"
-	composer test
+	if [ "$PHPUNIT_PATH" == false ]; then
+		composer test
+	else
+		echo "Using custom PHPUnit located at $PHPUNIT_PATH"
+		$PHPUNIT_PATH
+	fi
 fi
