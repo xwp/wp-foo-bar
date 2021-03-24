@@ -90,10 +90,10 @@ function install_wp() {
 
 	mkdir -p $WP_CORE_DIR
 
-	echo "Installing WP to $WP_CORE_DIR"
-
 	if [[ $WP_VERSION == 'nightly' || $WP_VERSION == 'trunk' ]]; then
 		mkdir -p $TMPDIR/wordpress-nightly
+		echo "Installing WP from https://wordpress.org/nightly-builds/wordpress-latest.zip to $WP_CORE_DIR"
+
 		download https://wordpress.org/nightly-builds/wordpress-latest.zip  $TMPDIR/wordpress-nightly/wordpress-nightly.zip
 		unzip -q $TMPDIR/wordpress-nightly/wordpress-nightly.zip -d $TMPDIR/wordpress-nightly/
 		mv $TMPDIR/wordpress-nightly/wordpress/* $WP_CORE_DIR
@@ -119,6 +119,8 @@ function install_wp() {
 		else
 			local ARCHIVE_NAME="wordpress-$WP_VERSION"
 		fi
+
+		echo "Installing WP from https://wordpress.org/${ARCHIVE_NAME}.tar.gz to $WP_CORE_DIR"
 		download https://wordpress.org/${ARCHIVE_NAME}.tar.gz  $TMPDIR/wordpress.tar.gz
 		tar --strip-components=1 -zxmf $TMPDIR/wordpress.tar.gz -C $WP_CORE_DIR
 	fi
