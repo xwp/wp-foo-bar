@@ -225,4 +225,10 @@ install_test_suite
 install_db
 sync_project_dir
 
-composer test-coverage-clover
+if [ "$COVERALLS" == true ]; then
+	echo "Running PHP unit tests with coverage"
+	composer test-coveralls
+else
+	echo "Running PHP unit tests"
+	composer test
+fi

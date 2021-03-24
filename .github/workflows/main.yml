@@ -78,6 +78,7 @@ jobs:
 
     env:
       WP_VERSION: latest
+      COVERALLS: true
 
     steps:
     - uses: actions/checkout@v2
@@ -96,13 +97,6 @@ jobs:
       run: |
         composer install
         source bin/php-tests.sh wordpress_test root root localhost latest
-
-    - name: Upload coverage results to Coveralls
-      env:
-        COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: |
-        composer global require php-coveralls/php-coveralls
-        php-coveralls --coverage_clover=tests/coverage/clover.xml -v
 
   # finish:
   #   needs: [test-e2e-coverage, test-js-coverage]
