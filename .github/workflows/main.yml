@@ -104,6 +104,7 @@ jobs:
 
   finish:
     needs: [test-e2e-coverage, test-js-coverage]
+    name: Finish
     runs-on: ubuntu-latest
     steps:
     - name: Coveralls Finished
