@@ -71,15 +71,25 @@ jobs:
   #       path-to-lcov: ./tests/coverage/js/lcov.info
   #       parallel: true
 
-  test-php-coverage:
+  test-php:
     # needs: [lint]
-    name: 'PHP tests (PHP 7.4, WordPress latest, with code coverage)'
+    name: 'PHP tests (PHP ${{ matrix.php_versions }}, WordPress ${{ matrix.wp_versions }})'
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php_versions: [7.4, 7.3, 7.2, 7.1, '7.0', 5.6.20]
+        wp_versions: ['latest', 'trunk', '5.0']
+        exclude:
+          - php_versions: [7.3, 7.2, 7.1, '7.0', 5.6.20]
+            wp_versions: ['trunk', '5.0']
+        include:
+          - php_versions: 5.6.20
+            wp_versions: 5.0
 
     env:
       WP_VERSION: latest
       COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      COVERALLS: true
+      COVERALLS: ${{ matrix.php_versions == 7.4 && matrix.wp_versions == latest }}
 
     steps:
     - uses: actions/checkout@v2
