@@ -34,4 +34,6 @@
 	<exclude-pattern>*/tests/coverage/*</exclude-pattern>
 	<exclude-pattern>*/vendor/*</exclude-pattern>
 	<exclude-pattern>*/dependencies/*</exclude-pattern>
+	<exclude-pattern>./scoper.inc.php</exclude-pattern>
+	<exclude-pattern>./helpers.php</exclude-pattern>
 </ruleset>

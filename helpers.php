@@ -10,7 +10,7 @@ namespace FooBar;
  * @internal
  * @return string[] The collection of vendors from `required` section from.
  */
-function get_required_dependencies( string $path_to_composer_json ): array {
+function get_required_dependencies( $path_to_composer_json ) {
 	if ( ! is_readable( $path_to_composer_json ) ) {
 		return [];
 	}
@@ -36,7 +36,7 @@ function get_required_dependencies( string $path_to_composer_json ): array {
 	// Flatten tree of required vendors.
 	return array_reduce(
 		$required,
-		static function ( $required, $vendor_path ): array {
+		static function ( $required, $vendor_path ) {
 			return array_merge(
 				$required,
 				[ $vendor_path ],

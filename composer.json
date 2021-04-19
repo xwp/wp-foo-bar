@@ -36,6 +36,7 @@
     "phpunit/phpunit": "^7",
     "slowprog/composer-copy-file": "@stable",
     "wp-coding-standards/wpcs": "@stable",
+    "xwp/php-scoper-wp-patcher": "dev-develop",
     "xwp/wordpress-tests-installer": "@stable",
     "xwp/wp-dev-lib": "@stable"
   },
@@ -84,9 +85,6 @@
     ]
   },
   "autoload": {
-    "psr-4": {
-      "XWP\\PhpScoper\\WordPress\\": "lib/xwp-php-scoper-wp-patcher/src"
-    },
     "files": [
       "helpers.php"
     ]

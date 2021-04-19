@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "085a34c9f9295f26ae8086f42dd347c1",
+    "content-hash": "0f3c5cbaab48367fe90766b430891619",
     "packages": [
         {
             "name": "nesbot/carbon",
@@ -4331,6 +4331,73 @@
             "time": "2020-05-13T23:57:56+00:00"
         },
         {
+            "name": "xwp/php-scoper-wp-patcher",
+            "version": "dev-develop",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:rumur/php-scoper-wp-patcher.git",
+                "reference": "58c172d6cb33da0ea0bc50103cb8e86bf9e04594"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rumur/php-scoper-wp-patcher/zipball/58c172d6cb33da0ea0bc50103cb8e86bf9e04594",
+                "reference": "58c172d6cb33da0ea0bc50103cb8e86bf9e04594",
+                "shasum": ""
+            },
+            "require": {
+                "nikic/php-parser": "^4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^6.5 || ^7.0 || ^8.0 || ^9.0",
+                "squizlabs/php_codesniffer": "^3.6"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "XWP\\PhpScoper\\WordPress\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "XWP\\PhpScoper\\WordPress\\Tests\\": "tests/"
+                }
+            },
+            "scripts": {
+                "test": [
+                    "./vendor/bin/phpunit -v"
+                ],
+                "lint": [
+                    "./vendor/bin/phpcs -v"
+                ],
+                "lint-fix": [
+                    "./vendor/bin/phpcbf -v"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "XWP",
+                    "email": "technology@xwp.co",
+                    "homepage": "https://xwp.co"
+                }
+            ],
+            "description": "Excludes the global WordPress classes/functions/interfaces/traits from php-scoper",
+            "keywords": [
+                "development",
+                "plugins",
+                "themes",
+                "tools",
+                "wordpress"
+            ],
+            "support": {
+                "source": "https://github.com/rumur/php-scoper-wp-patcher/tree/develop",
+                "issues": "https://github.com/rumur/php-scoper-wp-patcher/issues"
+            },
+            "time": "2021-04-13T16:23:14+00:00"
+        },
+        {
             "name": "xwp/wordpress-tests-installer",
             "version": "1.0.3",
             "source": {
@@ -4429,6 +4496,7 @@
         "phpcompatibility/phpcompatibility-wp": 0,
         "slowprog/composer-copy-file": 0,
         "wp-coding-standards/wpcs": 0,
+        "xwp/php-scoper-wp-patcher": 20,
         "xwp/wordpress-tests-installer": 0,
         "xwp/wp-dev-lib": 0
     },

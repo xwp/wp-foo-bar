@@ -45,22 +45,6 @@ return [
 	// See: https://github.com/humbug/php-scoper#finders-and-paths.
 	'finders' => array_merge( [
 		// You can add more finders e.g. those that outside the vendor folder.
-		Finder::create()
-		      ->files()
-		      ->ignoreVCS( true )
-		      ->ignoreDotFiles( true )
-		      ->notName( '/LICENSE|.*\\.md|.*\\.dist|Makefile|composer\\.json|composer\\.lock/' )
-		      ->exclude( [
-			      'doc',
-			      'test',
-			      'test_old',
-			      'tests',
-			      'Tests',
-			      'bin',
-			      'vendor-bin',
-		      ] )
-		      ->name( '*.php' )
-		      ->in( [ 'php' ] )
 	], array_map( function ( $vendor ) {
 		// Third Party vendors
 		return Finder::create()
