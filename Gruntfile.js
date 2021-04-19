@@ -1,10 +1,18 @@
 /* eslint-env node */
+const {
+	gruntTaskResolver: gruntStubsTaskResolver,
+} = require( './php-scope-stubs.parser' );
 
 module.exports = function ( grunt ) {
 	'use strict';
 
+	const pkg = grunt.file.readJSON( 'package.json' );
+
 	// prettier-ignore
 	grunt.initConfig( {
+		// Get package info.
+		pkg,
+
 		// Build a deploy-able plugin.
 		copy: {
 			build: {
@@ -42,6 +50,13 @@ module.exports = function ( grunt ) {
 					'!vendor/**',
 					'!webpack.config.js',
 					'!wp-assets/**',
+					'!php-scope-stubs.parser.js',
+					'!php-scope-stubs.json',
+					'!scoper.inc.php',
+					// Do not forget to delete them
+					'!helper.php',
+					'!tester.php',
+					'!lib/**',
 				],
 				dest: 'build',
 				expand: true,
@@ -75,6 +90,9 @@ module.exports = function ( grunt ) {
 			create_build_zip: {
 				command: 'if [ ! -e build ]; then echo "Run grunt build first."; exit 1; fi; if [ -e foo-bar.zip ]; then rm foo-bar.zip; fi; cd build; zip -r ../foo-bar.zip .; cd ..; echo; echo "ZIP of build: $(pwd)/foo-bar.zip"',
 			},
+			scope_make: {
+				command: 'composer prefix-dependencies',
+			},
 		},
 
 		// Deploys a git Repo to the WordPress SVN repo.
@@ -86,6 +104,16 @@ module.exports = function ( grunt ) {
 				  	assets_dir: 'wp-assets',
 				},
 			},
+		},
+
+		// Scope vendors namespaces
+		stubs: {
+			make_global_stubs: {
+				expand: true,
+				src: pkg.stubsSrcFiles || [],
+				dist: 'php-scope-stubs.json',
+				async: true,
+			}
 		},
 	} );
 
@@ -100,7 +128,13 @@ module.exports = function ( grunt ) {
 
 	grunt.registerTask( 'readme', [ 'shell:readme' ] );
 
-	grunt.registerTask( 'build', [ 'readme', 'copy' ] );
+	grunt.registerMultiTask( 'stubs', [ 'stubs:make_global_stubs' ], function () {
+		return gruntStubsTaskResolver.call( this, grunt );
+	} );
+
+	grunt.registerTask( 'scope', [ 'shell:scope_make' ] );
+
+	grunt.registerTask( 'build', [ 'readme', 'scope', 'copy' ] );
 
 	grunt.registerTask( 'create-build-zip', [ 'shell:create_build_zip' ] );
 

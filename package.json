@@ -79,6 +79,7 @@
     "npm-run-all": "4.1.5",
     "null-loader": "4.0.1",
     "optimize-css-assets-webpack-plugin": "5.0.4",
+    "php-parser": "^3.0.3",
     "postcss": "8.1.10",
     "postcss-color-function": "4.1.0",
     "postcss-import": "13.0.0",
@@ -107,6 +108,7 @@
     "build:run": "grunt build",
     "build:zip": "grunt create-build-zip",
     "dev": "wp-scripts start",
+    "make:stubs": "grunt stubs",
     "docker": "docker-compose run --rm -u 1000 --workdir=/var/www/html/wp-content/plugins/foo-bar wordpress",
     "env:logs": "bin/logs.sh",
     "env:start": "bin/start.sh",
@@ -149,5 +151,9 @@
     "rules": {
       "require-version": "off"
     }
-  }
+  },
+  "stubsSrcFiles": [
+    "../../../wp-admin/**/*.php",
+    "../../../wp-includes/**/*.php"
+  ]
 }

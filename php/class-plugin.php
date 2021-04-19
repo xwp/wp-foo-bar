@@ -8,6 +8,8 @@
 namespace FooBar;
 
 use FooBar\BazBar\Sample;
+use FooBar\Dependencies\Carbon\Carbon;
+use FooBar\Dependencies\Rumur\WordPress\Notice\Notice;
 
 /**
  * Main plugin bootstrap file.
@@ -35,6 +37,10 @@ class Plugin extends Plugin_Base {
 
 		$this->sample = new Sample( $this );
 		$this->sample->init();
+
+		Notice::registerIntoWordPress();
+
+		Notice::success( 'Time is: ' . Carbon::now() );
 	}
 
 	/**

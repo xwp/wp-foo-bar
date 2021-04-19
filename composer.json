@@ -13,12 +13,23 @@
       "ext-filter": "7.1"
     }
   },
+  "repositories": [
+    {
+      "type": "github",
+      "name": "xwp/php-scoper-wp-patcher",
+      "url": "https://github.com/rumur/php-scoper-wp-patcher",
+      "reference": "develop"
+    }
+  ],
   "require": {
-    "php": ">=5.6.20"
+    "php": ">=5.6.20",
+    "nesbot/carbon": "^2.46",
+    "rumur/wp-notice": "^1.0"
   },
   "require-dev": {
     "automattic/vipwpcs": "@stable",
     "dealerdirect/phpcodesniffer-composer-installer": "@stable",
+    "humbug/php-scoper": "^0.14.0",
     "php-coveralls/php-coveralls": "^2.2.0",
     "phpcompatibility/phpcompatibility-wp": "@stable",
     "phpunit/phpcov": "^5.0",
@@ -58,7 +69,30 @@
     ],
     "test-coverage": [
       "phpunit --coverage-html tests/coverage/phpunit"
+    ],
+    "remove-dependencies-dir": [
+      "if [ -e dependencies ]; then rm -rf ./dependencies; fi;"
+    ],
+    "prefix-dependencies": [
+      "@composer install",
+      "@remove-dependencies-dir",
+      "vendor/bin/php-scoper add-prefix --output-dir=./dependencies --force --quiet",
+      "echo '{ \"autoload\": { \"classmap\": [\"\"] } }' > dependencies/composer.json",
+      "@composer --working-dir=dependencies dump-autoload --no-dev --classmap-authoritative --no-interaction",
+      "echo '{ \"autoload\": { \"classmap\": [\"\"] } }' > ./php/composer.json",
+      "@composer --working-dir=php dump-autoload --no-dev --classmap-authoritative --no-interaction"
     ]
+  },
+  "autoload": {
+    "psr-4": {
+      "XWP\\PhpScoper\\WordPress\\": "lib/xwp-php-scoper-wp-patcher/src"
+    },
+    "files": [
+      "helpers.php"
+    ]
+  },
+  "autoload-dev": {
+    "classmap": ["tests/"]
   },
   "extra": {
     "installer-name": "foo-bar",
