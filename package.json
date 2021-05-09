@@ -50,7 +50,7 @@
     "babel-loader": "8.2.1",
     "babel-plugin-istanbul": "6.0.0",
     "babel-plugin-transform-require-context": "0.1.1",
-    "browserslist": "4.14.7",
+    "browserslist": "4.16.6",
     "coveralls": "3.1.0",
     "cross-env": "7.0.2",
     "css-loader": "5.0.1",
