@@ -60,7 +60,7 @@ jobs:
     - stage: lint
       name: Lint (PHP, JavaScript, and configuration files)
       php: "7.4"
-      env: WP_VERSION=latest DEV_LIB_ONLY=xmllint,phpsyntax
+      env: WP_VERSION=latest DEV_LIB_ONLY=xmllint,phpsyntax,composer
       script:
         - source "$DEV_LIB_PATH/travis.script.sh"
         - npm run lint
@@ -99,34 +99,34 @@ jobs:
 
     - name: PHP unit tests (7.4, WordPress latest, with code coverage)
       php: "7.4"
-      env: WP_VERSION=latest DEV_LIB_ONLY=phpunit,coverage
+      env: WP_VERSION=latest DEV_LIB_ONLY=phpunit,coverage,composer
       before_script:
         - echo "Running PHP unit tests with code coverage ..."
 
     - name: PHP unit tests (7.4, WordPress trunk)
       php: "7.4"
-      env: WP_VERSION=trunk DEV_LIB_ONLY=phpunit
+      env: WP_VERSION=trunk DEV_LIB_ONLY=phpunit,composer
 
     - name: PHP unit tests (7.3, WordPress latest)
       php: "7.3"
-      env: WP_VERSION=latest DEV_LIB_ONLY=phpunit
+      env: WP_VERSION=latest DEV_LIB_ONLY=phpunit,composer
 
     - name: PHP unit tests (7.2, WordPress latest)
       php: "7.2"
-      env: WP_VERSION=latest DEV_LIB_ONLY=phpunit
+      env: WP_VERSION=latest DEV_LIB_ONLY=phpunit,composer
 
     - name: PHP unit tests (7.1, WordPress latest)
       php: "7.1"
-      env: WP_VERSION=latest DEV_LIB_ONLY=phpunit
+      env: WP_VERSION=latest DEV_LIB_ONLY=phpunit,composer
 
     - name: PHP unit tests (7.0, WordPress latest)
       php: "7.0"
-      env: WP_VERSION=latest DEV_LIB_ONLY=phpunit
+      env: WP_VERSION=latest DEV_LIB_ONLY=phpunit,composer
 
     - name: PHP unit tests (5.6, WordPress latest)
       php: "5.6"
-      env: WP_VERSION=latest DEV_LIB_ONLY=phpunit
+      env: WP_VERSION=latest DEV_LIB_ONLY=phpunit,composer
 
     - name: PHP unit tests (5.6, WordPress 5.0)
       php: "5.6"
-      env: WP_VERSION=5.0 DEV_LIB_ONLY=phpunit
+      env: WP_VERSION=5.0 DEV_LIB_ONLY=phpunit,composer
