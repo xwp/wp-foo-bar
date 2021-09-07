@@ -17,7 +17,7 @@ services:
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
 
   wordpress:
-    image: ghcr.io/xwp/wp-foo-bar-wordpress:${WP_VERSION:-latest}
+    image: ghcr.io/xwp/wp-foo-bar-wordpress:${WP_VERSION}
     build:
       context: ./bin/local-dev/wordpress
       args:
