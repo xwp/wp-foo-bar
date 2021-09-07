@@ -70,7 +70,7 @@ jobs:
     - stage: test
       name: E2E tests with Docker (7.4, WordPress latest, with code coverage)
       php: "7.4"
-      env: NODE_ENV=e2e WP_VERSION=latest
+      env: NODE_ENV=e2e
       install:
         - sudo service mysql stop
         - npm install
