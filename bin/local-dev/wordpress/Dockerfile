@@ -4,6 +4,7 @@ FROM wordpress:${WP_VERSION}-php7.4-apache
 
 ENV NODE_VERSION 10.18.1
 ENV YARN_VERSION 1.21.1
+ENV XDEBUG_VERSION 2.9.8
 
 # Setup user.
 RUN groupadd --gid 1000 webserver \
@@ -90,5 +91,5 @@ RUN curl -s https://getcomposer.org/installer | php \
 COPY config/php/* /usr/local/etc/php/conf.d/
 
 # Setup xdebug.
-RUN pecl install xdebug; \
+RUN pecl install xdebug-${XDEBUG_VERSION}; \
 	docker-php-ext-enable xdebug;
