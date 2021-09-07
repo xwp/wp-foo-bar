@@ -40,7 +40,6 @@ env:
 before_install:
   - nvm install
   - nvm use
-  - docker-compose pull
 
 install:
   - npm install
@@ -75,6 +74,7 @@ jobs:
       install:
         - sudo service mysql stop
         - npm install
+        - docker-compose pull
       before_script:
         - echo "Running E2E tests with code coverage ..."
       script:
