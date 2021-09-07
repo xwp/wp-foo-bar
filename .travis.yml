@@ -34,6 +34,8 @@ branches:
 env:
   global:
     - COVERALLS_PARALLEL=true
+    # Ensure Xdebug v3 coverage reporting is available.
+    - XDEBUG_MODE=coverage
 
 before_install:
   - nvm install
