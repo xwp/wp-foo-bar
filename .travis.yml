@@ -109,22 +109,6 @@ jobs:
       php: "7.4"
       env: WP_VERSION=trunk DEV_LIB_ONLY=phpunit,composer
 
-    - name: PHP unit tests (7.3, WordPress latest)
-      php: "7.3"
-      env: WP_VERSION=latest DEV_LIB_ONLY=phpunit,composer
-
-    - name: PHP unit tests (7.2, WordPress latest)
-      php: "7.2"
-      env: WP_VERSION=latest DEV_LIB_ONLY=phpunit,composer
-
-    - name: PHP unit tests (7.1, WordPress latest)
-      php: "7.1"
-      env: WP_VERSION=latest DEV_LIB_ONLY=phpunit,composer
-
-    - name: PHP unit tests (7.0, WordPress latest)
-      php: "7.0"
-      env: WP_VERSION=latest DEV_LIB_ONLY=phpunit,composer
-
     - name: PHP unit tests (5.6, WordPress latest)
       php: "5.6"
       env: WP_VERSION=latest DEV_LIB_ONLY=phpunit,composer
