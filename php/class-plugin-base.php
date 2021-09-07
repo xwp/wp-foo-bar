@@ -158,7 +158,7 @@ abstract class Plugin_Base {
 	public function locate_plugin() {
 		$file_name = $this->get_object_reflection()->getFileName();
 
-		// Windows compat.
+		// Convert to forward-slashes as needed for URLs.
 		if ( '/' !== \DIRECTORY_SEPARATOR ) {
 			// @codeCoverageIgnoreStart
 			$file_name = str_replace( \DIRECTORY_SEPARATOR, '/', $file_name );
@@ -166,7 +166,7 @@ abstract class Plugin_Base {
 		}
 
 		$plugin_dir  = dirname( dirname( $file_name ) );
-		$plugin_path = $this->relative_path( $plugin_dir, basename( content_url() ), \DIRECTORY_SEPARATOR );
+		$plugin_path = $this->relative_path( $plugin_dir, basename( content_url() ), '/' );
 
 		$dir_url      = content_url( trailingslashit( $plugin_path ) );
 		$dir_path     = $plugin_dir;
