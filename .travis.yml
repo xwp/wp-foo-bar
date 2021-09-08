@@ -79,7 +79,7 @@ jobs:
         - echo "Running E2E tests with code coverage ..."
       script:
         - npm run env:start
-        - npm run wp -- php -r "fsockopen( 'mysql', 3306, \\\$err_no, \\\$err_str, 30 );"
+        - npm run wp -- curl --retry 30 --retry-delay 1 --retry-connrefused telnet://mysql:3306 --output /dev/null
         - npm run wp -- wp core install --title=WordPress --admin_user=admin --admin_password=password --admin_email=admin@example.com --skip-email --url=http://localhost:8088 --quiet
         - npm run wp -- wp plugin activate foo-bar
         - npm run build:js
