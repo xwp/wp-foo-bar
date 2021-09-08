@@ -22,13 +22,13 @@ export async function closeGlobalBlockInserter() {
 async function isGlobalInserterOpen() {
 	return await page.evaluate( () => {
 		return !! document.querySelector(
-			'.edit-post-header [aria-label="Add block"].is-pressed, .edit-site-header [aria-label="Add block"].is-pressed'
+			'.edit-post-header-toolbar__inserter-toggle.is-pressed'
 		);
 	} );
 }
 
 async function toggleGlobalBlockInserter() {
 	await page.click(
-		'.edit-post-header [aria-label="Add block"], .edit-site-header [aria-label="Add block"]'
+		'.edit-post-header-toolbar__inserter-toggle'
 	);
 }
