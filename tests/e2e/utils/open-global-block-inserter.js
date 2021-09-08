@@ -28,7 +28,5 @@ async function isGlobalInserterOpen() {
 }
 
 async function toggleGlobalBlockInserter() {
-	await page.click(
-		'.edit-post-header-toolbar__inserter-toggle'
-	);
+	await page.click( '.edit-post-header-toolbar__inserter-toggle' );
 }
