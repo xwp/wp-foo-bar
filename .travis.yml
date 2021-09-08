@@ -79,7 +79,7 @@ jobs:
         - echo "Running E2E tests with code coverage ..."
       script:
         - npm run env:start
-        - npm run wp -- curl --retry 30 --retry-delay 1 --retry-connrefused telnet://mysql:3306 --output /dev/null
+        - npm run wp -- bash -c "while ! nc -z mysql 3306; do sleep 1; done"
         - npm run wp -- wp core install --title=WordPress --admin_user=admin --admin_password=password --admin_email=admin@example.com --skip-email --url=http://localhost:8088 --quiet
         - npm run wp -- wp plugin activate foo-bar
         - npm run build:js
@@ -115,10 +115,12 @@ jobs:
       php: "5.6"
       env: WP_VERSION=latest DEV_LIB_ONLY=phpunit,composer
       before_script:
-        - composer require --dev phpunit/phpunit:^5 phpunit/phpcov:^3 --update-with-all-dependencies
+        - composer config platform.php false
+        - composer require --dev phpunit/phpunit:^5 phpunit/phpcov php-coveralls/php-coveralls --update-with-dependencies
 
     - name: PHP unit tests (5.6, WordPress 5.0)
       php: "5.6"
       env: WP_VERSION=5.0 DEV_LIB_ONLY=phpunit,composer
       before_script:
-        - composer require --dev phpunit/phpunit:^5 phpunit/phpcov:^3 --update-with-all-dependencies
+        - composer config platform.php false
+        - composer require --dev phpunit/phpunit:^5 phpunit/phpcov php-coveralls/php-coveralls --update-with-dependencies
