@@ -34,6 +34,8 @@ branches:
 env:
   global:
     - COVERALLS_PARALLEL=true
+    # Ensure Xdebug v3 coverage reporting is available.
+    - XDEBUG_MODE=coverage
 
 before_install:
   - nvm install
@@ -60,7 +62,7 @@ jobs:
     - stage: lint
       name: Lint (PHP, JavaScript, and configuration files)
       php: "7.4"
-      env: WP_VERSION=latest DEV_LIB_ONLY=xmllint,phpsyntax
+      env: WP_VERSION=latest DEV_LIB_ONLY=xmllint,phpsyntax,composer
       script:
         - source "$DEV_LIB_PATH/travis.script.sh"
         - npm run lint
@@ -68,14 +70,16 @@ jobs:
     - stage: test
       name: E2E tests with Docker (7.4, WordPress latest, with code coverage)
       php: "7.4"
-      env: NODE_ENV=e2e WP_VERSION=latest
+      env: NODE_ENV=e2e
       install:
         - sudo service mysql stop
         - npm install
+        - docker-compose pull
       before_script:
         - echo "Running E2E tests with code coverage ..."
       script:
         - npm run env:start
+        - npm run wp -- bash -c "while ! nc -z mysql 3306; do sleep 1; done"
         - npm run wp -- wp core install --title=WordPress --admin_user=admin --admin_password=password --admin_email=admin@example.com --skip-email --url=http://localhost:8088 --quiet
         - npm run wp -- wp plugin activate foo-bar
         - npm run build:js
@@ -99,34 +103,24 @@ jobs:
 
     - name: PHP unit tests (7.4, WordPress latest, with code coverage)
       php: "7.4"
-      env: WP_VERSION=latest DEV_LIB_ONLY=phpunit,coverage
+      env: WP_VERSION=latest DEV_LIB_ONLY=phpunit,coverage,composer
       before_script:
         - echo "Running PHP unit tests with code coverage ..."
 
     - name: PHP unit tests (7.4, WordPress trunk)
       php: "7.4"
-      env: WP_VERSION=trunk DEV_LIB_ONLY=phpunit
-
-    - name: PHP unit tests (7.3, WordPress latest)
-      php: "7.3"
-      env: WP_VERSION=latest DEV_LIB_ONLY=phpunit
-
-    - name: PHP unit tests (7.2, WordPress latest)
-      php: "7.2"
-      env: WP_VERSION=latest DEV_LIB_ONLY=phpunit
-
-    - name: PHP unit tests (7.1, WordPress latest)
-      php: "7.1"
-      env: WP_VERSION=latest DEV_LIB_ONLY=phpunit
-
-    - name: PHP unit tests (7.0, WordPress latest)
-      php: "7.0"
-      env: WP_VERSION=latest DEV_LIB_ONLY=phpunit
+      env: WP_VERSION=trunk DEV_LIB_ONLY=phpunit,composer
 
     - name: PHP unit tests (5.6, WordPress latest)
       php: "5.6"
-      env: WP_VERSION=latest DEV_LIB_ONLY=phpunit
+      env: WP_VERSION=latest DEV_LIB_ONLY=phpunit,composer
+      before_script:
+        - composer config --unset platform.php
+        - composer require --dev phpunit/phpunit:^5 phpunit/phpcov php-coveralls/php-coveralls --update-with-dependencies
 
     - name: PHP unit tests (5.6, WordPress 5.0)
       php: "5.6"
-      env: WP_VERSION=5.0 DEV_LIB_ONLY=phpunit
+      env: WP_VERSION=5.0 DEV_LIB_ONLY=phpunit,composer
+      before_script:
+        - composer config --unset platform.php
+        - composer require --dev phpunit/phpunit:^5 phpunit/phpcov php-coveralls/php-coveralls --update-with-dependencies
