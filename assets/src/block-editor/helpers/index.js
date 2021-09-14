@@ -8,8 +8,8 @@ import { registerBlockType } from '@wordpress/blocks';
  *
  * @param {Object} blocks The blocks to register.
  */
-export const registerBlocks = ( blocks ) => {
-	blocks.keys().forEach( ( modulePath ) => {
+export const registerBlocks = blocks => {
+	blocks.keys().forEach( modulePath => {
 		const { name, settings } = blocks( modulePath );
 
 		registerBlockType( name, settings );
