@@ -4,6 +4,7 @@
 foo-bar.zip
 assets/css/*
 !assets/css/src/
+assets/js/*.css
 assets/js/*.js
 assets/js/*.asset.php
 assets/js/*.map

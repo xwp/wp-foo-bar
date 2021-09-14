@@ -35,7 +35,7 @@ const mockBlocks = {
 };
 
 // Mocks the return value of the require.context() Webpack function.
-const mockBlocksToRegister = modulePath => {
+const mockBlocksToRegister = ( modulePath ) => {
 	return mockBlocks[ modulePath ];
 };
 

@@ -17,7 +17,7 @@ const mergeAllReports = ( coverageMap, reports ) => {
 		return;
 	}
 
-	reports.forEach( reportFile => {
+	reports.forEach( ( reportFile ) => {
 		const coverageReport = fs.readJSONSync( reportFile );
 		coverageMap.merge( coverageReport );
 	} );
@@ -62,7 +62,7 @@ async function main() {
 	}
 }
 
-main().catch( err => {
+main().catch( ( err ) => {
 	console.error( err ); // eslint-disable-line
 	process.exit( 1 );
 } );
