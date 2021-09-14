@@ -62,7 +62,7 @@
     "eslint-plugin-jest": "24.4.0",
     "eslint-plugin-prettier": "3.1.4",
     "eslint-plugin-react": "7.25.1",
-    "eslint-utils": "2.1.0",
+    "eslint-utils": "3.0.0",
     "fs-extra": "9.1.0",
     "grunt": "1.4.1",
     "grunt-contrib-clean": "2.0.0",
