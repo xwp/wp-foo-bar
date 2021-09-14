@@ -40,7 +40,7 @@ const sharedConfig = {
 		rules: [
 			// Remove the css/postcss loaders from `@wordpress/scripts` due to version conflicts.
 			...defaultConfig.module.rules.filter(
-				( rule ) => ! rule.test.toString().match( '.css' )
+				rule => ! rule.test.toString().match( '.css' )
 			),
 			{
 				test: /\.css$/,
@@ -56,7 +56,7 @@ const sharedConfig = {
 	plugins: [
 		// Remove the CleanWebpackPlugin and  FixStyleWebpackPlugin plugins from `@wordpress/scripts` due to version conflicts.
 		...defaultConfig.plugins.filter(
-			( plugin ) =>
+			plugin =>
 				! [ 'CleanWebpackPlugin', 'FixStyleWebpackPlugin' ].includes(
 					plugin.constructor.name
 				)
