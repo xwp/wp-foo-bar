@@ -3,7 +3,7 @@ version: '3'
 services:
 
   mysql:
-    image: mysql:5
+    image: mysql:8
     volumes:
     - ./bin/local-dev/mysql:/var/lib/mysql
     - ./bin/local-dev/wordpress/config/mysql/wptests.sql:/docker-entrypoint-initdb.d/wptests.sql
