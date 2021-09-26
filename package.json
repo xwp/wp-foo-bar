@@ -44,7 +44,7 @@
     "@wordpress/url": "2.22.2",
     "accessible-autocomplete": "2.0.3",
     "acorn": "8.5.0",
-    "autoprefixer": "10.3.4",
+    "autoprefixer": "10.3.6",
     "babel-eslint": "10.1.0",
     "babel-jest": "26.6.3",
     "babel-loader": "8.2.2",
