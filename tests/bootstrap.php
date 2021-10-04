@@ -12,7 +12,7 @@ $_plugin_root = realpath( __DIR__ . '/..' );
 
 $_tests_dir = getenv( 'WP_TESTS_DIR' );
 
-// Travis CI & Vagrant SSH tests directory.
+// Github Actions, Travis CI & Vagrant SSH tests directory.
 if ( empty( $_tests_dir ) ) {
 	$_tests_dir = '/tmp/wordpress-tests';
 }

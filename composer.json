@@ -59,6 +59,10 @@
     ],
     "test-coverage": [
       "phpunit --coverage-html tests/coverage/phpunit"
+    ],
+    "test-coveralls": [
+      "phpunit --coverage-clover tests/coverage/clover.xml",
+      "php-coveralls --coverage_clover=tests/coverage/clover.xml -v"
     ]
   },
   "extra": {
