@@ -44,7 +44,7 @@ if ( version_compare( phpversion(), '5.6.20', '>=' ) ) {
  * Admin notice for incompatible versions of PHP.
  */
 function _foo_bar_php_version_error() {
-	printf( '<div class="error"><p>%s</p></div>', esc_html( _foo_bar_php_version_text() ) );
+	printf( '<div class="error"><p>%s</p></div>', _foo_bar_php_version_text() );
 }
 
 /**
@@ -53,5 +53,5 @@ function _foo_bar_php_version_error() {
  * @return string
  */
 function _foo_bar_php_version_text() {
-	return esc_html__( 'Foo Bar plugin error: Your version of PHP is too old to run this plugin. You must be running PHP 5.6.20 or higher.', 'foo-bar' );
+	return __( 'Foo Bar plugin error: Your version of PHP is too old to run this plugin. You must be running PHP 5.6.20 or higher.', 'foo-bar' );
 }
